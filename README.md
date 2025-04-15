@@ -8,7 +8,12 @@
 
 ## 📃 TO-DO List
 - [x] warning
+- [x] check for update
+- [x] play welcome sound
+- [x] restore poimt
+- [x] get windows version  
 - [ ] main menu
+- [x] reg tweaks (almost done)
 - [ ] tweaks
 - [ ] updater
 - [ ] app installer
