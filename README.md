@@ -6,7 +6,16 @@
 
 <p align="center"><strong>Note: This product is in development, not for release.</strong></p>
 
+## 📃 TO-DO List
+- [x] warning
+- [ ] main menu
+- [ ] tweaks
+- [ ] updater
+- [ ] app installer
+- [x] lazy
+- [x] sleep
 
+coming soon...
 ## Demo Screenshot:
 ![image](https://github.com/user-attachments/assets/538bb5d5-66e6-4aca-88b4-a746857af2ce)
 ![image](https://github.com/user-attachments/assets/a121e6b3-7ad2-45ba-af32-137944308361)
