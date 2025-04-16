@@ -1,4 +1,5 @@
 @echo off
+copy updater.bat %temp%\updater.bat
 title OptimizedTools++: Preparing...
 REM Run as Admin
 REM Delete the registry key
@@ -38,46 +39,29 @@ echo.
 curl -s -o "%temp%\check.txt" https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/update/check.txt
 ping -n 10 localhost > nul
 
-:: Read the content of the downloaded file
-set "fileContent="
-for /f "usebackq tokens=* delims=" %%i in ("%temp%\check.txt") do (
-    set "fileContent=%%i"
-)
-
-:: Remove any quotation marks
-set "fileContent=!fileContent:"=!"
-
-:: Trim leading and trailing spaces
-for /f "tokens=* delims=" %%a in ("!fileContent!") do set "fileContent=%%a"
-
-set "newVersion=!fileContent!"
-
 :: Check the content and decide the action
 if "!fileContent!"=="2.9.1" (
     echo                         Your version is !newVersion!, you are up to date.
-	ping -n 3 localhost > nul
+    ping -n 3 localhost > nul
 ) else (
     echo                           We found a new version. Newer version: !newVersion!
-	echo                                      Do you want to update?
-	:loop2
-	Batbox /h 0
-	Call Button 35 14 "Yes" 55 14 "No" # Press
-	Getinput /m %Press% /h 70
-	:: Check for the pressed button 
-	if %errorlevel%==1 (goto downloadupd)
-	if %errorlevel%==2 (goto restorepoint)
-	goto loop2
-	ping -n 5 localhost > nul
-	
-	:downloadupd
-	cls
-	echo.
-    echo                                        Downloading update...
-    :: Download and replace the batch file
-    curl -s -o "OptimizedTools++.bat" https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/OptimizedTools%2B%2B%20first%20test%20version.bat
-    echo                                   Updated. Press Enter to continue.
-    pause > nul
-    goto restorepoint
+    echo                                      Do you want to update?
+    :loop2
+    Batbox /h 0
+    Call Button 35 14 "Yes" 55 14 "No" # Press
+    Getinput /m %Press% /h 70
+    :: Check for the pressed button 
+    if %errorlevel%==1 (goto openGitHub)
+    if %errorlevel%==2 (goto restorepoint)
+    goto loop2
+    ping -n 5 localhost > nul
+
+    :openGitHub
+    cls
+    echo.
+    echo                                        Opening GitHub page...
+    start "" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest"
+    exit
 )
 
 
@@ -169,36 +153,98 @@ reg add "HKCU\Software\HoneCTRL" /v "Disclaimer" /f >nul 2>&1
 goto mainmenu
 goto :eof
 
-:mainmenu
+:tweaksMenu
 cls
-echo.
-echo.
 call :title
 echo.
+echo                   --------------------------------------------------------------
+echo                                    Windows Tweaks Menu
+echo                   --------------------------------------------------------------
 echo.
-echo                                           testmainmenu().
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
-echo.
+echo     1. Disable Startup Delay
+echo     2. Enable Dark Mode
+echo     3. Disable Windows Telemetry
+echo     4. Optimize Network Performance
+echo     5. Disable Cortana
+echo     6. Enable File Extensions
+echo     7. Disable Animations
+echo     8. Clear Temporary Files
+echo     9. Enable Faster Shutdown
 echo.
 echo.
 echo                                           Welcome. %username%
 echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
+set /p "choice=%DEL%                                     Your choice: "
+
+if "%choice%"=="1" goto disableStartupDelay
+if "%choice%"=="2" goto enableDarkMode
+if "%choice%"=="3" goto disableTelemetry
+if "%choice%"=="4" goto optimizeNetwork
+if "%choice%"=="5" goto disableCortana
+if "%choice%"=="6" goto enableFileExtensions
+if "%choice%"=="7" goto disableAnimations
+if "%choice%"=="8" goto clearTempFiles
+if "%choice%"=="9" goto fasterShutdown
+goto tweaksMenu
+
+:disableStartupDelay
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v "StartupDelayInMSec" /t REG_DWORD /d 0 /f
+echo Disabled Startup Delay.
+pause
+goto tweaksMenu
+
+:enableDarkMode
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d 0 /f
+echo Enabled Dark Mode.
+pause
+goto tweaksMenu
+
+:disableTelemetry
+reg add "HKLM\Software\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d 0 /f
+echo Disabled Windows Telemetry.
+pause
+goto tweaksMenu
+
+:optimizeNetwork
+reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpAckFrequency" /t REG_DWORD /d 1 /f
+reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters" /v "TCPNoDelay" /t REG_DWORD /d 1 /f
+echo Optimized Network Performance.
+pause
+goto tweaksMenu
+
+:disableCortana
+reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d 0 /f
+echo Disabled Cortana.
+pause
+goto tweaksMenu
+
+:enableFileExtensions
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t REG_DWORD /d 0 /f
+echo Enabled File Extensions.
+pause
+goto tweaksMenu
+
+:disableAnimations
+reg add "HKCU\Control Panel\Desktop" /v "UserPreferencesMask" /t REG_BINARY /d 9012038010000000 /f
+reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "MinAnimate" /t REG_SZ /d 0 /f
+echo Disabled Animations.
+pause
+goto tweaksMenu
+
+:clearTempFiles
+del /q /s %temp%\*
+echo Cleared Temporary Files.
+pause
+goto tweaksMenu
+
+:fasterShutdown
+reg add "HKLM\System\CurrentControlSet\Control" /v "WaitToKillServiceTimeout" /t REG_SZ /d 2000 /f
+reg add "HKCU\Control Panel\Desktop" /v "WaitToKillAppTimeout" /t REG_SZ /d 2000 /f
+reg add "HKCU\Control Panel\Desktop" /v "HungAppTimeout" /t REG_SZ /d 2000 /f
+echo Enabled Faster Shutdown.
+pause
+goto tweaksMenu
 
 pause >nul
 
