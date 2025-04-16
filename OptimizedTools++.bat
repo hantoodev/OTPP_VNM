@@ -170,6 +170,8 @@ echo     6. Enable File Extensions
 echo     7. Disable Animations
 echo     8. Clear Temporary Files
 echo     9. Enable Faster Shutdown
+echo     10. Remove Bloatware
+echo     11. Debloat Windows 10/11
 echo.
 echo.
 echo                                           Welcome. %username%
@@ -185,6 +187,8 @@ if "%choice%"=="6" goto enableFileExtensions
 if "%choice%"=="7" goto disableAnimations
 if "%choice%"=="8" goto clearTempFiles
 if "%choice%"=="9" goto fasterShutdown
+if "%choice%"=="10" goto removeBloatware
+if "%choice%"=="11" goto debloatWindows
 goto tweaksMenu
 
 :disableStartupDelay
