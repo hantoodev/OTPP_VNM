@@ -5,7 +5,7 @@
 </p>
 
 <p align="center"><strong>Note: This product is in development, not for release.</strong></p>
-<p align="center"><strong>Update: Currently you can download the source for use now. Buy maybe it's development branch so maybe it's not stable as you expected.</strong></p>
+<p align="center"><strong>🚀 Update: The source code is now available for download and use. However, please note that this is from the development branch, so it may not be as stable as expected. Proceed with caution.</strong></p>
 
 ## 📃 TO-DO List
 - [x] warning
