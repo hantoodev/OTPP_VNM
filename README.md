@@ -14,14 +14,15 @@
 - [x] restore poimt
 - [x] get windows version  
 - [x] main menu
-- [x] reg tweaks (almost done)
-- [ ] tweaks
-- [ ] updater (seamlessly work but open github link when have new version)
+- [x] reg tweaks
+- [x] tweaks
+- [x] updater (seamlessly work but open github link when have new version)
 - **🚨 Update Warning**: The updater is still being tested. If you receive an update alert in the program, do not update yet. Stay on your current version until further notice.
       
 - [ ] app installer
 - [x] lazy
 - [x] sleep
+- [ ] more features
 
 coming soon...
 yay i failed for updater
