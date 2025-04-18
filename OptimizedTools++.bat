@@ -519,6 +519,7 @@ echo     41. Disable Search in Taskbar
 echo     42. Disable Startup Items
 echo     43. Back to Page 2
 echo     44. Back to Main Menu
+echo     45. Restart your PC
 echo.
 echo                                           Welcome. %username%
 set /p "choice=%DEL%                                     Your choice: "
@@ -532,8 +533,9 @@ if "%choice%"=="39" goto disableStoreAppUpdates
 if "%choice%"=="40" goto hideWidgetsWeather
 if "%choice%"=="41" goto disableSearchTaskbar
 if "%choice%"=="42" goto askDisableStartup
-if "%choice%"=="44" goto tweaksMenu
 if "%choice%"=="43" goto tweaksMenuPage2
+if "%choice%"=="44" goto tweaksMenu
+if "%choice%"=="45" goto restart
 goto tweaksMenuPage3
 
 :disableWindowsUpdates
@@ -614,6 +616,13 @@ if /i "!input!"=="yes" (
 ) else (
     echo Skipping startup items disable.
 )
+pause
+goto tweaksMenuPage3
+
+:restart
+cls
+echo Restarting your PC...
+shutdown /r /t 0 >nul 2>&1
 pause
 goto tweaksMenuPage3
 
