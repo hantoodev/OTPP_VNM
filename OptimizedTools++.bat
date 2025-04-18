@@ -194,7 +194,7 @@ echo     18. Disable Fullscreen Optimizations
 echo     19. Next Page
 echo.
 echo                                           Welcome. %username%
-set /p "choice=%DEL%                               Your choice: "
+set /p "choice=%DEL%                                  Your choice: "
 
 if "%choice%"=="1" goto disableStartupDelay
 if "%choice%"=="2" goto enableDarkMode
@@ -398,7 +398,7 @@ echo     41. Back to Main Menu
 echo     42. Go to Page 3
 echo.
 echo                                           Welcome. %username%
-set /p "choice=%DEL%                               Your choice: "
+set /p "choice=%DEL%                                  Your choice: "
 
 if "%choice%"=="20" goto disableMicrosoftCopilot
 if "%choice%"=="21" goto disableIPv6
@@ -737,7 +737,7 @@ echo     53. Back to Main Menu
 echo     54. Restart your PC
 echo.
 echo                                           Welcome. %username%
-set /p "choice=%DEL%                              Your choice: "
+set /p "choice=%DEL%                                 Your choice: "
 
 if "%choice%"=="43" goto disableWindowsUpdates
 if "%choice%"=="44" goto alignTaskbarLeft
