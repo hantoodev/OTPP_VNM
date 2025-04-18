@@ -11,9 +11,14 @@ if %errorlevel% neq 0 (
 )
 
 cls
-echo This script only supports Windows 10 or newer.
-echo Please run it on a compatible version.
-echo If you are running Windows 8 or older, please upgrade your OS.
+echo.
+echo    This script only supports Windows 10 or newer.
+echo    Please run it on a compatible version.
+echo    If you are running Windows 8 or older, please upgrade your OS.
+echo.
+echo    Warning: Running this program on an outdated version of Windows may result in system corruption.
+echo    Proceed with caution!
+echo.
 pause
 
 
@@ -51,7 +56,7 @@ ping -n 5 localhost > nul
 set /p fileContent=<%temp%\check.txt
 
 :: Check the content and decide the action
-if "!fileContent!"=="2.9.1" (
+if "!fileContent!"=="1.0.0" (
     echo                         Your version is !fileContent!, you are up to date.
     ping -n 3 localhost > nul
 ) else (
@@ -170,7 +175,7 @@ echo %COL%[33m////////////////////////////////////////////TEST BUILD////////////
 call :title
 echo.
 echo                   --------------------------------------------------------------
-echo                                    Windows Tweaks Menu
+echo                                         Windows Tweaks Menu
 echo                   --------------------------------------------------------------
 echo.
 echo     1. Disable Startup Delay
@@ -377,18 +382,18 @@ echo     20. Disable Microsoft Copilot
 echo     21. Disable IPv6
 echo     22. Disable Teredo
 echo     23. Set Classic Right-Click Menu
-echo     24. Uninstall Microsoft Edge
-echo     25. Install Useful Apps (Notepad++, Discord, Browser)
+echo     24. Uninstall Microsoft Edge (Powered by ShadowWhisperer)
+echo     25. Install Useful Apps (Notepad++, Discord, Browser, currently not supported)
 echo     26. Enable Ultimate Performance Plan
 echo     27. Turn Off Reserved Storage
 echo     28. Tweak TCP/IP Settings
 echo     29. Flush DNS Cache
 echo     30. Enable Large System Cache
 echo     31. Optimize GPU Scheduling (Intel/AMD)
-echo     32. Turn Off Spectre & Meltdown Mitigations
+echo     32. Turn Off Spectre and Meltdown Mitigations (CAUTION)
 echo     33. (NVIDIA) GPU Optimization
 echo     34. Auto Tweaks for Desktop/Laptop
-echo     35. Activate Windows
+echo     35. Activate Windows (Powered by MAS)
 echo     36. Disable HPET
 echo     37. Enhance System and Network Performance
 echo     38. Disable Unnecessary Windows Services
@@ -463,14 +468,159 @@ goto tweaksMenuPage2
 cls
 echo Uninstalling Microsoft Edge...
 echo This process uses PowerShell and might take a few moments.
+echo Method 1: trying
 powershell -Command "Get-AppxPackage -Name Microsoft.MicrosoftEdge.* | Remove-AppxPackage"
 echo Microsoft Edge uninstallation initiated. Check the PowerShell window for progress.
+echo Method 2: trying
+net session >NUL 2>&1 || (echo. & echo Run Script As Admin & echo. & pause & exit)
+title Edge Remover - 2/18/2025 - Powered by ShadowWhisperer
+set "expected=4963532e63884a66ecee0386475ee423ae7f7af8a6c6d160cf1237d085adf05e"
+
+set "onHashErr=download"
+
+set "fileSetup=%~dp0setup.exe"
+if exist "%fileSetup%" goto file_check;
+set "fileSetup=%tmp%\setup.exe"
+if exist "%fileSetup%" goto file_check;
+
+:file_download
+set "onHashErr=error"
+ipconfig | find "IPv" >NUL
+if %errorlevel% neq 0 echo. & echo You are not connected to a network ! & echo. & pause & exit
+
+echo - Downloading Required File
+powershell -Command "try { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/ShadowWhisperer/Remove-MS-Edge/main/_Source/setup.exe', '%fileSetup%') } catch { Write-Host 'Error downloading the file.' }"
+if not exist "%fileSetup%" echo File download failed. Check your internet connection & echo & pause & exit
+
+:file_check
+powershell -Command "exit ((Get-FileHash '%fileSetup%' -Algorithm SHA256).Hash.ToLower() -ne '%expected%')"
+if %errorlevel% neq 0 goto file_%onHashErr%
+echo. & goto uninst_edge
+
+:file_error
+echo File hash does not match the expected value. & echo & pause & exit
+
+
+REM #Edge
+:uninst_edge
+echo - Removing Edge
+where /q "%ProgramFiles(x86)%\Microsoft\Edge\Application:*"
+if %errorlevel% neq 0 goto uninst_wv
+start /w "" "%fileSetup%" --uninstall --system-level --force-uninstall
+
+REM #WebView
+:uninst_wv
+echo - Removing WebView
+where /q "%ProgramFiles(x86)%\Microsoft\EdgeWebView\Application:*"
+if %errorlevel% neq 0 goto cleanup_wv_junk
+start /w "" "%fileSetup%" --uninstall --msedgewebview --system-level --force-uninstall
+REM Delete empty folders
+:cleanup_wv_junk
+REM rd /s /q "%ProgramFiles(x86)%\Microsoft\EdgeWebView" >NUL 2>&1
+for /f "delims=" %%d in ('dir /ad /b /s "%ProgramFiles(x86)%\Microsoft\EdgeWebView" 2^>NUL ^| sort /r') do rd "%%d" 2>NUL
+
+
+
+REM #Additional Files
+
+REM Desktop icon
+:users_cleanup
+echo - Removing Additional Files
+
+set "REG_USERS_PATH=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList"
+for /f "skip=2 tokens=2*" %%c in ('reg query "%REG_USERS_PATH%" /v Public') do ( call :user_rem_lnks_by_path %%d )
+for /f "skip=2 tokens=2*" %%c in ('reg query "%REG_USERS_PATH%" /v Default') do ( call :user_rem_lnks_by_path %%d )
+for /f "skip=1 tokens=7 delims=\" %%k in ('reg query "%REG_USERS_PATH%" /k /f "*"') do ( call :user_rem_lnks_by_sid %%k )
+goto users_done
+
+:user_rem_lnks_by_sid
+if "%1"=="S-1-5-18" goto user_end
+if "%1"=="S-1-5-19" goto user_end
+if "%1"=="S-1-5-20" goto user_end
+for /f "skip=2 tokens=2*" %%c in ('reg query "%REG_USERS_PATH%\%1" /v ProfileImagePath') do (
+	call :user_rem_lnks_by_path %%d
+	if "%UserProfile%"=="%%d" set "USER_SID=%1"
+)
+goto user_end
+
+:user_rem_lnks_by_path
+del /s /q "%1\Desktop\edge.lnk" >NUL 2>&1
+del /s /q "%1\Desktop\Microsoft Edge.lnk" >NUL 2>&1
+
+:user_end
+exit /b 0
+
+:users_done
+
+REM System32
+if exist "%SystemRoot%\System32\MicrosoftEdgeCP.exe" (
+for /f "delims=" %%a in ('dir /b "%SystemRoot%\System32\MicrosoftEdge*"') do (
+ takeown /f "%SystemRoot%\System32\%%a" >NUL 2>&1
+ icacls "%SystemRoot%\System32\%%a" /inheritance:e /grant "%UserName%:(OI)(CI)F" /T /C >NUL 2>&1
+ del /S /Q "%SystemRoot%\System32\%%a" >NUL 2>&1))
+
+REM Folders
+taskkill /im MicrosoftEdgeUpdate.exe /f >NUL 2>&1
+rd /s /q "%ProgramFiles(x86)%\Microsoft\Edge" >NUL 2>&1
+rd /s /q "%ProgramFiles(x86)%\Microsoft\EdgeCore" >NUL 2>&1
+rd /s /q "%ProgramFiles(x86)%\Microsoft\EdgeUpdate" >NUL 2>&1
+rd /s /q "%ProgramFiles(x86)%\Microsoft\Temp" >NUL 2>&1
+rd /s /q "%AllUsersProfile%\Microsoft\EdgeUpdate" >NUL 2>&1
+
+REM Files
+del /s /q "%AllUsersProfile%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk" >NUL 2>&1
+
+REM Registry
+reg delete "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{9459C573-B17A-45AE-9F64-1857B5D58CEE}" /f >NUL 2>&1
+reg delete "HKLM\SOFTWARE\WOW6432Node\Microsoft\Edge" /f >NUL 2>&1
+
+REM Tasks - Files
+for /r "%SystemRoot%\System32\Tasks" %%f in (*MicrosoftEdge*) do del "%%f" >NUL 2>&1
+
+REM Tasks - Name
+for /f "skip=1 tokens=1 delims=," %%a in ('schtasks /query /fo csv') do (
+for %%b in (%%a) do (
+ if "%%b"=="MicrosoftEdge" schtasks /delete /tn "%%~a" /f >NUL 2>&1))
+
+REM Update Services
+set "service_names=edgeupdate edgeupdatem"
+for %%n in (%service_names%) do (
+ sc stop %%n >NUL 2>&1
+ sc delete %%n >NUL 2>&1
+ reg delete "HKLM\SYSTEM\CurrentControlSet\Services\%%n" /f >NUL 2>&1
+)
+
+
+REM #APPX
+echo - Removing APPX
+
+if defined USER_SID goto rem_appX
+for /f "delims=" %%a in ('powershell "(New-Object System.Security.Principal.NTAccount($env:USERNAME)).Translate([System.Security.Principal.SecurityIdentifier]).Value"') do set "USER_SID=%%a"
+
+:rem_appX
+set "REG_APPX_STORE=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore"
+for /f "delims=" %%a in ('powershell -NoProfile -Command "Get-AppxPackage -AllUsers | Where-Object { $_.PackageFullName -like '*microsoftedge*' } | Select-Object -ExpandProperty PackageFullName"') do (
+    if not "%%a"=="" (
+        reg add "%REG_APPX_STORE%\EndOfLife\%USER_SID%\%%a" /f >NUL 2>&1
+        reg add "%REG_APPX_STORE%\EndOfLife\S-1-5-18\%%a" /f >NUL 2>&1
+        reg add "%REG_APPX_STORE%\Deprovisioned\%%a" /f >NUL 2>&1
+        powershell -Command "Remove-AppxPackage -Package '%%a'" 2>NUL
+        powershell -Command "Remove-AppxPackage -Package '%%a' -AllUsers" 2>NUL
+    )
+)
+
+REM %SystemRoot%\SystemApps\Microsoft.MicrosoftEdge*
+for /d %%d in ("%SystemRoot%\SystemApps\Microsoft.MicrosoftEdge*") do (
+ takeown /f "%%d" /r /d y >NUL 2>&1
+ icacls "%%d" /grant administrators:F /t >NUL 2>&1
+ rd /s /q "%%d" >NUL 2>&1)
 pause
 goto tweaksMenuPage2
 
 :installUsefulApps
 cls
 echo Installing useful applications...
+echo (this feature will available in 1.0.2 beta 1)
 echo.
 echo This script cannot automatically download and install applications.
 echo You can use tools like Winget (Windows Package Manager) or Chocolatey
@@ -584,15 +734,15 @@ goto tweaksMenuPage2
 
 :turnOffSpectreMeltdown
 cls
-echo Turning off Spectre & Meltdown mitigations...
+echo Turning off Spectre and Meltdown mitigations...
 echo Warning: Disabling these mitigations can improve performance but might increase security risks. Proceed with caution.
 set /p "disableMitigations=Are you sure you want to disable Spectre & Meltdown mitigations? (y/n): "
 if /i "%disableMitigations%"=="y" (
     reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\FeatureSettingsOverride" /v "FeatureSettingsOverride" /t REG_DWORD /d 3 /f >nul 2>&1
     reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\FeatureSettingsOverride" /v "FeatureSettingsOverrideMask" /t REG_DWORD /d 3 /f >nul 2>&1
-    echo Spectre & Meltdown mitigations disabled. A system restart is highly recommended.
+    echo Spectre and Meltdown mitigations disabled. A system restart is highly recommended.
 ) else (
-    echo Spectre & Meltdown mitigations not disabled.
+    echo Spectre and Meltdown mitigations not disabled.
 )
 pause
 goto tweaksMenuPage2
@@ -627,10 +777,33 @@ goto tweaksMenuPage2
 :activateWindows
 cls
 echo Activating Windows...
-slmgr /ipk YOUR_WINDOWS_KEY_HERE
-slmgr /skms kms8.msguides.com
-slmgr /ato
-echo Windows activated successfully.
+echo Downloading HWID activation script...
+curl -o "temp_hwid.cmd" "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/Separate-Files-Version/Activators/HWID_Activation.cmd"
+if "%errorlevel%"=="0" (
+    echo HWID activation script downloaded successfully.
+    echo.
+    echo Running HWID activation script...
+    call "temp_hwid.cmd"
+    if "%errorlevel%"=="0" (
+        echo.
+        echo HWID activation process completed.
+    ) else (
+        echo.
+        echo Error occurred during HWID activation. Please check the output of the script.
+    )
+    echo.
+    echo Removing temporary HWID activation script...
+    del /f /q "temp_hwid.cmd"
+    if "%errorlevel%"=="0" (
+        echo Temporary script removed.
+    ) else (
+        echo Error removing temporary script.
+    )
+) else (
+    echo Error downloading HWID activation script. Please check your internet connection.
+)
+
+echo.
 pause
 goto tweaksMenuPage2
 
