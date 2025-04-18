@@ -358,6 +358,7 @@ goto tweaksMenu
 
 :tweaksMenuPage2
 cls
+echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
 call :title
 echo.
 echo                   --------------------------------------------------------------
@@ -379,7 +380,6 @@ echo     32. Back to Main Menu
 echo     33. Next Page
 echo.
 echo                                           Welcome. %username%
-echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
 set /p "choice=%DEL%                                     Your choice: "
 
 if "%choice%"=="20" goto disableMicrosoftCopilot
@@ -501,6 +501,7 @@ goto tweaksMenuPage2
 
 :tweaksMenuPage3
 cls
+echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
 call :title
 echo.
 echo                   --------------------------------------------------------------
@@ -516,10 +517,10 @@ echo     39. Disable Microsoft Store App Updates
 echo     40. Hide Widgets and Weather
 echo     41. Disable Search in Taskbar
 echo     42. Disable Startup Items
-echo     43. Back to Main Menu
+echo     43. Back to Page 2
+echo     44. Back to Main Menu
 echo.
 echo                                           Welcome. %username%
-echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
 set /p "choice=%DEL%                                     Your choice: "
 
 if "%choice%"=="34" goto disableWindowsUpdates
@@ -531,7 +532,8 @@ if "%choice%"=="39" goto disableStoreAppUpdates
 if "%choice%"=="40" goto hideWidgetsWeather
 if "%choice%"=="41" goto disableSearchTaskbar
 if "%choice%"=="42" goto askDisableStartup
-if "%choice%"=="43" goto tweaksMenu
+if "%choice%"=="44" goto tweaksMenu
+if "%choice%"=="43" goto tweaksMenuPage2
 goto tweaksMenuPage3
 
 :disableWindowsUpdates
