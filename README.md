@@ -5,7 +5,7 @@
 </p>
 
 <p align="center"><strong>Note: This product is in development, not for release.</strong></p>
-<p align="center"><strong>Update: Currently you can download the source for use now. Buy maybe it's development branch so maybe it's not stable as you expected.</strong></p>
+<p align="center"><strong>🚀 Update: The source code is now available for download and use. However, please note that this is from the development branch, so it may not be as stable as expected. Proceed with caution.</strong></p>
 
 ## 📃 TO-DO List
 - [x] warning
@@ -13,22 +13,35 @@
 - [x] play welcome sound
 - [x] restore poimt
 - [x] get windows version  
-- [ ] main menu
-- [x] reg tweaks (almost done)
-- [ ] tweaks
-- [ ] updater
+- [x] main menu
+- [x] reg tweaks
+- [x] tweaks
+- [x] updater (seamlessly work but open github link when have new version)
+- **🚨 Update Warning**: The updater is still being tested. If you receive an update alert in the program, do not update yet. Stay on your current version until further notice.
+      
 - [ ] app installer
 - [x] lazy
 - [x] sleep
+- [ ] more features
 
 coming soon...
 yay i failed for updater
 
 ## Demo Screenshot:
+
+**Latest**
+
+![image](https://github.com/user-attachments/assets/bc1de15b-0a5d-4496-8552-80904dcfb709)
+
+
+**Feb 17**
+
 ![image](https://github.com/user-attachments/assets/538bb5d5-66e6-4aca-88b4-a746857af2ce)
 ![image](https://github.com/user-attachments/assets/a121e6b3-7ad2-45ba-af32-137944308361)
 ![image](https://github.com/user-attachments/assets/58d8204a-2b29-42b2-bf29-462ef5ad5736)
 ![image](https://github.com/user-attachments/assets/4d1b3963-5870-4157-878b-39c660917230)
+
+
 
 
 

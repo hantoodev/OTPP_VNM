@@ -1,5 +1,4 @@
 @echo off
-copy updater.bat %temp%\updater.bat
 title OptimizedTools++: Preparing...
 REM Run as Admin
 REM Delete the registry key
@@ -35,17 +34,21 @@ echo.
 echo                                    Checking for new updates...
 echo                                           Please wait.
 echo.
-echo.
+
+:: Download the latest version info
 curl -s -o "%temp%\check.txt" https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/update/check.txt
-ping -n 10 localhost > nul
+ping -n 5 localhost > nul
+
+:: Read the file content
+set /p fileContent=<%temp%\check.txt
 
 :: Check the content and decide the action
 if "!fileContent!"=="2.9.1" (
-    echo                         Your version is !newVersion!, you are up to date.
+    echo                         Your version is !fileContent!, you are up to date.
     ping -n 3 localhost > nul
 ) else (
-    echo                           We found a new version. Newer version: !newVersion!
-    echo                                      Do you want to update?
+    echo                           We found a new version. Newer version: !fileContent!
+    echo                                        Do you want to update?
     :loop2
     Batbox /h 0
     Call Button 35 14 "Yes" 55 14 "No" # Press
@@ -63,6 +66,7 @@ if "!fileContent!"=="2.9.1" (
     start "" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest"
     exit
 )
+
 
 
 :restorepoint
@@ -145,16 +149,16 @@ echo.
 echo    Even though my software have an automatic restore point feature, I highly recommend 
 echo    making a manual restore point before running.
 echo.
-echo    For any questions and/or concerns, please go to my GitHub: test_link
+echo    For any questions and/or concerns, please go to my GitHub: NammIsADev/OptimizedToolsPlusPlus
 echo    Type "Yes" to continue: 
 set /p "input=%DEL%                                     Your input:
 if /i "!input!" neq "yes" goto warn
 reg add "HKCU\Software\HoneCTRL" /v "Disclaimer" /f >nul 2>&1
-goto mainmenu
-goto :eof
+goto tweaksMenu
 
 :tweaksMenu
 cls
+echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
 call :title
 echo.
 echo                   --------------------------------------------------------------
@@ -182,8 +186,7 @@ echo     18. Disable Fullscreen Optimizations
 echo     19. Next Page
 echo.
 echo                                           Welcome. %username%
-echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
-set /p "choice=%DEL%                                     Your choice: "
+set /p "choice=%DEL                              Your choice: "
 
 if "%choice%"=="1" goto disableStartupDelay
 if "%choice%"=="2" goto enableDarkMode
