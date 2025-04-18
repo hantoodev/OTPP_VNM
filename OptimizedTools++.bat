@@ -194,7 +194,7 @@ echo     18. Disable Fullscreen Optimizations
 echo     19. Next Page
 echo.
 echo                                           Welcome. %username%
-set /p "choice=%DEL%                                     Your choice: "
+set /p "choice=%DEL%                               Your choice: "
 
 if "%choice%"=="1" goto disableStartupDelay
 if "%choice%"=="2" goto enableDarkMode
@@ -398,7 +398,7 @@ echo     41. Back to Main Menu
 echo     42. Go to Page 3
 echo.
 echo                                           Welcome. %username%
-set /p "choice=%DEL%                                     Your choice: "
+set /p "choice=%DEL%                               Your choice: "
 
 if "%choice%"=="20" goto disableMicrosoftCopilot
 if "%choice%"=="21" goto disableIPv6
@@ -681,34 +681,34 @@ echo                   ---------------------------------------------------------
 echo                                    Windows Tweaks Menu (Page 3)
 echo                   --------------------------------------------------------------
 echo.
-echo     34. Disable Windows Updates (Caution: may affect security)
-echo     35. Align Taskbar to Left (Windows 11+ only)
-echo     36. Disable NTFS Indexing
-echo     37. Disable SmartScreen (Caution: may affect security)
-echo     38. Disable Superfetch (Caution: may affect performance)
-echo     39. Disable Microsoft Store App Updates
-echo     40. Hide Widgets and Weather
-echo     41. Disable Search in Taskbar
-echo     42. Disable Startup Items
-echo     43. Back to Page 2
-echo     44. Back to Main Menu
-echo     45. Restart your PC
+echo     43. Disable Windows Updates (Caution: may affect security)
+echo     44. Align Taskbar to Left (Windows 11+ only)
+echo     45. Disable NTFS Indexing
+echo     46. Disable SmartScreen (Caution: may affect security)
+echo     47. Disable Superfetch (Caution: may affect performance)
+echo     48. Disable Microsoft Store App Updates
+echo     49. Hide Widgets and Weather
+echo     50. Disable Search in Taskbar
+echo     51. Disable Startup Items
+echo     52. Back to Page 2
+echo     53. Back to Main Menu
+echo     54. Restart your PC
 echo.
 echo                                           Welcome. %username%
-set /p "choice=%DEL%                                     Your choice: "
+set /p "choice=%DEL%                              Your choice: "
 
-if "%choice%"=="34" goto disableWindowsUpdates
-if "%choice%"=="35" goto alignTaskbarLeft
-if "%choice%"=="36" goto disableNTFSIndexing
-if "%choice%"=="37" goto disableSmartScreen
-if "%choice%"=="38" goto disableSuperfetch
-if "%choice%"=="39" goto disableStoreAppUpdates
-if "%choice%"=="40" goto hideWidgetsWeather
-if "%choice%"=="41" goto disableSearchTaskbar
-if "%choice%"=="42" goto askDisableStartup
-if "%choice%"=="43" goto tweaksMenuPage2
-if "%choice%"=="44" goto tweaksMenu
-if "%choice%"=="45" goto restart
+if "%choice%"=="43" goto disableWindowsUpdates
+if "%choice%"=="44" goto alignTaskbarLeft
+if "%choice%"=="45" goto disableNTFSIndexing
+if "%choice%"=="46" goto disableSmartScreen
+if "%choice%"=="47" goto disableSuperfetch
+if "%choice%"=="48" goto disableStoreAppUpdates
+if "%choice%"=="49" goto hideWidgetsWeather
+if "%choice%"=="50" goto disableSearchTaskbar
+if "%choice%"=="51" goto askDisableStartup
+if "%choice%"=="52" goto tweaksMenuPage2
+if "%choice%"=="53" goto tweaksMenu
+if "%choice%"=="54" goto restart
 goto tweaksMenuPage3
 
 :disableWindowsUpdates
