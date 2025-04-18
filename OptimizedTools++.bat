@@ -172,7 +172,14 @@ echo     8. Clear Temporary Files
 echo     9. Enable Faster Shutdown
 echo     10. Remove Bloatware
 echo     11. Debloat Windows 10/11
-echo.
+echo     12. Disable Windows Defender
+echo     13. Enable Classic Taskbar (may not work on 23H2+)
+echo     14. Disable Action Center
+echo     15. Enable Verbose Boot
+echo     16. Uninstall OneDrive
+echo     17. Disable Background Apps
+echo     18. Disable Fullscreen Optimizations
+echo     19. Next Page
 echo.
 echo                                           Welcome. %username%
 echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
@@ -189,6 +196,14 @@ if "%choice%"=="8" goto clearTempFiles
 if "%choice%"=="9" goto fasterShutdown
 if "%choice%"=="10" goto removeBloatware
 if "%choice%"=="11" goto debloatWindows
+if "%choice%"=="12" goto disableWindowsDefender
+if "%choice%"=="13" goto enableClassicTaskbar
+if "%choice%"=="14" goto disableActionCenter
+if "%choice%"=="15" goto enableVerboseBoot
+if "%choice%"=="16" goto uninstallOneDrive
+if "%choice%"=="17" goto disableBackgroundApps
+if "%choice%"=="18" goto disableFullscreenOptimizations
+if "%choice%"=="19" goto tweaksMenuPage2
 goto tweaksMenu
 
 :disableStartupDelay
@@ -249,6 +264,161 @@ reg add "HKCU\Control Panel\Desktop" /v "HungAppTimeout" /t REG_SZ /d 2000 /f
 echo Enabled Faster Shutdown.
 pause
 goto tweaksMenu
+
+:removeBloatware
+cls
+echo Removing bloatware...
+powershell -Command "Get-AppxPackage -AllUsers | Where-Object { $_.Name -notlike '*store*' -and $_.Name -notlike '*photos*' -and $_.Name -notlike '*calculator*' } | Remove-AppxPackage -AllUsers"
+powershell -Command "Get-AppxProvisionedPackage -Online | Where-Object { $_.DisplayName -notlike '*store*' -and $_.DisplayName -notlike '*photos*' -and $_.DisplayName -notlike '*calculator*' } | Remove-AppxProvisionedPackage -Online"
+echo Bloatware removed successfully.
+pause
+goto tweaksMenu
+
+:debloatWindows
+cls
+echo Debloating Windows...
+:: Disable Xbox services
+sc config XblAuthManager start= disabled >nul 2>&1
+sc config XblGameSave start= disabled >nul 2>&1
+sc config XboxNetApiSvc start= disabled >nul 2>&1
+
+:: Disable telemetry services
+sc config DiagTrack start= disabled >nul 2>&1
+sc config dmwappushservice start= disabled >nul 2>&1
+
+:: Disable Cortana
+reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d 0 /f >nul 2>&1
+
+:: Disable OneDrive
+reg add "HKLM\Software\Policies\Microsoft\Windows\OneDrive" /v "DisableFileSync" /t REG_DWORD /d 1 /f >nul 2>&1
+
+:: Disable unnecessary startup apps
+powershell -Command "Get-CimInstance Win32_StartupCommand | Where-Object { $_.Command -like '*OneDrive*' -or $_.Command -like '*Teams*' } | Remove-CimInstance"
+
+echo Windows debloated successfully.
+pause
+goto tweaksMenu
+
+:disableWindowsDefender
+reg add "HKLM\Software\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d 1 /f
+reg add "HKLM\Software\Policies\Microsoft\Windows Defender" /v "DisableRealtimeMonitoring" /t REG_DWORD /d 1 /f
+echo Disabled Windows Defender.
+pause
+goto tweaksMenu
+
+:enableClassicTaskbar
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSmallIcons" /t REG_DWORD /d 1 /f
+echo Enabled Classic Taskbar.
+pause
+goto tweaksMenu
+
+:disableActionCenter
+reg add "HKLM\Software\Policies\Microsoft\Windows\Explorer" /v "DisableNotificationCenter" /t REG_DWORD /d 1 /f
+echo Disabled Action Center.
+pause
+goto tweaksMenu
+
+:enableVerboseBoot
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System" /v "VerboseStatus" /t REG_DWORD /d 1 /f
+echo Enabled Verbose Boot.
+pause
+goto tweaksMenu
+
+:uninstallOneDrive
+cls
+echo Uninstalling OneDrive...
+%SystemRoot%\SysWOW64\OneDriveSetup.exe /uninstall
+reg delete "HKCU\Software\Microsoft\OneDrive" /f >nul 2>&1
+reg delete "HKLM\Software\Microsoft\OneDrive" /f >nul 2>&1
+reg delete "HKLM\Software\WOW6432Node\Microsoft\OneDrive" /f >nul 2>&1
+echo OneDrive uninstalled successfully.
+pause
+goto tweaksMenu
+
+:disableBackgroundApps
+cls
+echo Disabling Background Apps...
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /t REG_DWORD /d 1 /f >nul 2>&1
+echo Background Apps disabled successfully.
+pause
+goto tweaksMenu
+
+:disableFullscreenOptimizations
+cls
+echo Disabling Fullscreen Optimizations...
+reg add "HKCU\System\GameConfigStore" /v "GameDVR_FSEBehaviorMode" /t REG_DWORD /d 2 /f >nul 2>&1
+reg add "HKCU\System\GameConfigStore" /v "GameDVR_HonorUserFSEBehaviorMode" /t REG_DWORD /d 1 /f >nul 2>&1
+echo Fullscreen Optimizations disabled successfully.
+pause
+goto tweaksMenu
+
+:tweaksMenuPage2
+cls
+call :title
+echo.
+echo                   --------------------------------------------------------------
+echo                                    Windows Tweaks Menu (Page 2)
+echo                   --------------------------------------------------------------
+echo.
+echo     20. Disable Microsoft Copilot
+echo     21. Disable IPv6
+echo     22. Disable Teredo
+echo     23. Set Classic Right-Click Menu
+echo     24. Uninstall Microsoft Edge
+echo     25. Back to Main Menu
+echo.
+echo                                           Welcome. %username%
+echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
+set /p "choice=%DEL%                                     Your choice: "
+
+if "%choice%"=="20" goto disableMicrosoftCopilot
+if "%choice%"=="21" goto disableIPv6
+if "%choice%"=="22" goto disableTeredo
+if "%choice%"=="23" goto setClassicRightClickMenu
+if "%choice%"=="24" goto removeEdge
+if "%choice%"=="25" goto tweaksMenu
+goto tweaksMenuPage2
+
+:disableMicrosoftCopilot
+cls
+echo Disabling Microsoft Copilot...
+reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Copilot" /v "TurnOffWindowsCopilot" /t REG_DWORD /d 1 /f >nul 2>&1
+echo Microsoft Copilot disabled successfully.
+pause
+goto tweaksMenuPage2
+
+:disableIPv6
+cls
+echo Disabling IPv6...
+reg add "HKLM\System\CurrentControlSet\Services\Tcpip6\Parameters" /v "DisabledComponents" /t REG_DWORD /d 255 /f >nul 2>&1
+echo IPv6 disabled successfully.
+pause
+goto tweaksMenuPage2
+
+:disableTeredo
+cls
+echo Disabling Teredo...
+netsh interface teredo set state disabled >nul 2>&1
+echo Teredo disabled successfully.
+pause
+goto tweaksMenuPage2
+
+:setClassicRightClickMenu
+cls
+echo Setting Classic Right-Click Menu...
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_ShowClassicMode" /t REG_DWORD /d 1 /f >nul 2>&1
+echo Classic Right-Click Menu set successfully.
+pause
+goto tweaksMenuPage2
+
+:removeEdge
+cls
+echo Removing Microsoft Edge...
+powershell -Command "Get-AppxPackage -AllUsers -Name Microsoft.MicrosoftEdge | Remove-AppxPackage -AllUsers" >nul 2>&1
+echo Microsoft Edge removed successfully.
+pause
+goto tweaksMenuPage2
 
 pause >nul
 
