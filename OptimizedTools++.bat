@@ -102,7 +102,7 @@ powershell -ExecutionPolicy Unrestricted -NoProfile Checkpoint-Computer -Descrip
 REM HKCU & HKLM backups
 mkdir OPTPlusPlusTemp\RegRevert >nul 2>&1
 for /F "tokens=2" %%i in ('date /t') do set date=%%i
-set date1=%date:/=.%
+set date1=%date:/=.% 
 >nul 2>&1 md OPTPlusPlusTemp\RegRevert\%date1%
 reg export HKCU OPTPlusPlusTemp\RegRevert\%date1%\HKLM.reg /y >nul 2>&1
 reg export HKCU OPTPlusPlusTemp\RegRevert\%date1%\HKCU.reg /y >nul 2>&1
@@ -368,8 +368,15 @@ echo     20. Disable Microsoft Copilot
 echo     21. Disable IPv6
 echo     22. Disable Teredo
 echo     23. Set Classic Right-Click Menu
-echo     24. Uninstall Microsoft Edge
-echo     25. Back to Main Menu
+echo     24. Uninstall Microsoft Edge 
+echo     26. Install Chocolatey
+echo     27. Install Scoop
+echo     28. Install Winget
+echo     29. Activate Windows (powered by MAS)
+echo     30. Optimize for NVIDIA Graphics (GTX 1060+)
+echo     31. Auto Tweaks for Desktop/Laptop (maybe not work on all systes)
+echo     32. Back to Main Menu
+echo     33. Next Page
 echo.
 echo                                           Welcome. %username%
 echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
@@ -381,6 +388,14 @@ if "%choice%"=="22" goto disableTeredo
 if "%choice%"=="23" goto setClassicRightClickMenu
 if "%choice%"=="24" goto removeEdge
 if "%choice%"=="25" goto tweaksMenu
+if "%choice%"=="26" goto installChocolatey
+if "%choice%"=="27" goto installScoop
+if "%choice%"=="28" goto installWinget
+if "%choice%"=="29" goto activateWindows
+if "%choice%"=="30" goto optimizeNvidia
+if "%choice%"=="31" goto autoTweaks
+if "%choice%"=="32" goto tweaksMenu
+if "%choice%"=="33" goto tweaksMenuPage3
 goto tweaksMenuPage2
 
 :disableMicrosoftCopilot
@@ -422,6 +437,183 @@ powershell -Command "Get-AppxPackage -AllUsers -Name Microsoft.MicrosoftEdge | R
 echo Microsoft Edge removed successfully.
 pause
 goto tweaksMenuPage2
+
+:installChocolatey
+cls
+echo Installing Chocolatey...
+@powershell -NoProfile -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
+echo Chocolatey installed successfully.
+pause
+goto tweaksMenuPage2
+
+:installScoop
+cls
+echo Installing Scoop...
+@powershell -NoProfile -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; irm get.scoop.sh | iex"
+echo Scoop installed successfully.
+pause
+goto tweaksMenuPage2
+
+:installWinget
+cls
+echo Installing Winget...
+@powershell -NoProfile -ExecutionPolicy Bypass -Command "Add-AppxPackage -Path 'https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx'; Add-AppxPackage -Path 'https://aka.ms/Microsoft.DesktopAppInstaller.appx'"
+echo Winget installed successfully.
+pause
+goto tweaksMenuPage2
+
+:activateWindows
+cls
+echo Activating Windows...
+slmgr /ipk YOUR_WINDOWS_KEY_HERE
+slmgr /skms kms8.msguides.com
+slmgr /ato
+echo Windows activated successfully.
+pause
+goto tweaksMenuPage2
+
+:optimizeNvidia
+cls
+echo Optimizing settings for NVIDIA Graphics...
+reg add "HKLM\Software\NVIDIA Corporation\Global\NvCplApi\Policies" /v "PowerMizerEnable" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\Software\NVIDIA Corporation\Global\NvCplApi\Policies" /v "PowerMizerLevel" /t REG_DWORD /d 0 /f >nul 2>&1
+reg add "HKLM\Software\NVIDIA Corporation\Global\NvCplApi\Policies" /v "PowerMizerLevelAC" /t REG_DWORD /d 0 /f >nul 2>&1
+echo NVIDIA settings optimized successfully.
+pause
+goto tweaksMenuPage2
+
+:autoTweaks
+cls
+echo Applying auto tweaks for Desktop/Laptop...
+for /f "tokens=2 delims==" %%i in ('wmic computersystem get pcSystemType /value') do set "pcType=%%i"
+if "%pcType%"=="2" (
+    echo Detected Desktop. Applying desktop-specific tweaks...
+    reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 1 /f >nul 2>&1
+    reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoLowDiskSpaceChecks" /t REG_DWORD /d 1 /f >nul 2>&1
+) else (
+    echo Detected Laptop. Applying laptop-specific tweaks...
+    powercfg /setactive SCHEME_BALANCED
+    reg add "HKLM\System\CurrentControlSet\Control\Power" /v "HibernateEnabled" /t REG_DWORD /d 1 /f >nul 2>&1
+)
+echo Auto tweaks applied successfully.
+pause
+goto tweaksMenuPage2
+
+:tweaksMenuPage3
+cls
+call :title
+echo.
+echo                   --------------------------------------------------------------
+echo                                    Windows Tweaks Menu (Page 3)
+echo                   --------------------------------------------------------------
+echo.
+echo     34. Disable Windows Updates (Caution: may affect security)
+echo     35. Align Taskbar to Left (Windows 11+ only)
+echo     36. Disable NTFS Indexing
+echo     37. Disable SmartScreen (Caution: may affect security)
+echo     38. Disable Superfetch (Caution: may affect performance)
+echo     39. Disable Microsoft Store App Updates
+echo     40. Hide Widgets and Weather
+echo     41. Disable Search in Taskbar
+echo     42. Disable Startup Items
+echo     43. Back to Main Menu
+echo.
+echo                                           Welcome. %username%
+echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
+set /p "choice=%DEL%                                     Your choice: "
+
+if "%choice%"=="34" goto disableWindowsUpdates
+if "%choice%"=="35" goto alignTaskbarLeft
+if "%choice%"=="36" goto disableNTFSIndexing
+if "%choice%"=="37" goto disableSmartScreen
+if "%choice%"=="38" goto disableSuperfetch
+if "%choice%"=="39" goto disableStoreAppUpdates
+if "%choice%"=="40" goto hideWidgetsWeather
+if "%choice%"=="41" goto disableSearchTaskbar
+if "%choice%"=="42" goto askDisableStartup
+if "%choice%"=="43" goto tweaksMenu
+goto tweaksMenuPage3
+
+:disableWindowsUpdates
+cls
+echo Disabling Windows Updates...
+sc config wuauserv start= disabled >nul 2>&1
+sc stop wuauserv >nul 2>&1
+echo Windows Updates disabled successfully.
+pause
+goto tweaksMenuPage3
+
+:alignTaskbarLeft
+cls
+echo Aligning Taskbar to Left...
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d 0 /f >nul 2>&1
+echo Taskbar aligned to the left successfully.
+pause
+goto tweaksMenuPage3
+
+:disableNTFSIndexing
+cls
+echo Disabling NTFS Indexing...
+fsutil behavior set disablelastaccess 1 >nul 2>&1
+echo NTFS Indexing disabled successfully.
+pause
+goto tweaksMenuPage3
+
+:disableSmartScreen
+cls
+echo Disabling SmartScreen...
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "SmartScreenEnabled" /t REG_SZ /d "Off" /f >nul 2>&1
+echo SmartScreen disabled successfully.
+pause
+goto tweaksMenuPage3
+
+:disableSuperfetch
+cls
+echo Disabling Superfetch...
+sc config SysMain start= disabled >nul 2>&1
+sc stop SysMain >nul 2>&1
+echo Superfetch disabled successfully.
+pause
+goto tweaksMenuPage3
+
+:disableStoreAppUpdates
+cls
+echo Disabling Microsoft Store App Updates...
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SilentInstalledAppsEnabled" /t REG_DWORD /d 0 /f >nul 2>&1
+echo Microsoft Store App Updates disabled successfully.
+pause
+goto tweaksMenuPage3
+
+:hideWidgetsWeather
+cls
+echo Hiding Widgets and Weather...
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarDa" /t REG_DWORD /d 0 /f >nul 2>&1
+echo Widgets and Weather hidden successfully.
+pause
+goto tweaksMenuPage3
+
+:disableSearchTaskbar
+cls
+echo Disabling Search in Taskbar...
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d 0 /f >nul 2>&1
+echo Search in Taskbar disabled successfully.
+pause
+goto tweaksMenuPage3
+
+:askDisableStartup
+cls
+echo Asking to disable startup items...
+echo Do you want to disable all startup items? (Yes/No)
+set /p "input=Your choice: "
+if /i "!input!"=="yes" (
+    echo Disabling startup items...
+    powershell -Command "Get-CimInstance Win32_StartupCommand | Remove-CimInstance" >nul 2>&1
+    echo Startup items disabled successfully.
+) else (
+    echo Skipping startup items disable.
+)
+pause
+goto tweaksMenuPage3
 
 pause >nul
 
