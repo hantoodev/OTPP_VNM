@@ -11,7 +11,7 @@ if %errorlevel% neq 0 (
 )
 
 REM Ensure the script runs only on Windows 10 or newer
-ver | findstr /r "10\.[0-9]\|11\.[0-9]" >nul
+ver | findstr /r "6\.[0-9]\|6\.[0-9]" >nul
 if %errorlevel% neq 0 (
     echo This script only supports Windows 10 or newer.
     pause
