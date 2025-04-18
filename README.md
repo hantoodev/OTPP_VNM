@@ -6,6 +6,7 @@
 
 <p align="center"><strong>Note: This product is in development, not for release.</strong></p>
 <p align="center"><strong>🚀 Update: The source code is now available for download and use. However, please note that this is from the development branch, so it may not be as stable as expected. Proceed with caution.</strong></p>
+<p align="center"><strong>Update #2: Stable version released.</strong></p>
 
 ## 📃 TO-DO List
 - [x] warning
