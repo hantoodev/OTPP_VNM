@@ -10,13 +10,13 @@ if %errorlevel% neq 0 (
     exit /b
 )
 
-REM Ensure the script runs only on Windows 10 or newer
-ver | findstr /r "6\.[0-9]\|6\.[0-9]" >nul
-if %errorlevel% neq 0 (
-    echo This script only supports Windows 10 or newer.
-    pause
-    exit /b
-)
+cls
+echo This script only supports Windows 10 or newer.
+echo Please run it on a compatible version.
+echo If you are running Windows 8 or older, please upgrade your OS.
+pause
+
+
 
 Mode 100,43
 setlocal EnableDelayedExpansion
