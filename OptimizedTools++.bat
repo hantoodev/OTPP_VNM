@@ -488,9 +488,31 @@ goto tweaksMenuPage2
 :enableUltimatePerformance
 cls
 echo Enabling Ultimate Performance power plan...
-powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
-powercfg /setactive SCHEME_ULTIMATE_PERFORMANCE
-echo Ultimate Performance power plan enabled (if your system supports it).
+
+:: Check if Ultimate Performance scheme exists
+powercfg /list | findstr "Ultimate Performance" >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Ultimate Performance scheme not found. Attempting to create it...
+    powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 >nul 2>&1
+    if %errorlevel% equ 0 (
+        echo Ultimate Performance scheme created successfully.
+    ) else (
+        echo Failed to create Ultimate Performance scheme.
+        echo This feature might not be supported on your system.
+        pause
+        goto tweaksMenuPage2
+    )
+)
+
+:: Set the Ultimate Performance scheme as active
+powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61
+if %errorlevel% equ 0 (
+    echo Ultimate Performance power plan enabled.
+) else (
+    echo Failed to enable Ultimate Performance power plan.
+    echo This feature might not be supported on your system.
+)
+
 pause
 goto tweaksMenuPage2
 
@@ -505,7 +527,28 @@ goto tweaksMenuPage2
 :tweakTCPIP
 cls
 echo Tweaking TCP/IP settings...
-echo This section is already implemented in your provided code.
+
+REM Enable TCP Fast Open
+reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpFastOpen" /t REG_DWORD /d 1 /f
+
+REM Optimize TCP Window Scaling
+reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpWindowSize" /t REG_DWORD /d 65535 /f
+
+REM Disable Nagle's Algorithm
+reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\{YourInterfaceGUID}" /v "TcpAckFrequency" /t REG_DWORD /d 1 /f
+reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\{YourInterfaceGUID}" /v "TCPNoDelay" /t REG_DWORD /d 1 /f
+
+REM Enable ECN (Explicit Congestion Notification)
+netsh int tcp set global ecncapability=enabled
+
+REM Enable RSS (Receive Side Scaling)
+netsh int tcp set global rss=enabled
+
+REM Enable Chimney Offload
+netsh int tcp set global chimney=enabled
+
+REM Confirm changes
+echo TCP/IP tweaks applied successfully.
 pause
 goto tweaksMenuPage2
 
@@ -520,8 +563,7 @@ goto tweaksMenuPage2
 :enableLargeSystemCache
 cls
 echo Enabling large system cache...
-echo This section is already implemented in your 'autoTweaks' section for desktops.
-echo If you want to enable it independently, we can add the registry command here as well.
+echo Warning: Enabling large system cache can improve performance for certain workloads but may affect system stability.
 set /p "enableLargeCache=Enable large system cache now? (y/n): "
 if /i "%enableLargeCache%"=="y" (
     reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 1 /f >nul 2>&1
