@@ -19,10 +19,10 @@
 - [x] updater (seamlessly work but open github link when have new version)
 - **🚨 Update Warning**: The updater is still being tested. If you receive an update alert in the program, do not update yet. Stay on your current version until further notice.
       
-- [ ] app installer
+- [x] app installer
 - [x] lazy
 - [x] sleep
-- [ ] more features
+- [x] more features
 
 coming soon...
 yay i failed for updater
