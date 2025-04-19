@@ -8,11 +8,22 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            text-align: left; /* Changed default text alignment to left */
         }
-        .center {
-            text-align: center;
+        h1, .logo {
+            text-align: center; /* Keep title and logo centered */
         }
-        .warning {
+        .logo img {
+            width: 400px;
+        }
+        .badges {
+            text-align: center; /* Keep badges centered */
+            margin-bottom: 20px; /* Add some space below the badges */
+        }
+        .badges img {
+            margin: 5px;
+        }
+        .caution {
             background-color: #ffcccc;
             border-left: 5px solid red;
             padding: 15px;
@@ -20,26 +31,46 @@
             max-width: 700px;
             border-radius: 5px;
         }
-        .badges img {
-            margin: 5px;
+        .features-section {
+            margin-top: 30px;
         }
-        .section {
-            max-width: 800px;
-            margin: 20px auto;
+        .features-section h2 {
+            margin-bottom: 10px;
+        }
+        .features-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .features-list li {
+            margin-bottom: 5px;
+        }
+        .screenshots-section {
+            margin-top: 30px;
+        }
+        .screenshots-section h2 {
+            margin-bottom: 10px;
+        }
+        .screenshot-group h3 {
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        .screenshot-group img {
+            max-width: 100%; /* Make images responsive */
+            height: auto;
+            margin-bottom: 10px;
+            border: 1px solid #ddd; /* Optional: add a border around images */
+            border-radius: 5px; /* Optional: add rounded corners */
         }
     </style>
 </head>
 <body>
-
-    <h1 class="center">OptimizedTools++</h1>
-
-    <div class="center">
-        <img src="https://private-user-images.githubusercontent.com/194782918/413725688-48ea7253-b2e7-4361-8fb7-a49b6164c2a6.png" alt="OptimizedTools++ Logo" width="400">
+    <h1>OptimizedTools++</h1>
+    <div class="logo">
+        <img src="https://private-user-images.githubusercontent.com/194782918/413725688-48ea7253-b2e7-4361-8fb7-a49b6164c2a6.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDUwMzIxOTQsIm5iZiI6MTc0NTAzMTg5NCwicGF0aCI6Ii8xOTQ3ODI5MTgvNDEzNzI1Njg4LTQ4ZWE3MjUzLWIyZTctNDM2MS04ZmI3LWE0OWI2MTY0YzJhNi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxOVQwMzA0NTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yMTE1YmVkMDMxYTQwMDRmZjA2OWM2MzgwMjQwODgwODY3YzdkMjI1ZjJiZmQ5YjdiNjlkY2U0ZjJkY2YwZTVlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.LhU0bUCCJdjTVlJZ3JGZ1A0snCx4-Og96HgxELB9120" alt="OptimizedTools++ Logo">
     </div>
+    <p style="text-align: center;"><strong>🚀 Take control of your Windows system with precision optimizations and cutting-edge tweaks!</strong></p>
 
-    <p class="center"><strong>🚀 Take control of your Windows system with precision optimizations and cutting-edge tweaks!</strong></p>
-
-    <div class="center badges">
+    <div class="badges">
         <img src="https://img.shields.io/badge/Test-Passing-green?logo=github" alt="Build Status">
         <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/commits/main-development">
             <img src="https://img.shields.io/badge/Status-Active%20Development-blue" alt="Development Status">
@@ -53,7 +84,7 @@
         </a>
     </div>
 
-    <div class="warning">
+    <div class="caution">
         <h3>⚠️ CAUTION: Use at your own risk.</h3>
         <p><strong>I am NOT RESPONSIBLE</strong> for any issues that may occur after tweaking:</p>
         <ul>
@@ -66,60 +97,66 @@
         <p>🔄 Even though OptimizedTools++ has an automatic restore point feature, <strong>I highly recommend creating a manual restore point</strong> before running.</p>
     </div>
 
-    <div class="section">
-        <h2>🏆 What is OptimizedTools++?</h2>
-        <p>OptimizedTools++ is <strong>your ultimate toolkit</strong> for Windows enhancement, delivering <strong>performance-boosting tweaks</strong> that make your system run smoother, faster, and more efficient than ever.</p>
-    </div>
-
-    <div class="section">
-        <h2>🌟 Why Use OptimizedTools++?</h2>
-        <ul>
-            <li>✅ <strong>Optimize Performance</strong> – Say goodbye to slow startups and laggy applications!</li>
-            <li>✅ <strong>Custom Tweaks</strong> – Unlock hidden Windows settings for efficiency.</li>
-            <li>✅ <strong>Recommended for Fresh Installs</strong> – Best applied to newly installed Windows systems.</li>
-            <li>✅ <strong>Safe & Reliable</strong> – Auto-create restore points ensure modifications can be undone.</li>
-            <li>✅ <strong>Continuous Updates</strong> – Regular improvements keep your system running at peak performance.</li>
+    <div class="features-section">
+        <h2>🔧 Features</h2>
+        <ul class="features-list">
+            <li>⚡ <strong>Performance Tweaks</strong> – System optimization for speed and stability.</li>
+            <li>🛠 <strong>Registry Modifications</strong> – Fine-tune Windows settings for efficiency.</li>
+            <li>🔍 <strong>Windows Version Detection</strong> – Ensures compatibility with your OS.</li>
+            <li>🔄 <strong>Restore Point Creation</strong> – A safety net before applying changes.</li>
+            <li>🔧 <strong>Integrated Updater</strong> – Seamless updates for new improvements.</li>
+            <li>📦 <strong>App Installer</strong> (not available) – Quickly set up essential software.</li>
+            <li>🏗 <strong>More Features</strong> – Constantly evolving for the best experience!</li>
         </ul>
     </div>
 
-    <div class="section">
-        <h2>🚀 Recommended Usage</h2>
-        <ul>
-            <li>🟢 <strong>Fresh Windows Installation:</strong> Apply right after OS setup.</li>
-            <li>🟢 <strong>Before Major Software Installs:</strong> Prepare for optimized performance.</li>
-            <li>🟢 <strong>Regular Maintenance:</strong> Run periodically to keep your system efficient.</li>
-        </ul>
-    </div>
+    <h2>🏆 What is OptimizedTools++?</h2>
+    <p>OptimizedTools++ is <strong>your ultimate toolkit</strong> for Windows enhancement, delivering <strong>performance-boosting tweaks</strong> that make your system run smoother, faster, and more efficient than ever.</p>
+    <h2>🌟 Why Use OptimizedTools++?</h2>
+    <ul>
+        <li>✅ <strong>Optimize Performance</strong> – Say goodbye to slow startups and laggy applications!</li>
+        <li>✅ <strong>Custom Tweaks</strong> – Unlock hidden Windows settings for efficiency.</li>
+        <li>✅ <strong>Recommended for Fresh Installs</strong> – Best applied to newly installed Windows systems.</li>
+        <li>✅ <strong>Safe & Reliable</strong> – Auto-create restore points ensure modifications can be undone.</li>
+        <li>✅ <strong>Continuous Updates</strong> – Regular improvements keep your system running at peak performance.</li>
+    </ul>
+    <h2>🚀 Recommended Usage</h2>
+    <ul>
+        <li>🟢 <strong>Fresh Windows Installation:</strong> Apply right after OS setup.</li>
+        <li>🟢 <strong>Before Major Software Installs:</strong> Prepare for optimized performance.</li>
+        <li>🟢 <strong>Regular Maintenance:</strong> Run periodically to keep your system efficient.</li>
+    </ul>
+    <h2>📥 Download & Installation</h2>
+    <ol>
+        <li>🔗 <strong>Grab the latest version:</strong> <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest">Download from GitHub</a>.</li>
+        <li>💾 <strong>Install:</strong> Follow the setup instructions.</li>
+        <li>🚀 <strong>Launch OptimizedTools++</strong> and start optimizing your system!</li>
+    </ol>
+    <h2>📜 License</h2>
+    <p>This project is <strong>open-source</strong> and distributed under the <strong>MIT License</strong>.</p>
+    <h2>🤝 Contribute & Feedback</h2>
+    <p>OptimizedTools++ is an <strong>open-source project</strong> – contributions are <strong>welcome</strong>!</p>
+    <ul>
+        <li>🔹 Found a bug? <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/issues">Report it via GitHub Issues!</a></li>
+        <li>🔹 Have suggestions? Share ideas with the community!</li>
+        <li>🔹 Want to contribute? Fork the repo and submit a pull request!</li>
+    </ul>
+    <p><strong>🚀 Join us in building the best optimization tool for Windows users worldwide!</strong></p>
+    <h2>💖 Made with love 💖</h2>
 
-    <div class="section">
-        <h2>📥 Download & Installation</h2>
-        <ol>
-            <li>🔗 <strong>Grab the latest version:</strong> <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest">Download from GitHub</a>.</li>
-            <li>💾 <strong>Install:</strong> Follow the setup instructions.</li>
-            <li>🚀 <strong>Launch OptimizedTools++</strong> and start optimizing your system!</li>
-        </ol>
+    <div class="screenshots-section">
+        <h2>📸 Screenshots</h2>
+        <div class="screenshot-group">
+            <h3>Latest Version</h3>
+            <img src="https://github.com/user-attachments/assets/bc1de15b-0a5d-4496-8552-80904dcfb709" alt="Latest Version Screenshot">
+        </div>
+        <div class="screenshot-group">
+            <h3>Beta Versions</h3>
+            <img src="https://github.com/user-attachments/assets/538bb5d5-66e6-4aca-88b4-a746857af2ce" alt="Beta Version Screenshot 1">
+            <img src="https://github.com/user-attachments/assets/a121e6b3-7ad2-45ba-af32-137944308361" alt="Beta Version Screenshot 2">
+            <img src="https://github.com/user-attachments/assets/58d8204a-2b29-42b2-bf29-462ef5ad5736" alt="Beta Version Screenshot 3">
+            <img src="https://github.com/user-attachments/assets/4d1b3963-5870-4157-878b-39c660917230" alt="Beta Version Screenshot 4">
+        </div>
     </div>
-
-    <div class="section">
-        <h2>📜 License</h2>
-        <p>This project is <strong>open-source</strong> and distributed under the <strong>MIT License</strong>.</p>
-    </div>
-
-    <div class="section">
-        <h2>🤝 Contribute & Feedback</h2>
-        <p>OptimizedTools++ is an <strong>open-source project</strong> – contributions are <strong>welcome</strong>!</p>
-        <ul>
-            <li>🔹 Found a bug? <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/issues">Report it via GitHub Issues!</a></li>
-            <li>🔹 Have suggestions? Share ideas with the community!</li>
-            <li>🔹 Want to contribute? Fork the repo and submit a pull request!</li>
-        </ul>
-        <p><strong>🚀 Join us in building the best optimization tool for Windows users worldwide!</strong></p>
-    </div>
-
-    <div class="section">
-        <h2>💖 Made with love 💖</h2>
-    </div>
-
 </body>
 </html>
-
