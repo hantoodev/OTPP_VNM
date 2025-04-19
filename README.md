@@ -4,42 +4,102 @@
   <img src="https://github.com/user-attachments/assets/48ea7253-b2e7-4361-8fb7-a49b6164c2a6" alt="OptimizedTools++ Logo" width="800">
 </p>
 
-<p align="center"><strong>Note: This product is in development, not for release.</strong></p>
-<p align="center"><strong>🚀 Update: The source code is now available for download and use. However, please note that this is from the development branch, so it may not be as stable as expected. Proceed with caution.</strong></p>
-<p align="center"><strong>Update #2: Stable version released.</strong></p>
+<p align="center"><strong>🚀 Take control of your Windows system with precision optimizations and cutting-edge tweaks!</strong></p>
 
-## 📃 TO-DO List
-- [x] warning
-- [x] check for update
-- [x] play welcome sound
-- [x] restore poimt
-- [x] get windows version  
-- [x] main menu
-- [x] reg tweaks
-- [x] tweaks
-- [x] updater (seamlessly work but open github link when have new version)
-- [x] app installer
-- [x] lazy
-- [x] sleep
-- [x] more features
 
-everything is done.
+>[!CAUTION]
+> Use at your own risk.
+> I am not RESPONSIBLE for cases of BSOD after tweaking,
+> unable to boot after restart, missing files/OS not working properly, etc.
 
-## Demo Screenshot:
+> PLEASE do some research if you have any questions about the features
+> included in this software before you use it.
 
-**Latest**
+> YOU are choosing to make these modifications, and if you POINT the finger
+> at me for damaging your operating system, I will laugh at you.
+
+> Even though my software have an automatic restore point feature, I highly > recommend making a manual restore point before running.
+
+---
+
+## 🏆 What is OptimizedTools++?
+
+OptimizedTools++ is **your ultimate toolkit** for Windows enhancement, delivering **performance-boosting tweaks** that make your system run smoother, faster, and **more efficient** than ever. Designed for both casual users and tech enthusiasts, this utility **refines, cleans, and optimizes** your OS for an **unparalleled computing experience**.
+
+---
+
+## 🌟 Why use OptimizedTools++?
+
+✅ **Optimize your performance** – Say goodbye to slow startups and laggy applications!  
+✅ **Custom tweaks** – Unlock hidden Windows settings for efficiency.  
+✅ **Highly recommended for fresh installs** – Apply these tweaks on a **newly installed** Windows system for **maximum benefits**.  
+✅ **Safe & Reliable** with **Auto-Create Restore Points** ensure you can undo any modifications.  
+✅ **Streamlined experience** – Removes unnecessary clutter and improves workflow.  
+✅ **Continuous updates** – Regular improvements keep your system running at peak performance.
+
+---
+
+## 🔧 Features
+
+- ⚡ **Performance Tweaks** – System optimization for speed and stability.  
+- 🛠 **Registry Modifications** – Fine-tune Windows settings for efficiency.  
+- 🔍 **Windows Version Detection** – Ensures compatibility with your OS.  
+- 🔄 **Restore Point Creation** – A safety net before applying changes.  
+- 🔧 **Integrated Updater** – Seamless updates for new improvements.  
+- 📦 **App Installer (not available)** – Quickly set up essential software.  
+- 🏗 **More Features** – Constantly evolving for the best experience!  
+
+---
+
+## 🚀 Recommended Usage
+
+**🟢 Fresh Windows Installation:** For best results, apply **OptimizedTools++** right after setting up your OS.  
+**🟢 Before Major Software Installs:** Prepare your system for smooth, optimized performance.  
+**🟢 Regular Maintenance:** Run periodically to keep your system running at **top speed**.  
+
+---
+
+## 📸 Screenshots
+
+### Latest Version
 
 ![image](https://github.com/user-attachments/assets/bc1de15b-0a5d-4496-8552-80904dcfb709)
 
-
-**Feb 17**
+### Beta Versions
 
 ![image](https://github.com/user-attachments/assets/538bb5d5-66e6-4aca-88b4-a746857af2ce)
 ![image](https://github.com/user-attachments/assets/a121e6b3-7ad2-45ba-af32-137944308361)
 ![image](https://github.com/user-attachments/assets/58d8204a-2b29-42b2-bf29-462ef5ad5736)
 ![image](https://github.com/user-attachments/assets/4d1b3963-5870-4157-878b-39c660917230)
 
+---
+
+## 📥 Download & Installation
+
+1. **Grab the latest version** from [GitHub](https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest).  
+2. **Follow setup instructions** to install.  
+3. **Launch OptimizedTools++** and start optimizing your Windows experience!  
+
+---
+
+## 📜 License
+
+This project is **open-source** and distributed under the **MIT License**.
 
 
+---
 
+## 🤝 Contribute & Feedback
+
+OptimizedTools++ is an **open-source project**, and contributions are **highly appreciated**!  
+
+🔹 Found a bug? Report it via GitHub Issues!  
+🔹 Have suggestions? Share your ideas with the community!  
+🔹 Want to contribute? Fork the repository and submit a pull request!  
+
+🚀 **Join us in building the best optimization tool for Windows users worldwide!**
+
+---
+
+## Made with love 💖
 
