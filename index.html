@@ -8,34 +8,64 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            text-align: left; /* Changed default text alignment to left */
+            text-align: left;
+            background-color: black;
+            color: white;
         }
-        h1, .logo {
-            text-align: center; /* Keep title and logo centered */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
-        .logo img {
+        .top-bar-title a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5em; /* Adjust title size as needed */
+        }
+        .top-bar-logo img {
+            height: 50px; /* Adjust logo size as needed */
+        }
+        .top-bar-buttons a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-left: 10px;
+            text-decoration: none;
+            color: white;
+            background-color: #555; /* Darker background for buttons */
+            border-radius: 5px;
+        }
+        .top-bar-buttons a:hover {
+            background-color: #777;
+        }
+        .logo-center {
+            text-align: center;
+        }
+        .logo-center img {
             width: 400px;
         }
         .badges {
-            text-align: center; /* Keep badges centered */
-            margin-bottom: 20px; /* Add some space below the badges */
+            text-align: center;
+            margin-bottom: 20px;
         }
         .badges img {
             margin: 5px;
         }
         .caution {
-            background-color: #ffcccc;
+            background-color: #330000;
             border-left: 5px solid red;
             padding: 15px;
             margin: 25px auto;
             max-width: 700px;
             border-radius: 5px;
+            color: white;
         }
         .features-section {
             margin-top: 30px;
         }
         .features-section h2 {
             margin-bottom: 10px;
+            color: white;
         }
         .features-list {
             list-style-type: none;
@@ -43,6 +73,12 @@
         }
         .features-list li {
             margin-bottom: 5px;
+        }
+        h2 {
+            color: white;
+        }
+        a {
+            color: #87CEEB;
         }
         .screenshots-section {
             margin-top: 30px;
@@ -53,24 +89,45 @@
         .screenshot-group h3 {
             margin-top: 15px;
             margin-bottom: 5px;
+            color: white;
         }
         .screenshot-group img {
-            max-width: 100%; /* Make images responsive */
+            max-width: 100%;
             height: auto;
             margin-bottom: 10px;
-            border: 1px solid #ddd; /* Optional: add a border around images */
-            border-radius: 5px; /* Optional: add rounded corners */
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        .social-badges {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .social-badges img {
+            margin: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>OptimizedTools++</h1>
-    <div class="logo">
-        <img src="https://private-user-images.githubusercontent.com/194782918/413725688-48ea7253-b2e7-4361-8fb7-a49b6164c2a6.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDUwMzIxOTQsIm5iZiI6MTc0NTAzMTg5NCwicGF0aCI6Ii8xOTQ3ODI5MTgvNDEzNzI1Njg4LTQ4ZWE3MjUzLWIyZTctNDM2MS04ZmI3LWE0OWI2MTY0YzJhNi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxOVQwMzA0NTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yMTE1YmVkMDMxYTQwMDRmZjA2OWM2MzgwMjQwODgwODY3YzdkMjI1ZjJiZmQ5YjdiNjlkY2U0ZjJkY2YwZTVlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.LhU0bUCCJdjTVlJZ3JGZ1A0snCx4-Og96HgxELB9120" alt="OptimizedTools++ Logo">
+    <div class="top-bar">
+        <div class="top-bar-title">
+            <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus">OptimizedTools++</a>
+        </div>
+        <div class="top-bar-logo">
+            <img src="https://private-user-images.githubusercontent.com/194782918/413725688-48ea7253-b2e7-4361-8fb7-a49b6164c2a6.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDUwMzI5MjQsIm5iZiI6MTc0NTAzMjYyNCwicGF0aCI6Ii8xOTQ3ODI5MTgvNDEzNzI1Njg4LTQ4ZWE3MjUzLWIyZTctNDM2MS04ZmI3LWE0OWI2MTY0YzJhNi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxOVQwMzE3MDRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03NjE3YmNiODFiNWRlNGUxMTA3MTNiNGQ2MTAwMDAwZjAxNzExMmE2ZDBjYTkyNjExNWRkM2ZkYmY3ZTU2OGIxJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.OdZS5Qd-uYQo_xmY01zhhc3dfs-yvtmJwbCKGdCjUW0" alt="OptimizedTools++ Small Logo">
+        </div>
+    </div>
+
+    <div class="top-bar-buttons" style="text-align: center; margin-bottom: 20px;">
+        <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest">Download</a>
+        <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus">GitHub</a>
+    </div>
+
+    <div class="logo-center">
+        <img src="https://private-user-images.githubusercontent.com/194782918/413725688-48ea7253-b2e7-4361-8fb7-a49b6164c2a6.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDUwMzIxOTQsIm5iZiI6MTc0NTAzMTg5NCwicGF0aCI6Ii8xOTQ3ODI5MTgvNDEzNzI1Njg4LTQ4ZWE3MjUzLWIyZTctNDM2MS04ZmI3LWE0OWI2MTY0YzJhNi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxOVQwMzA0NTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yMTE1YmVkMDMxYTQwMDRmZjA2OWM2MzgwMjQwODgwODY3YzdkMjI1ZjJiZmQ5YjdiNjlkY2U0ZjJkY2YwZTVlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.LhU0bUCCJdjTVlJZ3JGZ1A4snCx4-Og96HgxELB9120" alt="OptimizedTools++ Logo">
     </div>
     <p style="text-align: center;"><strong>🚀 Take control of your Windows system with precision optimizations and cutting-edge tweaks!</strong></p>
 
-    <div class="badges">
+    <div class="badges" style="text-align: center;">
         <img src="https://img.shields.io/badge/Test-Passing-green?logo=github" alt="Build Status">
         <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/commits/main-development">
             <img src="https://img.shields.io/badge/Status-Active%20Development-blue" alt="Development Status">
@@ -157,6 +214,14 @@
             <img src="https://github.com/user-attachments/assets/58d8204a-2b29-42b2-bf29-462ef5ad5736" alt="Beta Version Screenshot 3">
             <img src="https://github.com/user-attachments/assets/4d1b3963-5870-4157-878b-39c660917230" alt="Beta Version Screenshot 4">
         </div>
+    </div>
+
+    <div class="social-badges" style="text-align: center;">
+        <a href="https://zalo.me/0931981731"><img src="https://img.shields.io/badge/Zalo-Namm-blue?style=flat-square" alt="Zalo"></a>
+        <a href="http://youtube.com/@bnamm12"><img src="https://img.shields.io/badge/YouTube-ok%20but%20who%20ask-red?style=flat-square" alt="YouTube"></a>
+        <a href="http://facebook.com/namnee6"><img src="https://img.shields.io/badge/Facebook-Bao%20Nam-blue?style=flat-square" alt="Facebook"></a>
+        <a href="https://www.tiktok.com/@_.techphone_"><img src="https://img.shields.io/badge/TikTok-rootlocalhost-black?style=flat-square" alt="TikTok"></a>
+        <a href="https://fireos.my.canva.site"><img src="https://img.shields.io/badge/Website-fireOS%20make%20by%20me-blue?style=flat-square" alt="Website"></a>
     </div>
 </body>
 </html>
