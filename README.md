@@ -8,17 +8,18 @@
 
 
 >[!CAUTION]
-> Use at your own risk.
-> I am not RESPONSIBLE for cases of BSOD after tweaking,
+> **Use at your own risk.**
+>
+> I am not **RESPONSIBLE** for cases of BSOD after tweaking,
 > unable to boot after restart, missing files/OS not working properly, etc.
-
-> PLEASE do some research if you have any questions about the features
+>
+> **PLEASE** do some research if you have any questions about the features
 > included in this software before you use it.
-
-> YOU are choosing to make these modifications, and if you POINT the finger
+>
+> YOU are **choosing to make these modifications**, and if you POINT the finger
 > at me for damaging your operating system, I will laugh at you.
-
-> Even though my software have an automatic restore point feature, I highly > recommend making a manual restore point before running.
+>
+> Even though my software have an automatic restore point feature, I highly recommend making a manual restore point before running.
 
 ---
 
