@@ -6,6 +6,21 @@
 
 <p align="center"><strong>🚀 Take control of your Windows system with precision optimizations and cutting-edge tweaks!</strong></p>
 
+<div align="center">
+  <img src="https://img.shields.io/badge/Test-Passing-green?logo=github" alt="Build Status">
+  <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/commits/main-development">
+    <img src="https://img.shields.io/badge/Status-Active%20Development-blue" alt="Development Status">
+  </a>
+  <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases">
+    <img src="https://img.shields.io/badge/App%20Version-1.0.0-green" alt="App Version">
+  </a>
+  <img src="https://img.shields.io/badge/Tweaks%20Available-50%2B-blue" alt="Tweaks Available">
+  <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus">
+    <img src="https://img.shields.io/badge/Code%20Quality-A-brightgreen?logo=codefactor" alt="Code Quality">
+  </a>
+</div>
+
+
 
 >[!CAUTION]
 > **Use at your own risk.**
