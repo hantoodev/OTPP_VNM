@@ -90,6 +90,18 @@ OptimizedTools++ is **your ultimate toolkit** for Windows enhancement, deliverin
 
 ---
 
+## 💻 Benchmark result
+
+**Before using:**
+![image](https://github.com/user-attachments/assets/f0e32d6a-4910-40f4-bb05-9c62f18d5959)
+
+**After using:**
+![image](https://github.com/user-attachments/assets/2403e58e-f0bc-4d28-b7a5-b703d83bb039)
+
+Huge difference!
+
+---
+
 ## 📥 Download & Installation
 
 1. **Grab the latest version** from [GitHub](https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest).  
