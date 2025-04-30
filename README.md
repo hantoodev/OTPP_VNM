@@ -21,6 +21,7 @@
 </div>
 
 
+# UPDATE: Installer lacking stability led to it's temporary removal. 
 
 >[!CAUTION]
 > **Use at your own risk.**
