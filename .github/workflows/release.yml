@@ -1,0 +1,28 @@
+name: CreDaily
+
+on:
+  push:
+    paths:
+      - 'OptimizedTools++.bat'
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get current date
+        id: get_date
+        run: |
+          now=$(date "+%d.%m.%Y")
+          echo "::set-output name=date::$now"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: "Daily Build (${{ steps.get_date.outputs.date }})"
+          name: "Daily Build (${{ steps.get_date.outputs.date }})"
+          body: "Cutting edge version, do not use."
+          draft: false
+          prerelease: true
