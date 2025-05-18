@@ -3,7 +3,7 @@ name: CreDaily
 on:
   push:
     paths:
-      - 'OptimizedTools++.bat'
+      - 'main-development/OptimizedTools++.bat'
 
 jobs:
   create_release:
