@@ -12,17 +12,7 @@ if %errorlevel% neq 0 (
 
 cls
 echo.
-echo    ------------ YOU ARE RUNNING AN UNSTABLE BUILD ------------
-echo    This build is not recommended for production use.
-echo    It is intended for testing and development purposes only.
-echo    Please use at your own risk.
-echo
-echo    Detected: You are running this unstable build directly from the source code.
-echo    This version may contain experimental features, incomplete tweaks, or bugs.
-echo    For the latest stable release, visit: https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases
-echo.
-echo    ------------------------------------------------------------
-echo    This script only supports Windows 10 or newer.
+echo    OptimizedTools++ only supports Windows 10 or newer.
 echo    Please run it on a compatible version.
 echo    If you are running Windows 8 or older, please upgrade your OS.
 echo.
@@ -84,7 +74,7 @@ ping -n 5 localhost > nul
 set /p fileContent=<%temp%\check.txt
 
 :: Check the content and decide the action
-if "!fileContent!"=="1.0.0" (
+if "!fileContent!"=="1.1" (
     echo                         Your version is !fileContent!, you are up to date.
     ping -n 3 localhost > nul
 ) else (
@@ -200,7 +190,6 @@ goto tweaksMenu1
 :tweaksMenu1
 title OptimizedTools++
 cls
-echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 call :title
 echo.
 echo                   --------------------------------------------------------------
@@ -508,8 +497,6 @@ goto tweaksMenu1
 
 :tweaksMenuPage2
 cls
-echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
-call :title
 echo.
 echo                   --------------------------------------------------------------
 echo                                    Windows Tweaks Menu (Page 2)
@@ -1072,7 +1059,6 @@ goto tweaksMenuPage2
 
 :tweaksMenuPage3
 cls
-echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 call :title
 echo.
 echo                   --------------------------------------------------------------
@@ -1088,7 +1074,7 @@ echo     48. Disable Microsoft Store App Updates
 echo     49. Hide Widgets and Weather
 echo     50. Disable Search in Taskbar
 echo     51. Disable Startup Items
-echo     52. Reinstall Microsoft Store (beta, may not work)
+echo     52. Reinstall Microsoft Store
 echo     53. Disable Edge WebWidget
 echo     54. Add delay to menu boot (3 seconds, only dual boot)
 echo     55. Disable Hibernation and Fast Startup
@@ -1334,7 +1320,6 @@ goto tweaksMenuPage3
 
 :tweaksMenuPage4
 cls
-echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 call :title
 echo.
 echo                   --------------------------------------------------------------
