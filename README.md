@@ -4,7 +4,7 @@
   <img src="https://github.com/user-attachments/assets/48ea7253-b2e7-4361-8fb7-a49b6164c2a6" alt="OptimizedTools++ Logo" width="800">
 </p>
 
-<p align="center"><strong>🚀 Take control of your Windows system with precision optimizations and cutting-edge tweaks!</strong></p>
+<p align="center"><strong>The most advanced tweaks tool for Windows 10/11.</strong></p>
 
 <div align="center">
   <img src="https://img.shields.io/badge/Test-Passing-green?logo=github" alt="Build Status">
@@ -12,10 +12,12 @@
     <img src="https://img.shields.io/badge/Status-Active%20Development-blue" alt="Development Status">
   </a>
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases">
-    <img src="https://img.shields.io/badge/App%20Version-1.0.0-green" alt="App Version">
+    <img src="https://img.shields.io/badge/App%20Version-1.1+unstable-red" alt="App Version">
   </a>
-  <img src="https://img.shields.io/badge/Tweaks%20Available-50%2B-blue" alt="Tweaks Available">
+  <img src="https://img.shields.io/badge/Tweaks%20Available-70%2B-blue" alt="Tweaks Available">
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus">
+    <img src="https://img.shields.io/badge/Code%20Quality-A-brightgreen?logo=codefactor" alt="Code Quality">
+  <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/blob/main-development/OptimizedTools%2B%2B.bat">
     <img src="https://img.shields.io/badge/Code%20Quality-A-brightgreen?logo=codefactor" alt="Code Quality">
   </a>
 </div>
@@ -57,10 +59,10 @@ OptimizedTools++ is **your ultimate toolkit** for Windows enhancement, deliverin
 
 ## 🔧 Features
 
-- ⚡  **50+ tweaks**
+- ⚡  **70+ tweaks**
 - 🔄 **Restore point creation**
 - 🔧 **Integrated updater**
-- 📦 **App installer (not available)**
+- 📦 **App installer**
 
 ---
 
