@@ -12,6 +12,16 @@ if %errorlevel% neq 0 (
 
 cls
 echo.
+echo    ------------ YOU ARE RUNNING AN UNSTABLE BUILD ------------
+echo    This build is not recommended for production use.
+echo    It is intended for testing and development purposes only.
+echo    Please use at your own risk.
+echo
+echo    Detected: You are running this unstable build directly from the source code.
+echo    This version may contain experimental features, incomplete tweaks, or bugs.
+echo    For the latest stable release, visit: https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases
+echo.
+echo    ------------------------------------------------------------
 echo    This script only supports Windows 10 or newer.
 echo    Please run it on a compatible version.
 echo    If you are running Windows 8 or older, please upgrade your OS.
@@ -21,11 +31,29 @@ echo    Proceed with caution!
 echo.
 pause
 
+echo.
+echo Detecting Windows version...
+for /F "tokens=3 delims=. " %%A in ('ver') do (
+    set "winver=%%A"
+    goto :checkversion
+)
 
+:checkversion
+echo Detected Windows version: %winver%
+
+if %winver% LSS 6.1 (
+    echo.
+    echo This version of Windows is not supported. Exiting...
+    pause
+    exit /b 1
+) else (
+    echo.
+    echo Windows 10 or newer detected. Proceeding with the script...
+    echo.
+)
 
 Mode 100,43
 setlocal EnableDelayedExpansion
-
 
 REM Blank/Color Character
 for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (set "DEL=%%a" & set "COL=%%b")
@@ -171,7 +199,7 @@ goto tweaksMenu
 
 :tweaksMenu
 cls
-echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
+echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 call :title
 echo.
 echo                   --------------------------------------------------------------
@@ -283,10 +311,35 @@ goto tweaksMenu
 
 :removeBloatware
 cls
-echo Removing bloatware...
-powershell -Command "Get-AppxPackage -AllUsers | Where-Object { $_.Name -notlike '*store*' -and $_.Name -notlike '*photos*' -and $_.Name -notlike '*calculator*' } | Remove-AppxPackage -AllUsers"
-powershell -Command "Get-AppxProvisionedPackage -Online | Where-Object { $_.DisplayName -notlike '*store*' -and $_.DisplayName -notlike '*photos*' -and $_.DisplayName -notlike '*calculator*' } | Remove-AppxProvisionedPackage -Online"
-echo Bloatware removed successfully.
+echo Removing ALL pre-installed Windows apps including Store, Photos, Camera, Terminal...
+echo This may break app installations or basic tools. Proceeding anyway.
+
+REM Remove installed AppxPackages for all users
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+"Get-AppxPackage -AllUsers ^
+| ForEach-Object {
+    try {
+        Remove-AppxPackage -Package $_.PackageFullName -AllUsers -ErrorAction Stop
+        Write-Output ('Removed: ' + $_.Name)
+    } catch {
+        Write-Output ('Failed to remove: ' + $_.Name)
+    }
+}"
+
+REM Remove provisioned AppxPackages (preinstalled for new users)
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+"Get-AppxProvisionedPackage -Online ^
+| ForEach-Object {
+    try {
+        Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction Stop
+        Write-Output ('Removed provisioned: ' + $_.DisplayName)
+    } catch {
+        Write-Output ('Failed to remove provisioned: ' + $_.DisplayName)
+    }
+}"
+
+echo.
+echo All pre-installed apps (including Store, Photos, Terminal, etc.) removed.
 pause
 goto tweaksMenu
 
@@ -371,7 +424,7 @@ goto tweaksMenu
 
 :tweaksMenuPage2
 cls
-echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
+echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 call :title
 echo.
 echo                   --------------------------------------------------------------
@@ -383,7 +436,7 @@ echo     21. Disable IPv6
 echo     22. Disable Teredo
 echo     23. Set Classic Right-Click Menu
 echo     24. Uninstall Microsoft Edge (Powered by ShadowWhisperer)
-echo     25. Install Useful Apps (Notepad++, Discord, Browser, currently not supported)
+echo     25. Install Useful Apps (Notepad++, Discord, Browser, supported at dev ver)
 echo     26. Enable Ultimate Performance Plan
 echo     27. Turn Off Reserved Storage
 echo     28. Tweak TCP/IP Settings
@@ -520,9 +573,6 @@ REM rd /s /q "%ProgramFiles(x86)%\Microsoft\EdgeWebView" >NUL 2>&1
 for /f "delims=" %%d in ('dir /ad /b /s "%ProgramFiles(x86)%\Microsoft\EdgeWebView" 2^>NUL ^| sort /r') do rd "%%d" 2>NUL
 
 
-
-REM #Additional Files
-
 REM Desktop icon
 :users_cleanup
 echo - Removing Additional Files
@@ -620,20 +670,34 @@ goto tweaksMenuPage2
 :installUsefulApps
 cls
 echo Installing useful applications...
-echo (this feature will available in 1.0.2 beta 1)
+
+REM Check if Chocolatey is installed
+where choco >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Chocolatey not found. Installing Chocolatey...
+    powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+     "Set-ExecutionPolicy Bypass -Scope Process -Force; ^
+      [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; ^
+      iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
+    if %errorlevel% neq 0 (
+        echo Failed to install Chocolatey. Please install it manually and re-run this script.
+        pause
+        goto tweaksMenuPage2
+    )
+    echo Chocolatey installed successfully.
+) else (
+    echo Chocolatey is already installed.
+)
+
+REM Install useful applications
+echo Installing Notepad++, Discord, Firefox, VLC, and WinRAR...
+choco install -y notepadplusplus discord firefox vlc winrar
+
 echo.
-echo This script cannot automatically download and install applications.
-echo You can use tools like Winget (Windows Package Manager) or Chocolatey
-echo to install applications like Notepad++, Discord, and a browser of your choice.
-echo.
-echo For example, open PowerShell and run:
-echo winget install Notepad++.Notepad++
-echo winget install Discord.Discord
-echo winget install Mozilla.Firefox (or Google.Chrome)
-echo.
-echo Please install your desired applications manually using a package manager or by downloading them from their official websites.
+echo All applications installed successfully.
 pause
 goto tweaksMenuPage2
+
 
 :enableUltimatePerformance
 cls
@@ -678,15 +742,15 @@ goto tweaksMenuPage2
 cls
 echo Tweaking TCP/IP settings...
 
-REM Enable TCP Fast Open
-reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpFastOpen" /t REG_DWORD /d 1 /f
+REM Enable TCP Fast Open (Windows 10+ supports this partially)
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpFastOpen" /t REG_DWORD /d 1 /f
 
-REM Optimize TCP Window Scaling
-reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpWindowSize" /t REG_DWORD /d 65535 /f
+REM Optimize TCP Window Size — note: TcpWindowSize is legacy and usually ignored in modern Windows
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpWindowSize" /t REG_DWORD /d 65535 /f
 
-REM Disable Nagle's Algorithm
-reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\{YourInterfaceGUID}" /v "TcpAckFrequency" /t REG_DWORD /d 1 /f
-reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\{YourInterfaceGUID}" /v "TCPNoDelay" /t REG_DWORD /d 1 /f
+REM Disable Nagle’s Algorithm and enable low-latency ACK — REPLACE {YourInterfaceGUID} with actual network adapter GUID
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\{YourInterfaceGUID}" /v "TcpAckFrequency" /t REG_DWORD /d 1 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\{YourInterfaceGUID}" /v "TCPNoDelay" /t REG_DWORD /d 1 /f
 
 REM Enable ECN (Explicit Congestion Notification)
 netsh int tcp set global ecncapability=enabled
@@ -694,10 +758,9 @@ netsh int tcp set global ecncapability=enabled
 REM Enable RSS (Receive Side Scaling)
 netsh int tcp set global rss=enabled
 
-REM Enable Chimney Offload
+REM Enable Chimney Offload — note: deprecated in latest Windows versions
 netsh int tcp set global chimney=enabled
 
-REM Confirm changes
 echo TCP/IP tweaks applied successfully.
 pause
 goto tweaksMenuPage2
@@ -784,6 +847,7 @@ if "%errorlevel%"=="0" (
     echo.
     echo Running HWID activation script...
     call "temp_hwid.cmd"
+    pause
     if "%errorlevel%"=="0" (
         echo.
         echo HWID activation process completed.
@@ -828,30 +892,32 @@ goto tweaksMenuPage2
 :disableUnnecessaryServices
 cls
 echo Disabling unnecessary Windows services...
-sc config DiagTrack start= disabled
-sc config dmwappushservice start= disabled
-sc config WSearch start= disabled
-sc config SysMain start= disabled
-sc config XboxGipSvc start= disabled
-sc config XboxNetSvc start= disabled
-sc config XboxServices start= disabled
-sc config RemoteRegistry start= disabled
-sc config CDPUserSvc start= disabled
-sc config OneSyncSvc start= disabled
-sc config Fax start= disabled
-sc config Print Spooler start= disabled
-sc config SharedAccess start= disabled
-sc config RemoteAccess start= disabled
-sc config RasMan start= disabled
-sc config Netlogon start= disabled
-sc config KtmRm start= disabled
-sc config MSDTC start= disabled
-sc config Distributed Link Tracking Client start= disabled
-sc config ShellHWDetection start= disabled
-sc config Themes start= disabled
-sc config TabletInputService start= disabled
-sc config TouchKeyboard and Handwriting Panel Service start= disabled
-sc config Windows Error Reporting Service start= disabled
+
+sc config "DiagTrack" start= disabled
+sc config "dmwappushservice" start= disabled
+sc config "WSearch" start= disabled
+sc config "SysMain" start= disabled
+sc config "XboxGipSvc" start= disabled
+sc config "XboxNetApiSvc" start= disabled
+sc config "XblGameSave" start= disabled
+sc config "XblAuthManager" start= disabled
+sc config "RemoteRegistry" start= disabled
+sc config "CDPUserSvc" start= disabled
+sc config "OneSyncSvc" start= disabled
+sc config "Fax" start= disabled
+sc config "Spooler" start= disabled
+sc config "SharedAccess" start= disabled
+sc config "RemoteAccess" start= disabled
+sc config "RasMan" start= disabled
+sc config "Netlogon" start= disabled
+sc config "KtmRm" start= disabled
+sc config "MSDTC" start= disabled
+sc config "TrkWks" start= disabled
+sc config "ShellHWDetection" start= disabled
+sc config "Themes" start= disabled
+sc config "TabletInputService" start= disabled
+sc config "WERSvc" start= disabled
+
 echo Unnecessary services disabled successfully.
 pause
 goto tweaksMenuPage2
@@ -889,7 +955,7 @@ goto tweaksMenuPage2
 
 :tweaksMenuPage3
 cls
-echo %COL%[33m////////////////////////////////////////////TEST BUILD//////////////////////////////////////////////%COL%[0m
+echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 call :title
 echo.
 echo                   --------------------------------------------------------------
@@ -905,9 +971,10 @@ echo     48. Disable Microsoft Store App Updates
 echo     49. Hide Widgets and Weather
 echo     50. Disable Search in Taskbar
 echo     51. Disable Startup Items
-echo     52. Back to Page 2
-echo     53. Back to Main Menu
-echo     54. Restart your PC
+echo     52. Reinstall Microsoft Store (beta, may not work)
+echo     53. Back to Page 2
+echo     54. Back to Main Menu
+echo     55. Restart your PC
 echo.
 echo                                           Welcome. %username%
 set /p "choice=%DEL%                                 Your choice: "
@@ -921,9 +988,10 @@ if "%choice%"=="48" goto disableStoreAppUpdates
 if "%choice%"=="49" goto hideWidgetsWeather
 if "%choice%"=="50" goto disableSearchTaskbar
 if "%choice%"=="51" goto askDisableStartup
-if "%choice%"=="52" goto tweaksMenuPage2
-if "%choice%"=="53" goto tweaksMenu
-if "%choice%"=="54" goto restart
+if "%choice%"=="52" goto reins
+if "%choice%"=="53" goto tweaksMenuPage2
+if "%choice%"=="54" goto tweaksMenu
+if "%choice%"=="55" goto restart
 goto tweaksMenuPage3
 
 :disableWindowsUpdates
@@ -1004,6 +1072,29 @@ if /i "!input!"=="yes" (
 ) else (
     echo Skipping startup items disable.
 )
+pause
+goto tweaksMenuPage3
+
+:reins
+cls
+echo Reinstalling Microsoft Store...
+echo Please wait...
+
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+"try {
+    $store = Get-AppxPackage -AllUsers Microsoft.WindowsStore
+    if ($store) {
+        Add-AppxPackage -DisableDevelopmentMode -Register \"$($store.InstallLocation)\AppXManifest.xml\" -ErrorAction Stop
+        Write-Output 'Microsoft Store reinstallation attempted.'
+    } else {
+        Write-Output 'Microsoft Store package not found on this system.'
+    }
+} catch {
+    Write-Output 'Failed to reinstall Microsoft Store: ' + $_.Exception.Message
+}"
+
+echo.
+echo Reinstallation script completed. Please check the Start Menu or try opening Microsoft Store.
 pause
 goto tweaksMenuPage3
 
