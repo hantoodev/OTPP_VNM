@@ -194,10 +194,10 @@ echo    For any questions and/or concerns, please go to my GitHub: NammIsADev/Op
 echo    Type "Yes" to continue: 
 set /p "input=%DEL%                                     Your input:
 if /i "!input!" neq "yes" goto warn
-reg add "HKCU\Software\HoneCTRL" /v "Disclaimer" /f >nul 2>&1
-goto tweaksMenu
+reg add "HKCU\Software\opt" /v "Disclaimer" /f >nul 2>&1
+goto tweaksMenu1
 
-:tweaksMenu
+:tweaksMenu1
 cls
 echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 call :title
@@ -248,66 +248,75 @@ if "%choice%"=="16" goto uninstallOneDrive
 if "%choice%"=="17" goto disableBackgroundApps
 if "%choice%"=="18" goto disableFullscreenOptimizations
 if "%choice%"=="19" goto tweaksMenuPage2
-goto tweaksMenu
+goto tweaksMenu1
 
 :disableStartupDelay
+cls
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v "StartupDelayInMSec" /t REG_DWORD /d 0 /f
 echo Disabled Startup Delay.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :enableDarkMode
+cls
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d 0 /f
 echo Enabled Dark Mode.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :disableTelemetry
+cls
 reg add "HKLM\Software\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d 0 /f
 echo Disabled Windows Telemetry.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :optimizeNetwork
+cls
 reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpAckFrequency" /t REG_DWORD /d 1 /f
 reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters" /v "TCPNoDelay" /t REG_DWORD /d 1 /f
 echo Optimized Network Performance.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :disableCortana
+cls
 reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d 0 /f
 echo Disabled Cortana.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :enableFileExtensions
+cls
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t REG_DWORD /d 0 /f
 echo Enabled File Extensions.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :disableAnimations
+cls
 reg add "HKCU\Control Panel\Desktop" /v "UserPreferencesMask" /t REG_BINARY /d 9012038010000000 /f
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "MinAnimate" /t REG_SZ /d 0 /f
 echo Disabled Animations.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :clearTempFiles
+cls
 del /q /s %temp%\*
 echo Cleared Temporary Files.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :fasterShutdown
+cls
 reg add "HKLM\System\CurrentControlSet\Control" /v "WaitToKillServiceTimeout" /t REG_SZ /d 2000 /f
 reg add "HKCU\Control Panel\Desktop" /v "WaitToKillAppTimeout" /t REG_SZ /d 2000 /f
 reg add "HKCU\Control Panel\Desktop" /v "HungAppTimeout" /t REG_SZ /d 2000 /f
 echo Enabled Faster Shutdown.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :removeBloatware
 cls
@@ -341,7 +350,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 echo.
 echo All pre-installed apps (including Store, Photos, Terminal, etc.) removed.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :debloatWindows
 cls
@@ -366,32 +375,36 @@ powershell -Command "Get-CimInstance Win32_StartupCommand | Where-Object { $_.Co
 
 echo Windows debloated successfully.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :disableWindowsDefender
+cls
 reg add "HKLM\Software\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\Windows Defender" /v "DisableRealtimeMonitoring" /t REG_DWORD /d 1 /f
 echo Disabled Windows Defender.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :enableClassicTaskbar
+cls
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSmallIcons" /t REG_DWORD /d 1 /f
 echo Enabled Classic Taskbar.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :disableActionCenter
+cls
 reg add "HKLM\Software\Policies\Microsoft\Windows\Explorer" /v "DisableNotificationCenter" /t REG_DWORD /d 1 /f
 echo Disabled Action Center.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :enableVerboseBoot
+cls
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System" /v "VerboseStatus" /t REG_DWORD /d 1 /f
 echo Enabled Verbose Boot.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :uninstallOneDrive
 cls
@@ -402,7 +415,7 @@ reg delete "HKLM\Software\Microsoft\OneDrive" /f >nul 2>&1
 reg delete "HKLM\Software\WOW6432Node\Microsoft\OneDrive" /f >nul 2>&1
 echo OneDrive uninstalled successfully.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :disableBackgroundApps
 cls
@@ -411,7 +424,7 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplicat
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /t REG_DWORD /d 1 /f >nul 2>&1
 echo Background Apps disabled successfully.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :disableFullscreenOptimizations
 cls
@@ -420,7 +433,7 @@ reg add "HKCU\System\GameConfigStore" /v "GameDVR_FSEBehaviorMode" /t REG_DWORD 
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_HonorUserFSEBehaviorMode" /t REG_DWORD /d 1 /f >nul 2>&1
 echo Fullscreen Optimizations disabled successfully.
 pause
-goto tweaksMenu
+goto tweaksMenu1
 
 :tweaksMenuPage2
 cls
@@ -471,7 +484,7 @@ if "%choice%"=="29" goto flushDNSCache
 if "%choice%"=="30" goto enableLargeSystemCache
 if "%choice%"=="31" goto optimizeGPUScheduling
 if "%choice%"=="32" goto turnOffSpectreMeltdown
-if "%choice%"=="41" goto tweaksMenu
+if "%choice%"=="41" goto tweaksMenu1
 if "%choice%"=="33" goto nvidiaOptimization
 if "%choice%"=="34" goto autoTweaks
 if "%choice%"=="35" goto activateWindows
@@ -703,8 +716,9 @@ goto tweaksMenuPage2
 cls
 echo Enabling Ultimate Performance power plan...
 
-:: Check if Ultimate Performance scheme exists
-powercfg /list | findstr "Ultimate Performance" >nul 2>&1
+echo Checking for Ultimate Performance power scheme...
+powercfg /list | findstr /i "Ultimate Performance" >nul 2>&1
+
 if %errorlevel% neq 0 (
     echo Ultimate Performance scheme not found. Attempting to create it...
     powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 >nul 2>&1
@@ -712,11 +726,42 @@ if %errorlevel% neq 0 (
         echo Ultimate Performance scheme created successfully.
     ) else (
         echo Failed to create Ultimate Performance scheme.
-        echo This feature might not be supported on your system.
+        echo This feature may not be supported on your system.
         pause
         goto tweaksMenuPage2
     )
+) else (
+    echo Ultimate Performance scheme already exists.
 )
+
+echo.
+echo Applying power scheme changes...
+
+:: Step 1: Activate Balanced (optional reset)
+powercfg -setactive scheme_min
+if %errorlevel% neq 0 echo [Warning] Failed to activate 'Balanced' (scheme_min)
+
+:: Step 2: Activate Ultimate Performance
+powercfg -setactive e9a42b02-d5df-448d-aa00-03f14749eb61
+if %errorlevel% neq 0 echo [Warning] Failed to activate 'Ultimate Performance'
+
+:: Step 3: Activate custom plan (replace GUID if needed)
+powercfg /S ceb6bfc7-d55c-4d56-ae37-ff264aade12d
+if %errorlevel% neq 0 echo [Warning] Failed to activate custom power plan
+
+:: Step 4: Set AC standby timeout to 0 (never)
+powercfg /X standby-timeout-ac 0
+if %errorlevel% neq 0 echo [Warning] Failed to set AC standby timeout
+
+:: Step 5: Set DC standby timeout to 0 (never)
+powercfg /X standby-timeout-dc 0
+if %errorlevel% neq 0 echo [Warning] Failed to set DC standby timeout
+
+echo.
+echo All power settings applied.
+pause
+goto tweaksMenuPage2
+
 
 :: Set the Ultimate Performance scheme as active
 powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61
@@ -972,9 +1017,17 @@ echo     49. Hide Widgets and Weather
 echo     50. Disable Search in Taskbar
 echo     51. Disable Startup Items
 echo     52. Reinstall Microsoft Store (beta, may not work)
-echo     53. Back to Page 2
-echo     54. Back to Main Menu
-echo     55. Restart your PC
+echo     53. Disable Edge WebWidget
+echo     54. Add delay to menu boot (3 seconds, only dual boot)
+echo     55. Disable Hibernation and Fast Startup
+echo     56. Disable Windows Insinder (Caution: cause bug in Settings app)
+echo     57. Disable App Launch Tracking
+echo     58. Disable App Suggestions
+echo     59. Disable Power Throttling (Intel Gen 6+)
+echo     60. Disable Background Apps (for god sake smooth)
+echo     61. Back to Main Menu
+echo     62. Back to Page 2
+echo     63. Go to Page 4
 echo.
 echo                                           Welcome. %username%
 set /p "choice=%DEL%                                 Your choice: "
@@ -989,9 +1042,17 @@ if "%choice%"=="49" goto hideWidgetsWeather
 if "%choice%"=="50" goto disableSearchTaskbar
 if "%choice%"=="51" goto askDisableStartup
 if "%choice%"=="52" goto reins
-if "%choice%"=="53" goto tweaksMenuPage2
-if "%choice%"=="54" goto tweaksMenu
-if "%choice%"=="55" goto restart
+if "%choice%"=="53" goto disablewebwidget
+if "%choice%"=="54" goto dualboot
+if "%choice%"=="55" goto fastanddisable
+if "%choice%"=="56" goto insider
+if "%choice%"=="57" goto apptrack
+if "%choice%"=="58" goto appsuggest
+if "%choice%"=="59" goto powerthrottle
+if "%choice%"=="60" goto tweaksMenuPage2
+if "%choice%"=="61" goto tweaksMenu1
+if "%choice%"=="62" goto tweaksMenuPage2
+if "%choice%"=="63" goto tweaksMenuPage4
 goto tweaksMenuPage3
 
 :disableWindowsUpdates
@@ -1079,7 +1140,6 @@ goto tweaksMenuPage3
 cls
 echo Reinstalling Microsoft Store...
 echo Please wait...
-
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 "try {
     $store = Get-AppxPackage -AllUsers Microsoft.WindowsStore
@@ -1092,7 +1152,6 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 } catch {
     Write-Output 'Failed to reinstall Microsoft Store: ' + $_.Exception.Message
 }"
-
 echo.
 echo Reinstallation script completed. Please check the Start Menu or try opening Microsoft Store.
 pause
@@ -1104,6 +1163,380 @@ echo Restarting your PC...
 shutdown /r /t 0 >nul 2>&1
 pause
 goto tweaksMenuPage3
+
+:disablewebwidget
+cls
+echo Disabling Edge WebWidget via registry...
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v WebWidgetAllowed /t REG_DWORD /d 0 /f
+echo Successfully disabled Edge WebWidget.
+pause
+goto tweaksMenuPage3
+
+:dualboot
+cls
+echo Setting dual boot timeout to 3 seconds...
+
+bcdedit /timeout 3
+if %errorlevel% neq 0 (
+    echo Failed to set dual boot timeout.
+    echo This feature may not be supported on your system.
+) else (
+    echo Dual boot timeout set to 3 seconds successfully.
+    pause
+    goto tweaksMenuPage3
+)
+
+:fastanddisable
+cls
+echo Disabling Fast Startup and Hibernation...
+powercfg -hibernate off
+echo Fast Startup and Hibernation disabled successfully.
+pause
+goto tweaksMenuPage3
+
+:insider
+cls
+echo Disabling Windows Insider Program...
+reg add "HKLM\SOFTWARE\Microsoft\WindowsSelfHost\UI" /v "IsEnabled" /t REG_DWORD /d 0 /f >nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\WindowsSelfHost\UI" /v "IsOptedin" /t REG_DWORD /d 0 /f >nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\WindowsSelfHost\UI" /v "IsOptedinToFlight" /t REG_DWORD /d 0 /f >nul 2>&1
+reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\System" /v AllowExperimentation /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\System\AllowExperimentation" /v value /t REG_DWORD /d 0 /f
+echo Successfully disabled Windows Insider Program.
+pause
+goto tweaksMenuPage3
+
+:apptrack
+cls
+echo Disabling App Launch Tracking...
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v Start_TrackProgs /t REG_DWORD /d 0 /f
+echo App Launch Tracking disabled.
+pause
+goto tweaksMenuPage3
+
+:appsuggest
+cls
+echo Disabling App Suggestions...
+:: Set "ContentDeliveryAllowed" to 0 under current user
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v ContentDeliveryAllowed /t REG_DWORD /d 0 /f
+:: Disable suggested apps (like Candy Crush, etc.)
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SubscribedContent-338388Enabled /t REG_DWORD /d 0 /f
+:: Also disable other suggestions-related content (optional)
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SubscribedContent-338389Enabled /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SubscribedContent-353698Enabled /t REG_DWORD /d 0 /f
+:: Disable "Get fun facts, tips, and tricks" in Settings
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SystemPaneSuggestionsEnabled /t REG_DWORD /d 0 /f
+echo App Suggestions disabled successfully.
+pause
+goto tweaksMenuPage3
+
+:powerthrottle
+cls
+echo Disabling Power Throttling...
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v PowerThrottlingOff /t REG_DWORD /d 1 /f
+echo Power Throttling disabled successfully.
+echo.
+echo This may improve performance but could increase power consumption.
+echo Note: This setting is only effective on Intel processors (Gen 6 and above).
+echo You may need to restart your computer for the changes to take effect.
+echo.
+pause
+goto tweaksMenuPage3
+
+:disableBackgroundApps
+cls
+echo Turning off background apps...
+:: Disable background apps via AppPrivacy policy
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v LetAppsRunInBackground /t REG_DWORD /d 2 /f
+:: Disable background access at user level
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v GlobalUserDisabled /t REG_DWORD /d 1 /f
+:: Disable background app toggle in search
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v BackgroundAppGlobalToggle /t REG_DWORD /d 0 /f
+:: Adjust background services priority
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v BackgroundServicesPriority /t REG_DWORD /d 10 /f
+:: Adjust multimedia system responsiveness
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness /t REG_DWORD /d 10 /f
+echo Background apps disabled successfully.
+pause
+goto tweaksMenuPage3
+
+:tweaksMenuPage4
+cls
+echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
+call :title
+echo.
+echo                   --------------------------------------------------------------
+echo                                    Windows Tweaks Menu (Page 4)
+echo                   --------------------------------------------------------------
+echo.
+echo     64. Disable Sticky Keys and Filter Keys
+echo     65. Disable Activity History
+echo     66. Debloat Edge
+echo     67. Tweak CPU Priority
+echo     68. Disable Location, Installing Suggested Apps, Unnecessary Components
+echo     69. Disable Windows Error Reporting (beautiful number)
+echo     70. Disable all ADS
+echo     71. Make svchost processes run better
+echo     72. Back to Main Menu
+echo     73. Back to Page 3
+echo     74. Restart your PC
+echo     75. Exit
+echo.
+echo                                          Welcome. %username%
+set /p "choice=%DEL%                                 Your choice: "
+if "%choice%"=="64" goto disableStickyKeys
+if "%choice%"=="65" goto disableActivityHistory
+if "%choice%"=="66" goto debloatEdge
+if "%choice%"=="67" goto tweakCPUPriority
+if "%choice%"=="68" goto disable3
+if "%choice%"=="69" goto disableWindowsErrorReporting
+if "%choice%"=="70" goto disableADS
+if "%choice%"=="71" goto tweakSvchost
+if "%choice%"=="72" goto tweaksMenu1
+if "%choice%"=="73" goto tweaksMenuPage3
+if "%choice%"=="74" goto restart
+if "%choice%"=="75" exit
+
+:disableStickyKeys
+cls
+echo Disabling Sticky Keys and Filter Keys...
+
+reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v Flags /t REG_SZ /d 506 /f
+reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v FilterKeysFlags /t REG_SZ /d 506 /f
+reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v SoundSentry /t REG_SZ /d 0 /f
+reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v UseHotKey /t REG_SZ /d 0 /f
+reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v HotKeyActive /t REG_SZ /d 0 /f
+reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v HotKey /t REG_SZ /d 0 /f
+reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v HotKeyEnabled /t REG_SZ /d 0 /f
+
+echo Sticky Keys and Filter Keys disabled successfully.
+pause
+goto tweaksMenuPage4
+
+:disableActivityHistory
+cls
+echo Disabling Activity History...
+
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v PublishUserActivities /t REG_DWORD /d 0 /f
+echo Activity History disabled successfully.
+pause
+goto tweaksMenuPage4
+
+:debloatEdge
+cls
+echo Debloating Edge...
+:: Edge policy keys under HKLM
+set "EDGE_POLICIES=HKLM\SOFTWARE\Policies\Microsoft\Edge"
+
+reg add "%EDGE_POLICIES%" /v WalletDonationEnabled /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v CryptoWalletEnabled /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v EdgeAssetDeliveryServiceEnabled /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v DiagnosticData /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v WebWidgetAllowed /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v ShowMicrosoftRewards /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v MicrosoftEdgeInsiderPromotionEnabled /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v EdgeShoppingAssistantEnabled /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v EdgeFollowEnabled /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v EdgeCollectionsEnabled /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v AlternateErrorPagesEnabled /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v ConfigureDoNotTrack /t REG_DWORD /d 1 /f
+reg add "%EDGE_POLICIES%" /v UserFeedbackAllowed /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v EdgeEnhanceImagesEnabled /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v PersonalizationReportingEnabled /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v ShowRecommendationsEnabled /t REG_DWORD /d 0 /f
+reg add "%EDGE_POLICIES%" /v HideFirstRunExperience /t REG_DWORD /d 1 /f
+
+:: Edge user settings under HKCU (AppContainer storage)
+set "EDGE_USER=HKCU\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe"
+
+reg add "%EDGE_USER%\MicrosoftEdge\Main" /v DoNotTrack /t REG_DWORD /d 1 /f
+reg add "%EDGE_USER%\MicrosoftEdge\User\Default\SearchScopes" /v ShowSearchSuggestionsGlobal /t REG_DWORD /d 0 /f
+reg add "%EDGE_USER%\MicrosoftEdge\FlipAhead" /v FPEnabled /t REG_DWORD /d 0 /f
+reg add "%EDGE_USER%\MicrosoftEdge\PhishingFilter" /v EnabledV9 /t REG_DWORD /d 0 /f
+echo Edge debloating completed successfully.
+echo Note: Some settings may require a restart of Edge or the system to take effect.
+pause
+goto tweaksMenuPage4
+
+:tweakCPUPriority
+cls
+echo Applying CPU Priority Tweaks...
+
+:: 1. Set ThreadPriority to max (31) for key drivers
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\usbxhci\Parameters" /v ThreadPriority /t REG_DWORD /d 31 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\USBHUB3\Parameters" /v ThreadPriority /t REG_DWORD /d 31 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\NDIS\Parameters" /v ThreadPriority /t REG_DWORD /d 31 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\nvlddmkm\Parameters" /v ThreadPriority /t REG_DWORD /d 31 /f
+
+:: 2. Force Windows to use all logical processors
+bcdedit /set {current} numproc %NUMBER_OF_PROCESSORS%
+
+:: 3. Detect CPU vendor using PowerShell
+powershell -Command "Get-WmiObject Win32_Processor | Select-String -Pattern 'Intel'" > NOLPi.txt
+
+:: 4. Check the detection file and apply different tweaks
+findstr /i "Intel" NOLPi.txt >nul
+if %errorlevel% equ 0 (
+    echo Intel CPU detected
+
+    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v Affinity /t REG_DWORD /d 0 /f
+    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "Background Only" /t REG_SZ /d False /f
+    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "Scheduling Category" /t REG_SZ /d High /f
+    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "SFIO Priority" /t REG_SZ /d High /f
+    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "GPU Priority" /t REG_DWORD /d 8 /f
+    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "Priority" /t REG_DWORD /d 6 /f
+
+) else (
+    echo AMD or other CPU detected
+
+    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "GPU Priority" /t REG_DWORD /d 8 /f
+    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "Priority" /t REG_DWORD /d 6 /f
+    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "Scheduling Category" /t REG_SZ /d High /f
+    reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "FIO Priority" /t REG_SZ /d High /f
+)
+
+:: 5. Cleanup
+if exist NOLPi.txt del NOLPi.txt
+
+echo.
+echo CPU priority tweaks applied.
+echo Note: Some settings may require a restart to take effect.
+pause
+goto tweaksMenuPage4
+
+:disable3
+cls
+echo Running system debloat and telemetry tweaks...
+
+:: --- Disable Location Sensors (per-user)
+reg add "HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Permissions\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}" /v SensorPermissionState /t REG_DWORD /d 0 /f
+
+:: --- Disable Suggested Apps Installation & Related Bloat
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v DisableWindowsConsumerFeatures /t REG_DWORD /d 1 /f
+reg add "HKLM\Software\Policies\Microsoft\PushToInstall" /v DisablePushToInstall /t REG_DWORD /d 1 /f
+
+:: --- Disable Subscription-based App Suggestions
+set "CDM=HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
+
+reg add "%CDM%" /v SubscribedContent-353696Enabled /t REG_DWORD /d 0 /f
+reg add "%CDM%" /v SubscribedContent-353694Enabled /t REG_DWORD /d 0 /f
+reg add "%CDM%" /v SubscribedContent-338393Enabled /t REG_DWORD /d 0 /f
+reg add "%CDM%" /v SubscribedContent-338388Enabled /t REG_DWORD /d 0 /f
+reg add "%CDM%" /v SubscribedContent-310093Enabled /t REG_DWORD /d 0 /f
+reg add "%CDM%" /v SubscribedContentEnabled /t REG_DWORD /d 0 /f
+reg add "%CDM%" /v RemediationRequired /t REG_DWORD /d 0 /f
+reg add "%CDM%" /v SoftLandingEnabled /t REG_DWORD /d 0 /f
+reg add "%CDM%" /v ContentDeliveryAllowed /t REG_DWORD /d 0 /f
+reg add "%CDM%" /v OemPreInstalledAppsEnabled /t REG_DWORD /d 0 /f
+reg add "%CDM%" /v PreInstalledAppsEnabled /t REG_DWORD /d 0 /f
+reg add "%CDM%" /v PreInstalledAppsEverEnabled /t REG_DWORD /d 0 /f
+reg add "%CDM%" /v SilentInstalledAppsEnabled /t REG_DWORD /d 0 /f
+reg add "%CDM%" /v FeatureManagementEnabled /t REG_DWORD /d 0 /f
+
+:: --- Remove Subscriptions & SuggestedApps Registry Keys (optional cleanup)
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\Subscriptions" /f >nul 2>&1
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SuggestedApps" /f >nul 2>&1
+
+:: --- Remove Unnecessary Components (XPS Viewer & Printing Support)
+powershell -Command "Disable-WindowsOptionalFeature -Online -FeatureName Printing-XPSServices-Features -NoRestart; Disable-WindowsOptionalFeature -Online -FeatureName Xps-Foundation-Xps-Viewer -NoRestart"
+
+echo.
+echo 3 tweaks applied successfully.
+pause
+goto tweaksMenuPage4
+
+:disableWindowsErrorReporting
+cls
+:: Disable Windows Error Reporting service
+sc config WerSvc start= disabled
+sc stop WerSvc
+
+:: Disable WER via Registry
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v ForceQueue /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v QueueType /t REG_DWORD /d 0 /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v UseOnline /t REG_DWORD /d 0 /f
+
+:: Disable WER via Group Policy
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v Disable /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v DisableQueue /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v DisableUserPrompt /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v DisableSend /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v DisableArchive /t REG_DWORD /d 1 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting" /v DisableAutoRestart /t REG_DWORD /d 1 /f
+
+echo Windows Error Reporting disabled successfully.
+echo Note: This may prevent error reporting and crash dumps from being sent to Microsoft.
+echo It may also affect the functionality of some applications.
+echo Use this tweak with caution.
+echo.
+pause
+goto tweaksMenuPage4
+
+:disableADS
+cls
+echo Disabling all ADS (Advertising ID)...
+
+:: Disable lock screen ads
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v RotatingLockScreenEnabled /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v RotatingLockScreenOverlayEnabled /t REG_DWORD /d 0 /f
+
+:: Disable suggested apps in Start
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SubscribedContent-338388Enabled /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SubscribedContent-338389Enabled /t REG_DWORD /d 0 /f
+
+:: Disable Windows tips
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SoftLandingEnabled /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SystemPaneSuggestionsEnabled /t REG_DWORD /d 0 /f
+
+:: Disable "Show me the Windows welcome experience..."
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SubscribedContent-310093Enabled /t REG_DWORD /d 0 /f
+
+:: Disable personalized ads via privacy settings
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo" /v Enabled /t REG_DWORD /d 0 /f
+:: Disable Windows Store ads
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SilentInstalledAppsEnabled /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v OemPreInstalledAppsEnabled /t REG_DWORD /d 0 /f
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v PreInstalledAppsEnabled /t REG_DWORD /d 0 /f
+
+echo Disabling all ADS completed successfully.
+echo Note: This may affect the functionality of some apps and features.
+echo.
+pause
+goto tweaksMenuPage4
+
+:tweakSvchost
+cls
+echo Tweaking svchost processes...
+:: Set svchost processes to run with higher priority
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess" /v Type /t REG_DWORD /d 0x00000010 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess" /v Start /t REG_DWORD /d 0x00000002 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess" /v ErrorControl /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess" /v DelayedAutostart /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess" /v ObjectName /t REG_SZ /d "LocalSystem" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess" /v ImagePath /t REG_SZ /d "%SystemRoot%\System32\svchost.exe -k LocalServiceNetworkRestricted" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess" /v Description /t REG_SZ /d "Network Location Awareness (NLA)" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess" /v DisplayName /t REG_SZ /d "Network Location Awareness (NLA)" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess" /v DependOnService /t REG_MULTI_SZ /d "Tcpip" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess" /v DependOnGroup /t REG_MULTI_SZ /d "NetworkService" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess" /v FailureActions /t REG_BINARY /d 0x00000000 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess" /v ServiceDll /t REG_SZ /d "%SystemRoot%\System32\NlaSvc.dll" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess" /v ServiceDllUnloadOnStop /t REG_DWORD /d 0x00000001 /f
+
+echo Setting Split Threshold for Svchost based on installed RAM...
+
+powershell -Command ^
+    "$ram = (Get-CimInstance Win32_PhysicalMemory | Measure-Object Capacity -Sum).Sum / 1KB; ^
+    Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control' -Name 'SvcHostSplitThresholdInKB' -Value $ram -Type DWord -Force"
+
+echo Done. This may improve performance for svchost processes.
+echo But can cause issues with some services.
+echo This tweak is experimental and may not work on all systems.
+echo Use at your own risk.
+echo.
+pause
+goto tweaksMenuPage4
 
 pause >nul
 
