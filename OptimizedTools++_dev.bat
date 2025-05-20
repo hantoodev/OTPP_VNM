@@ -1,6 +1,7 @@
 @echo off
 title OptimizedTools++: Preparing...
 REM Run as Admin
+setlocal EnableDelayedExpansion
 REM Delete the registry key
 reg delete HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v DummyEntry /f >reg_log.txt 2>&1
 reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v DummyEntry /t REG_SZ /d 1 >reg_log.txt 2>&1
@@ -22,7 +23,9 @@ echo    This version may contain experimental features, incomplete tweaks, or bu
 echo    For the latest stable release, visit: https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases
 echo.
 echo    ------------------------------------------------------------
-echo    This script only supports Windows 10 or newer.
+echo.
+setlocal EnableDelayedExpansion
+echo    OptimizedTools++ only supports Windows 10 or newer.
 echo    Please run it on a compatible version.
 echo    If you are running Windows 8 or older, please upgrade your OS.
 echo.
@@ -33,27 +36,29 @@ pause
 
 echo.
 echo Detecting Windows version...
-for /F "tokens=3 delims=. " %%A in ('ver') do (
-    set "winver=%%A"
-    goto :checkversion
+
+for /F "tokens=*" %%A in ('systeminfo ^| findstr /B /C:"OS Name:"') do (
+    set "os_info=%%A"
 )
 
-:checkversion
-echo Detected Windows version: %winver%
+echo %os_info%
 
-if %winver% LSS 6.1 (
+if "%os_info%" contains "Microsoft Windows 11" (
+    echo.
+    echo Windows 11 detected. Proceeding with the script...
+    echo.
+) else if "%os_info%" contains "Microsoft Windows 10" (
+    echo.
+    echo Windows 10 detected. Proceeding with the script...
+    echo.
+) else (
     echo.
     echo This version of Windows is not supported. Exiting...
     pause
     exit /b 1
-) else (
-    echo.
-    echo Windows 10 or newer detected. Proceeding with the script...
-    echo.
 )
 
 Mode 100,43
-setlocal EnableDelayedExpansion
 
 REM Blank/Color Character
 for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (set "DEL=%%a" & set "COL=%%b")
