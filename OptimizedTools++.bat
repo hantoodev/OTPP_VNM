@@ -198,6 +198,7 @@ reg add "HKCU\Software\opt" /v "Disclaimer" /f >nul 2>&1
 goto tweaksMenu1
 
 :tweaksMenu1
+title OptimizedTools++
 cls
 echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 call :title
@@ -748,6 +749,7 @@ for /d %%d in ("%SystemRoot%\SystemApps\Microsoft.MicrosoftEdge*") do (
  icacls "%%d" /grant administrators:F /t >NUL 2>&1
  rd /s /q "%%d" >NUL 2>&1)
 pause
+title OptimizedTools++
 goto tweaksMenuPage2
 
 :installUsefulApps
