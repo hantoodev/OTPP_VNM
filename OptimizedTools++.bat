@@ -26,27 +26,34 @@ pause
 echo.
 echo Detecting Windows version...
 
-for /F "tokens=*" %%A in ('systeminfo ^| findstr /B /C:"OS Name:"') do (
-    set "os_info=%%A"
+for /f "tokens=*" %%a in ('systeminfo ^| findstr /B /C:"OS Name"') do (
+    set "OS_Name=%%a"
 )
 
-echo %os_info%
+echo Detected OS: %OS_Name%
 
-if "%os_info%" contains "Microsoft Windows 11" (
-    echo.
-    echo Windows 11 detected. Proceeding with the script...
-    echo.
-) else if "%os_info%" contains "Microsoft Windows 10" (
-    echo.
+echo.
+
+REM Check if "Windows 10" is in OS_Name
+echo "%OS_Name%" | findstr /i "Windows 10" >nul
+if %errorlevel% equ 0 (
     echo Windows 10 detected. Proceeding with the script...
-    echo.
-) else (
-    echo.
-    echo This version of Windows is not supported. Exiting...
-    pause
-    exit /b 1
+    goto :continue
 )
 
+REM Check if "Windows 11" is in OS_Name
+echo "%OS_Name%" | findstr /i "Windows 11" >nul
+if %errorlevel% equ 0 (
+    echo Windows 11 detected. Proceeding with the script...
+    goto :continue
+)
+
+REM If neither is found
+echo This version of Windows is not supported. Exiting...
+pause
+exit /b 1
+
+:continue
 Mode 100,43
 
 REM Blank/Color Character
