@@ -18,14 +18,14 @@ jobs:
       - name: Get current date
         id: get_date
         run: |
-          now=$(date "+%d.%m.%Y")
+          now=$(date "+%Y-%m-%d")
           echo "::set-output name=date::$now"
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: "Daily Build (${{ steps.get_date.outputs.date }})"
-          name: "Daily Build (${{ steps.get_date.outputs.date }})"
+          tag_name: "daily-build-${{ steps.get_date.outputs.date }}"
+          name: "Daily Build ${{ steps.get_date.outputs.date }}"
           body: "Cutting edge version, do not use."
           draft: false
           prerelease: true
