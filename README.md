@@ -17,11 +17,11 @@
   <img src="https://img.shields.io/badge/Tweaks%20Available-70%2B-blue" alt="Tweaks Available">
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus">
     <img src="https://img.shields.io/badge/Code%20Quality-A-brightgreen?logo=codefactor" alt="Code Quality">
+  </a>
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/blob/main-development/OptimizedTools%2B%2B.bat">
-    <img src="https://img.shields.io/badge/Code%20Quality-A-brightgreen?logo=codefactor" alt="Code Quality">
+    <img src="https://img.shields.io/badge/Lines%20in%20the%20script-1630+-green" alt="Lines Number">
   </a>
 </div>
-
 
 # UPDATE: Installer lacking stability led to it's temporary removal. 
 ## need someone to code the bat to multi language 
@@ -105,10 +105,6 @@ This project is **open-source** and distributed under the **MIT License**.
 ## 🤝 Contribute & Feedback
 
 OptimizedTools++ is an **open-source project**, and contributions are **highly appreciated**!  
-
-🔹 Found a bug? Report it via GitHub Issues!  
-🔹 Have suggestions? Share your ideas with the community!  
-🔹 Want to contribute? Fork the repository and submit a pull request!  
 
 ---
 
