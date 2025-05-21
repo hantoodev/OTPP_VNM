@@ -104,7 +104,7 @@ ping -n 5 localhost > nul
 set /p fileContent=<%temp%\check_unstable.txt
 
 :: Check the content and decide the action
-if "!fileContent!"=="1.2+unstable" (
+if "!fileContent!"=="1.3+unstable" (
     echo                         Your version is !fileContent!, you are up to date.
     ping -n 3 localhost > nul
 ) else (
@@ -188,7 +188,7 @@ echo.
 echo                   --------------------------------------------------------------
 echo                                          Select Language
 echo                   --------------------------------------------------------------
-echo.
+echo    (please select english, vietnamese not available)
 echo    1. English
 echo    2. Vietnamese
 echo    More languages coming soon...
