@@ -17,7 +17,7 @@ echo    ------------ YOU ARE RUNNING AN UNSTABLE BUILD ------------
 echo    This build is not recommended for production use.
 echo    It is intended for testing and development purposes only.
 echo    Please use at your own risk.
-echo
+echo.
 echo    Detected: You are running this unstable build directly from the source code.
 echo    This version may contain experimental features, incomplete tweaks, or bugs.
 echo    For the latest stable release, visit: https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases
@@ -83,20 +83,20 @@ echo.
 echo                   --------------------------------------------------------------
 echo                                        Check for updates
 echo                   --------------------------------------------------------------
-echo.
-echo                                    Checking for new updates...
+echo                        Warning: Unstable builds don't have a stable updater.
+echo                                     Checking for new updates...
 echo                                           Please wait.
 echo.
 
 :: Download the latest version info
-curl -s -o "%temp%\check.txt" https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/update/check.txt
+curl -s -o "%temp%\check_unstable.txt" https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/update/check_unstable.txt
 ping -n 5 localhost > nul
 
 :: Read the file content
-set /p fileContent=<%temp%\check.txt
+set /p fileContent=<%temp%\check_unstable.txt
 
 :: Check the content and decide the action
-if "!fileContent!"=="1.0.0" (
+if "!fileContent!"=="1.2+unstable" (
     echo                         Your version is !fileContent!, you are up to date.
     ping -n 3 localhost > nul
 ) else (
@@ -116,7 +116,7 @@ if "!fileContent!"=="1.0.0" (
     cls
     echo.
     echo                                        Opening GitHub page...
-    start "" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest"
+    start "" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/"
     exit
 )
 
@@ -1225,19 +1225,19 @@ cd ..
 echo Reinstalling Microsoft Store...
 echo Please wait...
 :: Check if 7zr.exe is present
-if not exist "7zr.exe" (
-    echo [INFO] Downloading 7zr.exe from 7-zip.org...
-    curl -L -o 7zr.exe https://www.7-zip.org/a/7zr.exe
-    if not exist "7zr.exe" (
-        echo [ERROR] Failed to download 7zr.exe. Check your connection.
+if not exist "7z.exe" (
+    echo [INFO] Downloading 7z.exe from OptimizedTools++ repo...
+    curl -L -o 7z.exe https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/7z.exe
+    if not exist "7z.exe" (
+        echo [ERROR] Failed to download 7z.exe. Check your connection.
         pause
         goto tweaksMenuPage3
     )
 )
 curl -L -o store_files.zip https://github.com/kkkgo/LTSC-Add-MicrosoftStore/archive/refs/tags/2019.zip
 mkdir appx
-7zr x store_files.zip -oappx
-cd appx
+7z x store_files.zip -oappx
+cd appx\LTSC-Add-MicrosoftStore-2019
 REM Detect architecture
 if exist "%SystemRoot%\SysWOW64" (
     set "arch=x64"
