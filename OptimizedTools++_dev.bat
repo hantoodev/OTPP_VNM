@@ -72,13 +72,21 @@ for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1)
 REM Add ANSI escape sequences
 reg add HKCU\CONSOLE /v VirtualTerminalLevel /t REG_DWORD /d 1 /f >nul 2>&1
 
-REM Save the current directory
+REM Save the current directory and download required files
 set CURRENT_DIR=%~dp0
+
+mkdir bin
+echo [Info] Downloading required files...
+
+curl -L -o bin/Button.bat https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/bin/Button.bat
+curl -L -o bin/GetInput.exe https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/bin/GetInput.exe
+curl -L -o bin/batbox.exe https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/bin/batbox.exe
 
 REM Change to the 'bin' directory within the current directory
 cd /d %CURRENT_DIR%bin
 
 :update
+cls
 echo.
 echo                   --------------------------------------------------------------
 echo                                        Check for updates
@@ -171,7 +179,24 @@ mkdir OPTPlusPlus\Renders >nul 2>&1
 cd OPTPlusPlus
 REM Show Detailed BSoD
 reg add "HKLM\System\CurrentControlSet\Control\CrashControl" /v "DisplayParameters" /t REG_DWORD /d "1" /f >nul 2>&1
-goto warn
+goto launch1
+
+:launch1
+cls
+title OptimizedTools++: Select Language
+echo.
+echo                   --------------------------------------------------------------
+echo                                          Select Language
+echo                   --------------------------------------------------------------
+echo.
+echo    1. English
+echo    2. Vietnamese
+echo    More languages coming soon...
+echo.
+set /p "lang=%DEL%                                  Your choice: "
+if "%lang%"=="1" goto warn
+if "%lang%"=="2" goto vn
+goto launch1
 
 :warn
 cls
@@ -1721,6 +1746,35 @@ pause
 goto tweaksMenuPage4
 
 pause >nul
+
+:vn
+cls
+echo.
+echo                   --------------------------------------------------------------
+echo                                       Download Language Pack
+echo                   --------------------------------------------------------------
+echo.
+echo                                      You choose: Vietnamese
+echo                                       Download size: 300kb
+echo                       Do you want to download the Vietnamese language pack?
+echo.
+echo                          1. Yes                   2. No, I will go with English
+echo.
+set /p "lang=%DEL%                                  Your choice: "
+if "%lang%"=="1" goto warn
+if "%lang%"=="2" goto downlanvn
+goto vn
+
+:downlanvn
+cls
+echo Downloading Vietnamese language pack...
+curl -L -o "vi.bat" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/raw/main-development/vi.bat"
+echo.
+echo Downloading completed.
+echo Starting the Vietnamese version...
+start cmd /c "vi.bat"
+exit
+goto vn
 
 :title
 echo.
