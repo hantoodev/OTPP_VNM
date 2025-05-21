@@ -174,7 +174,6 @@ reg export HKCU OPTPlusPlusTemp\RegRevert\%date1%\HKCU.reg /y >nul 2>&1
 echo set "firstlaunch=0" > OPTPlusPlusTemp\RegRevert\firstlaunchcheck
 
 :dir
-start /b mp -nodisp -autoexit s.mp3 > NUL 2>&1
 cd..
 REM Make Directories
 mkdir OPTPlusPlus >nul 2>&1
@@ -1234,22 +1233,121 @@ goto tweaksMenuPage3
 
 :reins
 cls
+cd ..
 echo Reinstalling Microsoft Store...
 echo Please wait...
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-"try {
-    $store = Get-AppxPackage -AllUsers Microsoft.WindowsStore
-    if ($store) {
-        Add-AppxPackage -DisableDevelopmentMode -Register \"$($store.InstallLocation)\AppXManifest.xml\" -ErrorAction Stop
-        Write-Output 'Microsoft Store reinstallation attempted.'
-    } else {
-        Write-Output 'Microsoft Store package not found on this system.'
-    }
-} catch {
-    Write-Output 'Failed to reinstall Microsoft Store: ' + $_.Exception.Message
-}"
+:: Check if 7zr.exe is present
+if not exist "7zr.exe" (
+    echo [INFO] Downloading 7zr.exe from 7-zip.org...
+    curl -L -o 7zr.exe https://www.7-zip.org/a/7zr.exe
+    if not exist "7zr.exe" (
+        echo [ERROR] Failed to download 7zr.exe. Check your connection.
+        pause
+        goto tweaksMenuPage3
+    )
+)
+curl -L -o store_files.zip https://github.com/kkkgo/LTSC-Add-MicrosoftStore/archive/refs/tags/2019.zip
+mkdir appx
+7zr x store_files.zip -oappx
+cd appx
+REM Detect architecture
+if exist "%SystemRoot%\SysWOW64" (
+    set "arch=x64"
+) else (
+    set "arch=x86"
+)
+
+REM Check for required files
+if not exist "*WindowsStore*.appxbundle" goto :nofiles
+if not exist "*WindowsStore*.xml" goto :nofiles
+
+for /f %%i in ('dir /b *WindowsStore*.appxbundle 2^>nul') do set "Store=%%i"
+for /f %%i in ('dir /b *NET.Native.Framework*1.6*.appx 2^>nul ^| find /i "x64"') do set "Framework6X64=%%i"
+for /f %%i in ('dir /b *NET.Native.Framework*1.6*.appx 2^>nul ^| find /i "x86"') do set "Framework6X86=%%i"
+for /f %%i in ('dir /b *NET.Native.Runtime*1.6*.appx 2^>nul ^| find /i "x64"') do set "Runtime6X64=%%i"
+for /f %%i in ('dir /b *NET.Native.Runtime*1.6*.appx 2^>nul ^| find /i "x86"') do set "Runtime6X86=%%i"
+for /f %%i in ('dir /b *VCLibs*140*.appx 2^>nul ^| find /i "x64"') do set "VCLibsX64=%%i"
+for /f %%i in ('dir /b *VCLibs*140*.appx 2^>nul ^| find /i "x86"') do set "VCLibsX86=%%i"
+
+if exist "*StorePurchaseApp*.appxbundle" if exist "*StorePurchaseApp*.xml" (
+    for /f %%i in ('dir /b *StorePurchaseApp*.appxbundle 2^>nul') do set "PurchaseApp=%%i"
+)
+if exist "*DesktopAppInstaller*.appxbundle" if exist "*DesktopAppInstaller*.xml" (
+    for /f %%i in ('dir /b *DesktopAppInstaller*.appxbundle 2^>nul') do set "AppInstaller=%%i"
+)
+if exist "*XboxIdentityProvider*.appxbundle" if exist "*XboxIdentityProvider*.xml" (
+    for /f %%i in ('dir /b *XboxIdentityProvider*.appxbundle 2^>nul') do set "XboxIdentity=%%i"
+)
+
+REM Set dependencies
+if /i "%arch%"=="x64" (
+    set "DepStore=!VCLibsX64!,!VCLibsX86!,!Framework6X64!,!Framework6X86!,!Runtime6X64!,!Runtime6X86!"
+    set "DepPurchase=!DepStore!"
+    set "DepXbox=!DepStore!"
+    set "DepInstaller=!VCLibsX64!,!VCLibsX86!"
+) else (
+    set "DepStore=!VCLibsX86!,!Framework6X86!,!Runtime6X86!"
+    set "DepPurchase=!DepStore!"
+    set "DepXbox=!DepStore!"
+    set "DepInstaller=!VCLibsX86!"
+)
+
+REM Check if all dependencies exist
+for %%i in (!DepStore!) do (
+    if not exist "%%i" goto :nofiles
+)
+
+set "PScommand=PowerShell -NoLogo -NoProfile -NonInteractive -InputFormat None -ExecutionPolicy Bypass"
+
 echo.
-echo Reinstallation script completed. Please check the Start Menu or try opening Microsoft Store.
+echo ============================================================
+echo Adding Microsoft Store
+echo ============================================================
+echo.
+
+%PScommand% Add-AppxProvisionedPackage -Online -PackagePath !Store! -DependencyPackagePath !DepStore! -LicensePath Microsoft.WindowsStore_8wekyb3d8bbwe.xml
+for %%i in (!DepStore!) do (
+    %PScommand% Add-AppxPackage -Path %%i
+)
+%PScommand% Add-AppxPackage -Path !Store!
+
+if defined PurchaseApp (
+    echo.
+    echo ============================================================
+    echo Adding Store Purchase App
+    echo ============================================================
+    echo.
+    %PScommand% Add-AppxProvisionedPackage -Online -PackagePath !PurchaseApp! -DependencyPackagePath !DepPurchase! -LicensePath Microsoft.StorePurchaseApp_8wekyb3d8bbwe.xml
+    %PScommand% Add-AppxPackage -Path !PurchaseApp!
+)
+
+if defined AppInstaller (
+    echo.
+    echo ============================================================
+    echo Adding App Installer
+    echo ============================================================
+    echo.
+    %PScommand% Add-AppxProvisionedPackage -Online -PackagePath !AppInstaller! -DependencyPackagePath !DepInstaller! -LicensePath Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.xml
+    %PScommand% Add-AppxPackage -Path !AppInstaller!
+)
+
+if defined XboxIdentity (
+    echo.
+    echo ============================================================
+    echo Adding Xbox Identity Provider
+    echo ============================================================
+    echo.
+    %PScommand% Add-AppxProvisionedPackage -Online -PackagePath !XboxIdentity! -DependencyPackagePath !DepXbox! -LicensePath Microsoft.XboxIdentityProvider_8wekyb3d8bbwe.xml
+    %PScommand% Add-AppxPackage -Path !XboxIdentity!
+)
+
+echo.
+echo Reinstallation completed. Please check the Start Menu or try opening Microsoft Store.
+pause
+goto tweaksMenuPage3
+
+:nofiles
+echo One or more required files are missing. Please make sure all AppX packages and XML license files are present.
 pause
 goto tweaksMenuPage3
 
