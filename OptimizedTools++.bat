@@ -1,7 +1,7 @@
 @echo off
-setlocal EnableDelayedExpansion
 title OptimizedTools++: Preparing...
 REM Run as Admin
+setlocal EnableDelayedExpansion
 REM Delete the registry key
 reg delete HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v DummyEntry /f >reg_log.txt 2>&1
 reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v DummyEntry /t REG_SZ /d 1 >reg_log.txt 2>&1
@@ -73,7 +73,7 @@ echo                   ---------------------------------------------------------
 echo                                        Check for updates
 echo                   --------------------------------------------------------------
 echo.
-echo                                    Checking for new updates...
+echo                                     Checking for new updates...
 echo                                           Please wait.
 echo.
 
@@ -85,7 +85,7 @@ ping -n 5 localhost > nul
 set /p fileContent=<%temp%\check.txt
 
 :: Check the content and decide the action
-if "!fileContent!"=="1.1" (
+if "!fileContent!"=="1.2" (
     echo                         Your version is !fileContent!, you are up to date.
     ping -n 3 localhost > nul
 ) else (
@@ -105,7 +105,7 @@ if "!fileContent!"=="1.1" (
     cls
     echo.
     echo                                        Opening GitHub page...
-    start "" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest"
+    start "" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/"
     exit
 )
 
@@ -151,7 +151,6 @@ reg export HKCU OPTPlusPlusTemp\RegRevert\%date1%\HKCU.reg /y >nul 2>&1
 echo set "firstlaunch=0" > OPTPlusPlusTemp\RegRevert\firstlaunchcheck
 
 :dir
-start /b mp -nodisp -autoexit s.mp3 > NUL 2>&1
 cd..
 REM Make Directories
 mkdir OPTPlusPlus >nul 2>&1
@@ -508,6 +507,7 @@ goto tweaksMenu1
 
 :tweaksMenuPage2
 cls
+call :title
 echo.
 echo                   --------------------------------------------------------------
 echo                                    Windows Tweaks Menu (Page 2)
@@ -1085,7 +1085,7 @@ echo     48. Disable Microsoft Store App Updates
 echo     49. Hide Widgets and Weather
 echo     50. Disable Search in Taskbar
 echo     51. Disable Startup Items
-echo     52. Reinstall Microsoft Store
+echo     52. Reinstall Microsoft Store (beta, may not work)
 echo     53. Disable Edge WebWidget
 echo     54. Add delay to menu boot (3 seconds, only dual boot)
 echo     55. Disable Hibernation and Fast Startup
@@ -1207,22 +1207,121 @@ goto tweaksMenuPage3
 
 :reins
 cls
+cd ..
 echo Reinstalling Microsoft Store...
 echo Please wait...
-powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-"try {
-    $store = Get-AppxPackage -AllUsers Microsoft.WindowsStore
-    if ($store) {
-        Add-AppxPackage -DisableDevelopmentMode -Register \"$($store.InstallLocation)\AppXManifest.xml\" -ErrorAction Stop
-        Write-Output 'Microsoft Store reinstallation attempted.'
-    } else {
-        Write-Output 'Microsoft Store package not found on this system.'
-    }
-} catch {
-    Write-Output 'Failed to reinstall Microsoft Store: ' + $_.Exception.Message
-}"
+:: Check if 7zr.exe is present
+if not exist "7z.exe" (
+    echo [INFO] Downloading 7z.exe from OptimizedTools++ repo...
+    curl -L -o 7z.exe https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/7z.exe
+    if not exist "7z.exe" (
+        echo [ERROR] Failed to download 7z.exe. Check your connection.
+        pause
+        goto tweaksMenuPage3
+    )
+)
+curl -L -o store_files.zip https://github.com/kkkgo/LTSC-Add-MicrosoftStore/archive/refs/tags/2019.zip
+mkdir appx
+7z x store_files.zip -oappx
+cd appx\LTSC-Add-MicrosoftStore-2019
+REM Detect architecture
+if exist "%SystemRoot%\SysWOW64" (
+    set "arch=x64"
+) else (
+    set "arch=x86"
+)
+
+REM Check for required files
+if not exist "*WindowsStore*.appxbundle" goto :nofiles
+if not exist "*WindowsStore*.xml" goto :nofiles
+
+for /f %%i in ('dir /b *WindowsStore*.appxbundle 2^>nul') do set "Store=%%i"
+for /f %%i in ('dir /b *NET.Native.Framework*1.6*.appx 2^>nul ^| find /i "x64"') do set "Framework6X64=%%i"
+for /f %%i in ('dir /b *NET.Native.Framework*1.6*.appx 2^>nul ^| find /i "x86"') do set "Framework6X86=%%i"
+for /f %%i in ('dir /b *NET.Native.Runtime*1.6*.appx 2^>nul ^| find /i "x64"') do set "Runtime6X64=%%i"
+for /f %%i in ('dir /b *NET.Native.Runtime*1.6*.appx 2^>nul ^| find /i "x86"') do set "Runtime6X86=%%i"
+for /f %%i in ('dir /b *VCLibs*140*.appx 2^>nul ^| find /i "x64"') do set "VCLibsX64=%%i"
+for /f %%i in ('dir /b *VCLibs*140*.appx 2^>nul ^| find /i "x86"') do set "VCLibsX86=%%i"
+
+if exist "*StorePurchaseApp*.appxbundle" if exist "*StorePurchaseApp*.xml" (
+    for /f %%i in ('dir /b *StorePurchaseApp*.appxbundle 2^>nul') do set "PurchaseApp=%%i"
+)
+if exist "*DesktopAppInstaller*.appxbundle" if exist "*DesktopAppInstaller*.xml" (
+    for /f %%i in ('dir /b *DesktopAppInstaller*.appxbundle 2^>nul') do set "AppInstaller=%%i"
+)
+if exist "*XboxIdentityProvider*.appxbundle" if exist "*XboxIdentityProvider*.xml" (
+    for /f %%i in ('dir /b *XboxIdentityProvider*.appxbundle 2^>nul') do set "XboxIdentity=%%i"
+)
+
+REM Set dependencies
+if /i "%arch%"=="x64" (
+    set "DepStore=!VCLibsX64!,!VCLibsX86!,!Framework6X64!,!Framework6X86!,!Runtime6X64!,!Runtime6X86!"
+    set "DepPurchase=!DepStore!"
+    set "DepXbox=!DepStore!"
+    set "DepInstaller=!VCLibsX64!,!VCLibsX86!"
+) else (
+    set "DepStore=!VCLibsX86!,!Framework6X86!,!Runtime6X86!"
+    set "DepPurchase=!DepStore!"
+    set "DepXbox=!DepStore!"
+    set "DepInstaller=!VCLibsX86!"
+)
+
+REM Check if all dependencies exist
+for %%i in (!DepStore!) do (
+    if not exist "%%i" goto :nofiles
+)
+
+set "PScommand=PowerShell -NoLogo -NoProfile -NonInteractive -InputFormat None -ExecutionPolicy Bypass"
+
 echo.
-echo Reinstallation script completed. Please check the Start Menu or try opening Microsoft Store.
+echo ============================================================
+echo Adding Microsoft Store
+echo ============================================================
+echo.
+
+%PScommand% Add-AppxProvisionedPackage -Online -PackagePath !Store! -DependencyPackagePath !DepStore! -LicensePath Microsoft.WindowsStore_8wekyb3d8bbwe.xml
+for %%i in (!DepStore!) do (
+    %PScommand% Add-AppxPackage -Path %%i
+)
+%PScommand% Add-AppxPackage -Path !Store!
+
+if defined PurchaseApp (
+    echo.
+    echo ============================================================
+    echo Adding Store Purchase App
+    echo ============================================================
+    echo.
+    %PScommand% Add-AppxProvisionedPackage -Online -PackagePath !PurchaseApp! -DependencyPackagePath !DepPurchase! -LicensePath Microsoft.StorePurchaseApp_8wekyb3d8bbwe.xml
+    %PScommand% Add-AppxPackage -Path !PurchaseApp!
+)
+
+if defined AppInstaller (
+    echo.
+    echo ============================================================
+    echo Adding App Installer
+    echo ============================================================
+    echo.
+    %PScommand% Add-AppxProvisionedPackage -Online -PackagePath !AppInstaller! -DependencyPackagePath !DepInstaller! -LicensePath Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.xml
+    %PScommand% Add-AppxPackage -Path !AppInstaller!
+)
+
+if defined XboxIdentity (
+    echo.
+    echo ============================================================
+    echo Adding Xbox Identity Provider
+    echo ============================================================
+    echo.
+    %PScommand% Add-AppxProvisionedPackage -Online -PackagePath !XboxIdentity! -DependencyPackagePath !DepXbox! -LicensePath Microsoft.XboxIdentityProvider_8wekyb3d8bbwe.xml
+    %PScommand% Add-AppxPackage -Path !XboxIdentity!
+)
+
+echo.
+echo Reinstallation completed. Please check the Start Menu or try opening Microsoft Store.
+pause
+goto tweaksMenuPage3
+
+:nofiles
+echo One or more required files are missing. Please make sure all AppX packages and XML license files are present.
 pause
 goto tweaksMenuPage3
 
