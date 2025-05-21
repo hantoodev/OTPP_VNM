@@ -12,7 +12,7 @@
     <img src="https://img.shields.io/badge/Status-Active%20Development-blue" alt="Development Status">
   </a>
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases">
-    <img src="https://img.shields.io/badge/App%20Version-1.2+stable-green" alt="App Version">
+    <img src="https://img.shields.io/badge/App%20Version-1.3+test-darkred" alt="App Version">
   </a>
   <img src="https://img.shields.io/badge/Tweaks%20Available-70%2B-blue" alt="Tweaks Available">
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus">
