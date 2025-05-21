@@ -34,18 +34,6 @@ echo    Proceed with caution!
 echo.
 pause
 
-cls
-echo.
-setlocal EnableDelayedExpansion
-echo    OptimizedTools++ only supports Windows 10 or newer.
-echo    Please run it on a compatible version.
-echo    If you are running Windows 8 or older, please upgrade your OS.
-echo.
-echo    Warning: Running this program on an outdated version of Windows may result in system corruption.
-echo    Proceed with caution!
-echo.
-pause
-
 echo.
 echo Detecting Windows version...
 
