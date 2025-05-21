@@ -12,14 +12,14 @@
     <img src="https://img.shields.io/badge/Status-Active%20Development-blue" alt="Development Status">
   </a>
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases">
-    <img src="https://img.shields.io/badge/App%20Version-1.2+unstable-red" alt="App Version">
+    <img src="https://img.shields.io/badge/App%20Version-1.2+stable-green" alt="App Version">
   </a>
   <img src="https://img.shields.io/badge/Tweaks%20Available-70%2B-blue" alt="Tweaks Available">
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus">
     <img src="https://img.shields.io/badge/Code%20Quality-A-brightgreen?logo=codefactor" alt="Code Quality">
   </a>
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/blob/main-development/OptimizedTools%2B%2B.bat">
-    <img src="https://img.shields.io/badge/Lines%20in%20the%20script-1630+-green" alt="Lines Number">
+    <img src="https://img.shields.io/badge/Lines%20in%20the%20script-1720+-green" alt="Lines Number">
   </a>
 </div>
 
