@@ -121,6 +121,8 @@ OptimizedTools++ is an **open-source project**, and contributions are **highly a
 
 **We need someone to translate the project!**
 
+and we will credit you.
+
 Now only support Vietnamese language.
 
 Please fork the source, then start move the file (version/stable.bat) to lang folder, translate it to language you want, and open a pull request! 
