@@ -240,7 +240,7 @@ echo    7. Utility, Extras                                      8. Restore, Main
 echo.
 echo                   [9] Exit [0] Restart [r] Restore Point [s] Settings [d] Debug
 echo. 
-echo                                        1.3+unstable
+echo                                                 1.3
 echo                                         Welcome. %username%
 set /p "choice=%DEL%                                       Your choice: "
 if "%choice%"=="1" goto systemperf-uienchant
