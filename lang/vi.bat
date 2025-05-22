@@ -11,18 +11,8 @@ if %errorlevel% neq 0 (
     exit /b
 )
 
+@echo off
 cls
-echo.
-echo    ------------ YOU ARE RUNNING AN UNSTABLE BUILD ------------
-echo    This build is not recommended for production use.
-echo    It is intended for testing and development purposes only.
-echo    Please use at your own risk.
-echo.
-echo    Detected: You are running this unstable build directly from the source code.
-echo    This version may contain experimental features, incomplete tweaks, or bugs.
-echo    For the latest stable release, visit: https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases
-echo.
-echo    ------------------------------------------------------------
 echo.
 setlocal EnableDelayedExpansion
 echo    OptimizedTools++ only supports Windows 10 or newer.
@@ -91,20 +81,23 @@ echo.
 echo                   --------------------------------------------------------------
 echo                                        Check for updates
 echo                   --------------------------------------------------------------
-echo                        Warning: Unstable builds don't have a stable updater.
+echo.
 echo                                     Checking for new updates...
-echo                                           Please wait.
+echo                                           Please wait...
 echo.
 
+:: Remove the old files
+del "%temp%\check.txt"
+
 :: Download the latest version info
-curl -s -o "%temp%\check_unstable.txt" https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/update/check_unstable.txt
+curl -s -o "%temp%\check.txt" https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/update/check.txt
 ping -n 5 localhost > nul
 
 :: Read the file content
-set /p fileContent=<%temp%\check_unstable.txt
+set /p fileContent=<%temp%\check.txt
 
 :: Check the content and decide the action
-if "!fileContent!"=="1.3+unstable" (
+if "!fileContent!"=="1.3" (
     echo                         Your version is !fileContent!, you are up to date.
     ping -n 3 localhost > nul
 ) else (
@@ -124,7 +117,7 @@ if "!fileContent!"=="1.3+unstable" (
     cls
     echo.
     echo                                        Opening GitHub page...
-    start "" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/"
+    start "" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest"
     exit
 )
 
@@ -188,12 +181,12 @@ echo.
 echo                   --------------------------------------------------------------
 echo                                          Select Language
 echo                   --------------------------------------------------------------
-echo    (please select english, vietnamese not available)
+echo.
 echo    1. English
-echo    2. Vietnamese
+echo    2. Vietnamese (translate in progress)
 echo    More languages coming soon...
 echo.
-set /p "lang=%DEL%                                  Your choice: "
+set /p "lang=%DEL%                                          Your choice: "
 if "%lang%"=="1" goto warn
 if "%lang%"=="2" goto vn
 goto launch1
@@ -228,71 +221,345 @@ echo    making a manual restore point before running.
 echo.
 echo    For any questions and/or concerns, please go to my GitHub: NammIsADev/OptimizedToolsPlusPlus
 echo    Type "Yes" to continue: 
-set /p "input=%DEL%                                     Your input:
+set /p "input=%DEL%                                       Your input:
 if /i "!input!" neq "yes" goto warn
 reg add "HKCU\Software\opt" /v "Disclaimer" /f >nul 2>&1
-goto tweaksMenu1
+goto tweakcat
 
-:tweaksMenu1
-title OptimizedTools++
+:tweakcat
 cls
-echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
+title OptimizedTools++
+echo.
 call :title
 echo.
 echo                   --------------------------------------------------------------
-echo                                         Windows Tweaks Menu
+echo                                          Tweaks Category
+echo                   --------------------------------------------------------------
+echo.
+echo    1. System Performance, UI Enhancements                  2. Windows Customizations
+echo    3. Uninstall, Debloat                                   4. Security, Privacy
+echo    5. Networking, Performance Tweaks                       6. Gaming, Hardware Optimizations
+echo    7. Utility, Extras                                      8. Restore, Maintenance Options
+echo.
+echo                   [9] Exit [0] Restart [r] Restore Point [s] Settings [d] Debug
+echo. 
+echo                                         Welcome. %username%
+set /p "choice=%DEL%                                       Your choice: "
+if "%choice%"=="1" goto systemperf-uienchant
+if "%choice%"=="2" goto windowscustomizations
+if "%choice%"=="3" goto uninstall-debloat
+if "%choice%"=="4" goto security-privacy
+if "%choice%"=="5" goto networking-performance
+if "%choice%"=="6" goto gaming-hardware
+if "%choice%"=="7" goto utility-extras
+if "%choice%"=="8" goto restore-maintenance
+if "%choice%"=="9" exit
+if "%choice%"=="0" goto restart
+if "%choice%"=="r" goto restorepoint1
+if "%choice%"=="s" goto settings
+if "%choice%"=="d" goto debug
+goto tweakcat
+
+:restorepoint1
+cd ..
+cd bin
+goto restorepoint
+
+:systemperf-uienchant
+cls
+title OptimizedTools++: System Performance, UI Enhancements
+echo.
+echo                   --------------------------------------------------------------
+echo                                 System Performance, UI Enhancements
 echo                   --------------------------------------------------------------
 echo.
 echo     1. Disable Startup Delay
 echo     2. Enable Dark Mode
-echo     3. Disable Telemetry
-echo     4. Optimize Network Performance
-echo     5. Disable Cortana
-echo     6. Enable File Extensions
-echo     7. Disable Animations
-echo     8. Clear Temporary Files
-echo     9. Enable Faster Shutdown
-echo     10. Remove Bloatware
-echo     11. Debloat Windows 10/11
-echo     12. Disable Windows Defender
-echo     13. Enable Classic Taskbar (may not work on 23H2+)
-echo     14. Disable Action Center
-echo     15. Enable Verbose Boot
-echo     16. Uninstall OneDrive
-echo     17. Disable Background Apps
-echo     18. Disable Fullscreen Optimizations
-echo     19. Next Page
+echo     3. Enable File Extensions
+echo     4. Disable Animations
+echo     5. Enable Faster Shutdown
+echo     6. Enable Classic Taskbar (may not work on 23H2+)
+echo     7. Enable Verbose Boot
+echo     8. Disable Background Apps
+echo     9. Enable Ultimate Performance Plan
+echo     10. Enable Large System Cache
+echo     11. Optimize GPU Scheduling (Intel/AMD)
+echo     12. Auto Tweaks for Desktop/Laptop
+echo     13. Disable Unnecessary Windows Services
+echo     14. Align Taskbar to Left (Windows 11+ only)
+echo     15. Disable NTFS Indexing
+echo     16. Disable Superfetch (Caution: affect performance)
+echo     17. Disable Startup Items
+echo     18. Go back main menu
+echo     19. Next page
 echo.
-echo                                           Welcome. %username%
-set /p "choice=%DEL%                                  Your choice: "
-
+echo                                         Welcome. %username%
+set /p "choice=%DEL%                                       Your choice: "
 if "%choice%"=="1" goto disableStartupDelay
 if "%choice%"=="2" goto enableDarkMode
-if "%choice%"=="3" goto disableTelemetry
-if "%choice%"=="4" goto optimizeNetwork
-if "%choice%"=="5" goto disableCortana
-if "%choice%"=="6" goto enableFileExtensions
-if "%choice%"=="7" goto disableAnimations
-if "%choice%"=="8" goto clearTempFiles
-if "%choice%"=="9" goto fasterShutdown
-if "%choice%"=="10" goto removeBloatware
-if "%choice%"=="11" goto debloatWindows
-if "%choice%"=="12" goto disableWindowsDefender
-if "%choice%"=="13" goto enableClassicTaskbar
-if "%choice%"=="14" goto disableActionCenter
-if "%choice%"=="15" goto enableVerboseBoot
-if "%choice%"=="16" goto uninstallOneDrive
-if "%choice%"=="17" goto disableBackgroundApps
-if "%choice%"=="18" goto disableFullscreenOptimizations
-if "%choice%"=="19" goto tweaksMenuPage2
-goto tweaksMenu1
+if "%choice%"=="3" goto enableFileExtensions
+if "%choice%"=="4" goto disableAnimations
+if "%choice%"=="5" goto fasterShutdown
+if "%choice%"=="6" goto enableClassicTaskbar
+if "%choice%"=="7" goto enableVerboseBoot
+if "%choice%"=="8" goto disableBackgroundApps
+if "%choice%"=="9" goto enableUltimatePerformance
+if "%choice%"=="10" goto enableLargeSystemCache
+if "%choice%"=="11" goto optimizeGPUScheduling
+if "%choice%"=="12" goto autoTweaks
+if "%choice%"=="13" goto disableUnnecessaryServices
+if "%choice%"=="14" goto alignTaskbarLeft
+if "%choice%"=="15" goto disableNTFSIndexing
+if "%choice%"=="16" goto disableSuperfetch
+if "%choice%"=="17" goto askDisableStartup
+if "%choice%"=="18" goto tweakcat
+if "%choice%"=="19" goto systemperf-uienchantpage2
+goto systemperf-uienchant
+
+:systemperf-uienchantpage2
+cls
+call :title
+echo.
+echo                   --------------------------------------------------------------
+echo                               System Performance, UI Enhancements (P2)
+echo                   --------------------------------------------------------------
+echo.
+echo     20. Disable Hibernation and Fast Startup
+echo     21. Disable Power Throttling (Intel Gen 6+)
+echo     22. Tweak CPU Priority
+echo     23. Make svchost processes run better
+echo     24. Disable Webview/Webwidget
+echo     25. Disable Action Center
+echo     26. Go back page 1
+echo     27. Go back main menu
+echo.
+echo                                         Welcome. %username%
+set /p "choice=%DEL%                                       Your choice: "
+if "%choice%"=="20" goto fastanddisable
+if "%choice%"=="21" goto powerthrottle
+if "%choice%"=="22" goto tweakCPUPriority
+if "%choice%"=="23" goto tweakSvchost
+if "%choice%"=="24" goto disableWebwidget
+if "%choice%"=="25" goto disableActionCenter
+if "%choice%"=="26" goto systemperf-uienchant
+if "%choice%"=="27" goto tweakcat
+goto systemperf-uienchantpage2
+
+:windowscustomizations
+cls
+title OptimizedTools++: Windows Customizations
+echo.
+echo                   --------------------------------------------------------------
+echo                                      Windows Customizations
+echo                   --------------------------------------------------------------
+echo.
+echo    1. Set Classic Right-Click Menu (Windows 11+)
+echo    2. Add delay to menu boot (3 seconds, only dual boot)
+echo    3. Disable Sticky Keys and Filter Keys
+echo    4. Hide Widgets and Weather (cause bug, disable in taskbar first)
+echo    5. Disable Search in Taskbar
+echo    6. Disable Fullscreen Optimizations
+echo    7. Go back main menu
+echo.
+echo                                         Welcome. %username%
+set /p "choice=%DEL%                                       Your choice: "
+if "%choice%"=="1" goto setClassicRightClickMenu
+if "%choice%"=="2" goto dualboot
+if "%choice%"=="3" goto disableStickyKeys
+if "%choice%"=="4" goto hideWidgetsWeather
+if "%choice%"=="5" goto disableSearchTaskbar
+if "%choice%"=="6" goto disableFullscreenOptimizations
+if "%choice%"=="7" goto tweakcat
+goto windowscustomizations
+
+:uninstall-debloat
+cls
+title OptimizedTools++: Uninstall, Debloat
+echo.
+echo                   --------------------------------------------------------------
+echo                                        Uninstall, Debloat
+echo                   --------------------------------------------------------------
+echo.
+echo     1. Clear Temporary Files
+echo     2. Remove Bloatware
+echo     3. Debloat Windows 10/11
+echo     4. Uninstall OneDrive
+echo     5. Uninstall Microsoft Edge (Powered by ShadowWhisperer)
+echo     6. Reinstall Microsoft Store
+echo     7. Debloat Edge
+echo     8. Disable Location, Installing Suggested Apps, Unnecessary Components
+echo     9. Go back main menu
+echo.
+echo                                         Welcome. %username%
+set /p "choice=%DEL%                                       Your choice: "
+if "%choice%"=="1" goto clearTempFiles
+if "%choice%"=="2" goto removeBloatware
+if "%choice%"=="3" goto debloatWindows
+if "%choice%"=="4" goto uninstallOneDrive
+if "%choice%"=="5" goto removeEdge
+if "%choice%"=="6" goto reins
+if "%choice%"=="7" goto debloatEdge
+if "%choice%"=="8" goto disable3
+if "%choice%"=="9" goto tweakcat
+goto uninstall-debloat
+
+:security-privacy
+cls
+title OptimizedTools++: Security, Privacy
+echo.
+echo                   --------------------------------------------------------------
+echo                                         Security, Privacy
+echo                   --------------------------------------------------------------
+echo.
+echo     1. Disable Telemetry
+echo     2. Disable Cortana (Old Windows 10)
+echo     3. Disable Windows Defender
+echo     4. Turn Off Reserved Storage
+echo     5. Turn Off Spectre and Meltdown Mitigations (CAUTION)
+echo     6. Disable Office Telemetry
+echo     7. Disable SmartScreen (Caution: may affect security)
+echo     8. Disable Microsoft Store App Updates
+echo     9. Disable Windows Insider (Caution: cause bug in Settings app)
+echo     10. Disable App Launch Tracking
+echo     11. Disable App Suggestions
+echo     12. Disable Activity History
+echo     13. Disable Windows Error Reporting
+echo     14. Disable all ADS
+echo     15. Go back main menu
+echo.
+echo                                         Welcome. %username%
+set /p "choice=%DEL%                                       Your choice: "
+if "%choice%"=="1" goto disableTelemetry
+if "%choice%"=="2" goto disableCortana
+if "%choice%"=="3" goto disableWindowsDefender
+if "%choice%"=="4" goto turnOffReservedStorage
+if "%choice%"=="5" goto turnOffSpectreMeltdown
+if "%choice%"=="6" goto disableOfficeTelemetry
+if "%choice%"=="7" goto disableSmartScreen
+if "%choice%"=="8" goto disableStoreAppUpdates
+if "%choice%"=="9" goto insider
+if "%choice%"=="10" goto apptrack
+if "%choice%"=="11" goto appsuggest
+if "%choice%"=="12" goto disableActivityHistory
+if "%choice%"=="13" goto disableWindowsErrorReporting
+if "%choice%"=="14" goto disableADS
+if "%choice%"=="15" goto tweakcat
+goto security-privacy
+
+:networking-performance
+cls
+title OptimizedTools++: Networking, Performance Tweaks
+echo.
+echo                   --------------------------------------------------------------
+echo                                    Networking, Performance Tweaks
+echo                   --------------------------------------------------------------
+echo.
+echo     1. Optimize Network Performance
+echo     2. Disable IPv6
+echo     3. Disable Teredo
+echo     4. Tweak TCP/IP Settings
+echo     5. Flush DNS Cache
+echo     6. Change DNS Server
+echo     7. Disable QoS Packet Scheduler
+echo     8. Disable Network Throttling
+echo     9. Disable Network Discovery
+echo     10. Enhance System Network (using Network+)
+echo     11. Go back main menu
+echo.
+echo                                         Welcome. %username%
+set /p "choice=%DEL%                                       Your choice: "
+if "%choice%"=="1" goto optimizeNetwork
+if "%choice%"=="2" goto disableIPv6
+if "%choice%"=="3" goto disableTeredo
+if "%choice%"=="4" goto tweakTCPIP
+if "%choice%"=="5" goto flushDNS
+if "%choice%"=="6" goto changeDNS
+if "%choice%"=="7" goto disableQoSPacketScheduler
+if "%choice%"=="8" goto disableNetworkThrottling
+if "%choice%"=="9" goto disableNetworkDiscovery
+if "%choice%"=="10" goto enhanceSystemNetwork
+if "%choice%"=="11" goto tweakcat
+goto networking-performance
+
+:gaming-hardware
+cls
+title OptimizedTools++: Gaming, Hardware Optimizations
+echo.
+echo                   --------------------------------------------------------------
+echo                                   Gaming, Hardware Optimizations
+echo                   --------------------------------------------------------------
+echo.
+echo     1. NVIDIA GPU Optimization
+echo     2. Disable HPET
+echo     3. Disable CPU C-States
+echo     4. Enable CPU Turbo Boost
+echo     5. Enable Hyper Threading
+echo     6. Go back main menu
+echo.
+echo                                         Welcome. %username%
+set /p "choice=%DEL%                                       Your choice: "
+if "%choice%"=="1" goto nvidiaOptimization
+if "%choice%"=="2" goto disableHPET
+if "%choice%"=="3" goto disableCStates
+if "%choice%"=="4" goto enableTurboBoost
+if "%choice%"=="5" goto enableHyperThreading
+if "%choice%"=="6" goto tweakcat
+goto gaming-hardware
+
+:utility-extras
+cls
+title OptimizedTools++: Utility, Extras
+echo.
+echo                   --------------------------------------------------------------
+echo                                         Utility, Extras
+echo                   --------------------------------------------------------------
+echo     1. Install Useful Apps (Notepad++, Discord, Browser)
+echo     2. Activate Windows (Powered by MAS)
+echo     3. Disable Microsoft Copilot
+echo     4. Go back main menu
+echo.
+echo                                         Welcome. %username%
+set /p "choice=%DEL%                                       Your choice: "
+if "%choice%"=="1" goto installUsefulApps
+if "%choice%"=="2" goto activateWindows
+if "%choice%"=="3" goto disableMicrosoftCopilot
+if "%choice%"=="4" goto tweakcat
+goto utility-extras
+
+:restore-maintenance
+cls
+title OptimizedTools++: Restore, Maintenance Options
+echo.
+echo                   --------------------------------------------------------------
+echo                                    Restore, Maintenance Options
+echo                   --------------------------------------------------------------
+echo     1. Disable Windows Updates (Caution: may affect security)
+echo     2. Restart your PC
+echo     3. SFC /scannow
+echo     4. DISM /Online /Cleanup-Image /RestoreHealth
+echo     5. Start Restore Point
+echo     6. Free up Disk Space
+echo     7. Chkdsk /f /r C:
+echo     8. Go back main menu
+echo.
+echo                                         Welcome. %username%
+set /p "choice=%DEL%                                       Your choice: "
+if "%choice%"=="1" goto disableWindowsUpdates
+if "%choice%"=="2" goto restart
+if "%choice%"=="3" goto sfc1
+if "%choice%"=="4" goto dism
+if "%choice%"=="5" goto startRestorePoint
+if "%choice%"=="6" goto freeDiskSpace
+if "%choice%"=="7" goto chkdsk2
+if "%choice%"=="8" goto tweakcat
+goto restore-maintenance
 
 :disableStartupDelay
 cls
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v "StartupDelayInMSec" /t REG_DWORD /d 0 /f
 echo Disabled Startup Delay.
 pause
-goto tweaksMenu1
+goto systemperf-uienchant
 
 :enableDarkMode
 cls
@@ -300,7 +567,7 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d 0 /f
 echo Enabled Dark Mode.
 pause
-goto tweaksMenu1
+goto systemperf-uienchant
 
 :disableTelemetry
 cls
@@ -377,7 +644,7 @@ reg add "HKCU\SOFTWARE\Policies\Microsoft\Office\16.0\OSM" /v "EnableUpload" /t 
 reg add "HKCU\SOFTWARE\Policies\Microsoft\Office\15.0\OSM" /v 
 echo Disabled Telemetry.
 pause
-goto tweaksMenu1
+goto security-privacy
 
 :optimizeNetwork
 cls
@@ -385,21 +652,21 @@ reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpAckFreq
 reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters" /v "TCPNoDelay" /t REG_DWORD /d 1 /f
 echo Optimized Network Performance.
 pause
-goto tweaksMenu1
+goto networking-performance
 
 :disableCortana
 cls
 reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d 0 /f
 echo Disabled Cortana.
 pause
-goto tweaksMenu1
+goto security-privacy
 
 :enableFileExtensions
 cls
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t REG_DWORD /d 0 /f
 echo Enabled File Extensions.
 pause
-goto tweaksMenu1
+goto systemperf-uienchant
 
 :disableAnimations
 cls
@@ -407,14 +674,14 @@ reg add "HKCU\Control Panel\Desktop" /v "UserPreferencesMask" /t REG_BINARY /d 9
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "MinAnimate" /t REG_SZ /d 0 /f
 echo Disabled Animations.
 pause
-goto tweaksMenu1
+goto systemperf-uienchant
 
 :clearTempFiles
 cls
 del /q /s %temp%\*
 echo Cleared Temporary Files.
 pause
-goto tweaksMenu1
+goto uninstall-debloat
 
 :fasterShutdown
 cls
@@ -423,7 +690,7 @@ reg add "HKCU\Control Panel\Desktop" /v "WaitToKillAppTimeout" /t REG_SZ /d 2000
 reg add "HKCU\Control Panel\Desktop" /v "HungAppTimeout" /t REG_SZ /d 2000 /f
 echo Enabled Faster Shutdown.
 pause
-goto tweaksMenu1
+goto systemperf-uienchant
 
 :removeBloatware
 cls
@@ -457,7 +724,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 echo.
 echo All pre-installed apps (including Store, Photos, Terminal, etc.) removed.
 pause
-goto tweaksMenu1
+goto uninstall-debloat
 
 :debloatWindows
 cls
@@ -482,7 +749,7 @@ powershell -Command "Get-CimInstance Win32_StartupCommand | Where-Object { $_.Co
 
 echo Windows debloated successfully.
 pause
-goto tweaksMenu1
+goto uninstall-debloat
 
 :disableWindowsDefender
 cls
@@ -490,28 +757,28 @@ reg add "HKLM\Software\Policies\Microsoft\Windows Defender" /v "DisableAntiSpywa
 reg add "HKLM\Software\Policies\Microsoft\Windows Defender" /v "DisableRealtimeMonitoring" /t REG_DWORD /d 1 /f
 echo Disabled Windows Defender.
 pause
-goto tweaksMenu1
+goto security-privacy
 
 :enableClassicTaskbar
 cls
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSmallIcons" /t REG_DWORD /d 1 /f
 echo Enabled Classic Taskbar.
 pause
-goto tweaksMenu1
+goto systemperf-uienchant
 
 :disableActionCenter
 cls
 reg add "HKLM\Software\Policies\Microsoft\Windows\Explorer" /v "DisableNotificationCenter" /t REG_DWORD /d 1 /f
 echo Disabled Action Center.
 pause
-goto tweaksMenu1
+goto systemperf-uienchantpage2
 
 :enableVerboseBoot
 cls
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System" /v "VerboseStatus" /t REG_DWORD /d 1 /f
 echo Enabled Verbose Boot.
 pause
-goto tweaksMenu1
+goto systemperf-uienchant
 
 :uninstallOneDrive
 cls
@@ -522,16 +789,7 @@ reg delete "HKLM\Software\Microsoft\OneDrive" /f >nul 2>&1
 reg delete "HKLM\Software\WOW6432Node\Microsoft\OneDrive" /f >nul 2>&1
 echo OneDrive uninstalled successfully.
 pause
-goto tweaksMenu1
-
-:disableBackgroundApps
-cls
-echo Disabling Background Apps...
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /t REG_DWORD /d 1 /f >nul 2>&1
-reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /t REG_DWORD /d 1 /f >nul 2>&1
-echo Background Apps disabled successfully.
-pause
-goto tweaksMenu1
+goto uninstall-debloat
 
 :disableFullscreenOptimizations
 cls
@@ -540,68 +798,7 @@ reg add "HKCU\System\GameConfigStore" /v "GameDVR_FSEBehaviorMode" /t REG_DWORD 
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_HonorUserFSEBehaviorMode" /t REG_DWORD /d 1 /f >nul 2>&1
 echo Fullscreen Optimizations disabled successfully.
 pause
-goto tweaksMenu1
-
-:tweaksMenuPage2
-cls
-echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
-call :title
-echo.
-echo                   --------------------------------------------------------------
-echo                                    Windows Tweaks Menu (Page 2)
-echo                   --------------------------------------------------------------
-echo.
-echo     20. Disable Microsoft Copilot
-echo     21. Disable IPv6
-echo     22. Disable Teredo
-echo     23. Set Classic Right-Click Menu
-echo     24. Uninstall Microsoft Edge (Powered by ShadowWhisperer)
-echo     25. Install Useful Apps (Notepad++, Discord, Browser, supported at dev ver)
-echo     26. Enable Ultimate Performance Plan
-echo     27. Turn Off Reserved Storage
-echo     28. Tweak TCP/IP Settings
-echo     29. Flush DNS Cache
-echo     30. Enable Large System Cache
-echo     31. Optimize GPU Scheduling (Intel/AMD)
-echo     32. Turn Off Spectre and Meltdown Mitigations (CAUTION)
-echo     33. (NVIDIA) GPU Optimization
-echo     34. Auto Tweaks for Desktop/Laptop
-echo     35. Activate Windows (Powered by MAS)
-echo     36. Disable HPET
-echo     37. Enhance System and Network Performance
-echo     38. Disable Unnecessary Windows Services
-echo     39. Disable Office Telemetry
-echo     40. Change DNS Server
-echo     41. Back to Main Menu
-echo     42. Go to Page 3
-echo.
-echo                                           Welcome. %username%
-set /p "choice=%DEL%                                  Your choice: "
-
-if "%choice%"=="20" goto disableMicrosoftCopilot
-if "%choice%"=="21" goto disableIPv6
-if "%choice%"=="22" goto disableTeredo
-if "%choice%"=="23" goto setClassicRightClickMenu
-if "%choice%"=="24" goto removeEdge
-if "%choice%"=="25" goto installUsefulApps
-if "%choice%"=="26" goto enableUltimatePerformance
-if "%choice%"=="27" goto turnOffReservedStorage
-if "%choice%"=="28" goto tweakTCPIP
-if "%choice%"=="29" goto flushDNSCache
-if "%choice%"=="30" goto enableLargeSystemCache
-if "%choice%"=="31" goto optimizeGPUScheduling
-if "%choice%"=="32" goto turnOffSpectreMeltdown
-if "%choice%"=="41" goto tweaksMenu1
-if "%choice%"=="33" goto nvidiaOptimization
-if "%choice%"=="34" goto autoTweaks
-if "%choice%"=="35" goto activateWindows
-if "%choice%"=="36" goto disableHPET
-if "%choice%"=="37" goto enhanceSystemNetwork
-if "%choice%"=="38" goto disableUnnecessaryServices
-if "%choice%"=="39" goto disableOfficeTelemetry
-if "%choice%"=="40" goto changeDNS
-if "%choice%"=="42" goto tweaksMenuPage3
-goto tweaksMenuPage2
+goto windowscustomizations
 
 :disableMicrosoftCopilot
 cls
@@ -610,7 +807,7 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "S
 reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Copilot" /v "TurnOffWindowsCopilot" /t REG_DWORD /d 1 /f >nul 2>&1
 echo Microsoft Copilot disabled. You might need to restart Explorer or your computer for the change to take full effect.
 pause
-goto tweaksMenuPage2
+goto utility-extras
 
 :disableIPv6
 cls
@@ -618,7 +815,7 @@ echo Disabling IPv6...
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" /v "DisabledComponents" /t REG_DWORD /d 0xffffffff /f >nul 2>&1
 echo IPv6 disabled. You might need to restart your computer for the changes to take effect.
 pause
-goto tweaksMenuPage2
+goto networking-performance
 
 :disableTeredo
 cls
@@ -626,16 +823,16 @@ echo Disabling Teredo...
 netsh interface teredo set state disabled
 echo Teredo disabled.
 pause
-goto tweaksMenuPage2
+goto networking-performance
 
 :setClassicRightClickMenu
 cls
 echo Setting classic right-click menu...
 reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /ve /t REG_SZ /d "" /f >nul 2>&1
 reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" /v "ThreadingModel" /t REG_SZ /d "Apartment" /f >nul 2>&1
-echo Classic right-click menu set. You might need to restart Explorer for the change to take effect.
-pause
-goto tweaksMenuPage2
+taskkill /f /im explorer.exe && explorer.exe
+echo Classic right-click menu set. 
+goto windowscustomizations
 
 :removeEdge
 cls
@@ -784,9 +981,10 @@ for /d %%d in ("%SystemRoot%\SystemApps\Microsoft.MicrosoftEdge*") do (
  takeown /f "%%d" /r /d y >NUL 2>&1
  icacls "%%d" /grant administrators:F /t >NUL 2>&1
  rd /s /q "%%d" >NUL 2>&1)
+echo Microsoft Edge uninstalled successfully.
 pause
 title OptimizedTools++
-goto tweaksMenuPage2
+goto uninstall-debloat
 
 :installUsefulApps
 cls
@@ -803,7 +1001,7 @@ if %errorlevel% neq 0 (
     if %errorlevel% neq 0 (
         echo Failed to install Chocolatey. Please install it manually and re-run this script.
         pause
-        goto tweaksMenuPage2
+        goto utility-extras
     )
     echo Chocolatey installed successfully.
 ) else (
@@ -817,7 +1015,7 @@ choco install -y notepadplusplus discord firefox vlc winrar
 echo.
 echo All applications installed successfully.
 pause
-goto tweaksMenuPage2
+goto utility-extras
 
 
 :enableUltimatePerformance
@@ -835,8 +1033,6 @@ if %errorlevel% neq 0 (
     ) else (
         echo Failed to create Ultimate Performance scheme.
         echo This feature may not be supported on your system.
-        pause
-        goto tweaksMenuPage2
     )
 ) else (
     echo Ultimate Performance scheme already exists.
@@ -867,8 +1063,6 @@ if %errorlevel% neq 0 echo [Warning] Failed to set DC standby timeout
 
 echo.
 echo All power settings applied.
-pause
-goto tweaksMenuPage2
 
 
 :: Set the Ultimate Performance scheme as active
@@ -880,8 +1074,9 @@ if %errorlevel% equ 0 (
     echo This feature might not be supported on your system.
 )
 
+echo Power plan changes applied successfully.
 pause
-goto tweaksMenuPage2
+goto systemperf-uienchant
 
 :turnOffReservedStorage
 cls
@@ -889,7 +1084,7 @@ echo Turning off reserved storage...
 reg add "HKLM\Software\Microsoft\Windows\ReservedStorage" /v "AllowUninstall" /t REG_DWORD /d 1 /f >nul 2>&1
 echo Attempting to turn off reserved storage. This might not be effective on all systems and might require further steps or a reboot.
 pause
-goto tweaksMenuPage2
+goto security-privacy
 
 :tweakTCPIP
 cls
@@ -916,7 +1111,7 @@ netsh int tcp set global chimney=enabled
 
 echo TCP/IP tweaks applied successfully.
 pause
-goto tweaksMenuPage2
+goto networking-performance
 
 :flushDNSCache
 cls
@@ -924,7 +1119,7 @@ echo Flushing DNS cache...
 ipconfig /flushdns
 echo DNS cache flushed successfully.
 pause
-goto tweaksMenuPage2
+goto networking-performance
 
 :enableLargeSystemCache
 cls
@@ -934,11 +1129,12 @@ set /p "enableLargeCache=Enable large system cache now? (y/n): "
 if /i "%enableLargeCache%"=="y" (
     reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 1 /f >nul 2>&1
     echo Large system cache enabled.
+    pause
+    goto systemperf-uienchant
 ) else (
     echo Skipping large system cache.
+    goto systemperf-uienchant
 )
-pause
-goto tweaksMenuPage2
 
 :optimizeGPUScheduling
 cls
@@ -946,7 +1142,7 @@ echo Optimizing GPU scheduling...
 reg add "HKLM\System\CurrentControlSet\Control\GraphicsDrivers" /v "HwSchMode" /t REG_DWORD /d 2 /f >nul 2>&1
 echo Hardware-accelerated GPU scheduling enabled. You might need to restart your computer.
 pause
-goto tweaksMenuPage2
+goto systemperf-uienchant
 
 :turnOffSpectreMeltdown
 cls
@@ -961,7 +1157,7 @@ if /i "%disableMitigations%"=="y" (
     echo Spectre and Meltdown mitigations not disabled.
 )
 pause
-goto tweaksMenuPage2
+goto security-privacy
 
 :nvidiaOptimization
 cls
@@ -971,7 +1167,7 @@ reg add "HKLM\Software\NVIDIA Corporation\Global\NvCplApi\Policies" /v "PowerMiz
 reg add "HKLM\Software\NVIDIA Corporation\Global\NvCplApi\Policies" /v "PowerMizerLevelAC" /t REG_DWORD /d 0 /f >nul 2>&1
 echo NVIDIA GPU settings optimized successfully.
 pause
-goto tweaksMenuPage2
+goto gaming-hardware
 
 :autoTweaks
 cls
@@ -988,7 +1184,7 @@ if "%pcType%"=="2" (
 )
 echo Auto tweaks applied successfully.
 pause
-goto tweaksMenuPage2
+goto systemperf-uienchant
 
 :activateWindows
 cls
@@ -1022,7 +1218,7 @@ if "%errorlevel%"=="0" (
 
 echo.
 pause
-goto tweaksMenuPage2
+goto utility-extras
 
 :disableHPET
 cls
@@ -1030,7 +1226,7 @@ echo Disabling HPET...
 bcdedit /set useplatformclock false
 echo HPET disabled successfully.
 pause
-goto tweaksMenuPage2
+goto gaming-hardware
 
 :enhanceSystemNetwork
 cls
@@ -1040,7 +1236,7 @@ netsh int tcp set global rss=enabled
 reg add "HKLM\System\CurrentControlSet\Services\LanmanServer\Parameters" /v "Size" /t REG_DWORD /d 3 /f
 echo System and network performance enhanced successfully.
 pause
-goto tweaksMenuPage2
+goto networking-performance
 
 :disableUnnecessaryServices
 cls
@@ -1073,7 +1269,7 @@ sc config "WERSvc" start= disabled
 
 echo Unnecessary services disabled successfully.
 pause
-goto tweaksMenuPage2
+goto systemperf-uienchant
 
 :disableOfficeTelemetry
 cls
@@ -1081,7 +1277,7 @@ echo Disabling Office telemetry...
 reg add "HKCU\Software\Policies\Microsoft\Office\16.0\Common\Telemetry" /v "DisableTelemetry" /t REG_DWORD /d 1 /f
 echo Office telemetry disabled successfully.
 pause
-goto tweaksMenuPage2
+goto security-privacy
 
 :changeDNS
 cls
@@ -1104,64 +1300,7 @@ if "%dnsChoice%"=="1" (
 )
 echo DNS server changed successfully.
 pause
-goto tweaksMenuPage2
-
-:tweaksMenuPage3
-cls
-echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
-call :title
-echo.
-echo                   --------------------------------------------------------------
-echo                                    Windows Tweaks Menu (Page 3)
-echo                   --------------------------------------------------------------
-echo.
-echo     43. Disable Windows Updates (Caution: may affect security)
-echo     44. Align Taskbar to Left (Windows 11+ only)
-echo     45. Disable NTFS Indexing
-echo     46. Disable SmartScreen (Caution: may affect security)
-echo     47. Disable Superfetch (Caution: may affect performance)
-echo     48. Disable Microsoft Store App Updates
-echo     49. Hide Widgets and Weather
-echo     50. Disable Search in Taskbar
-echo     51. Disable Startup Items
-echo     52. Reinstall Microsoft Store (beta, may not work)
-echo     53. Disable Edge WebWidget
-echo     54. Add delay to menu boot (3 seconds, only dual boot)
-echo     55. Disable Hibernation and Fast Startup
-echo     56. Disable Windows Insinder (Caution: cause bug in Settings app)
-echo     57. Disable App Launch Tracking
-echo     58. Disable App Suggestions
-echo     59. Disable Power Throttling (Intel Gen 6+)
-echo     60. Disable Background Apps (for god sake smooth)
-echo     61. Back to Main Menu
-echo     62. Back to Page 2
-echo     63. Go to Page 4
-echo.
-echo                                           Welcome. %username%
-set /p "choice=%DEL%                                 Your choice: "
-
-if "%choice%"=="43" goto disableWindowsUpdates
-if "%choice%"=="44" goto alignTaskbarLeft
-if "%choice%"=="45" goto disableNTFSIndexing
-if "%choice%"=="46" goto disableSmartScreen
-if "%choice%"=="47" goto disableSuperfetch
-if "%choice%"=="48" goto disableStoreAppUpdates
-if "%choice%"=="49" goto hideWidgetsWeather
-if "%choice%"=="50" goto disableSearchTaskbar
-if "%choice%"=="51" goto askDisableStartup
-if "%choice%"=="52" goto reins
-if "%choice%"=="53" goto disablewebwidget
-if "%choice%"=="54" goto dualboot
-if "%choice%"=="55" goto fastanddisable
-if "%choice%"=="56" goto insider
-if "%choice%"=="57" goto apptrack
-if "%choice%"=="58" goto appsuggest
-if "%choice%"=="59" goto powerthrottle
-if "%choice%"=="60" goto tweaksMenuPage2
-if "%choice%"=="61" goto tweaksMenu1
-if "%choice%"=="62" goto tweaksMenuPage2
-if "%choice%"=="63" goto tweaksMenuPage4
-goto tweaksMenuPage3
+goto networking-performance
 
 :disableWindowsUpdates
 cls
@@ -1170,7 +1309,7 @@ sc config wuauserv start= disabled >nul 2>&1
 sc stop wuauserv >nul 2>&1
 echo Windows Updates disabled successfully.
 pause
-goto tweaksMenuPage3
+goto restore-maintenance
 
 :alignTaskbarLeft
 cls
@@ -1178,7 +1317,7 @@ echo Aligning Taskbar to Left...
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d 0 /f >nul 2>&1
 echo Taskbar aligned to the left successfully.
 pause
-goto tweaksMenuPage3
+goto systemperf-uienchant
 
 :disableNTFSIndexing
 cls
@@ -1186,7 +1325,7 @@ echo Disabling NTFS Indexing...
 fsutil behavior set disablelastaccess 1 >nul 2>&1
 echo NTFS Indexing disabled successfully.
 pause
-goto tweaksMenuPage3
+goto systemperf-uienchant
 
 :disableSmartScreen
 cls
@@ -1194,7 +1333,7 @@ echo Disabling SmartScreen...
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "SmartScreenEnabled" /t REG_SZ /d "Off" /f >nul 2>&1
 echo SmartScreen disabled successfully.
 pause
-goto tweaksMenuPage3
+goto security-privacy
 
 :disableSuperfetch
 cls
@@ -1203,7 +1342,7 @@ sc config SysMain start= disabled >nul 2>&1
 sc stop SysMain >nul 2>&1
 echo Superfetch disabled successfully.
 pause
-goto tweaksMenuPage3
+goto systemperf-uienchant
 
 :disableStoreAppUpdates
 cls
@@ -1211,7 +1350,94 @@ echo Disabling Microsoft Store App Updates...
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SilentInstalledAppsEnabled" /t REG_DWORD /d 0 /f >nul 2>&1
 echo Microsoft Store App Updates disabled successfully.
 pause
-goto tweaksMenuPage3
+goto security-privacy
+
+:sfc1
+cls
+echo Do not run this if you are using a custom Windows build.
+echo Do not close the window or it will break your Windows installation.
+echo This will take a while. Do you want to continue? (y/n)
+set /p "input=Your choice: "
+if /i "!input!"=="y" (
+    echo Running System File Checker (SFC)...
+    sfc /scannow
+    if %errorlevel% neq 0 (
+        echo SFC scan failed. Please check the logs for more details.
+        pause
+        goto restore-maintenance
+    ) else (
+        echo SFC scan completed successfully. No integrity violations found.
+        echo You may need to restart your computer for the changes to take effect.
+        pause
+        goto restore-maintenance
+    )
+) else (
+    echo Skipping SFC scan.
+    goto restore-maintenance
+)
+
+:dism
+cls
+echo Do not run this if you are using a custom Windows build.
+echo Do not close the window or it will break your Windows installation.
+echo This will take a while. Do you want to continue? (y/n)
+set /p "input=Your choice: "
+if /i "!input!"=="y" (
+    echo Running DISM to repair Windows image...
+    dism /Online /Cleanup-Image /RestoreHealth
+    if %errorlevel% neq 0 (
+        echo DISM scan failed. Please check the logs for more details.
+        pause
+        goto restore-maintenance
+    ) else (
+        echo DISM scan completed successfully. No integrity violations found.
+        echo You may need to restart your computer for the changes to take effect.
+        pause
+        goto restore-maintenance
+    )
+) else (
+    echo Skipping DISM scan.
+    goto restore-maintenance
+)
+
+:chkdsk2
+cls
+echo Chkdsk will check your disk for errors. (C:)
+echo Do not close the window or it will break your hardware.
+echo This will reboot your PC. Do you want to continue? (y/n)
+set /p "input=Your choice: "
+if /i "!input!"=="y" (
+    echo Running Chkdsk...
+    start /wait chkdsk C: /f /r
+    shutdown /r /t 0
+) else (
+    echo Skipping Chkdsk.
+    goto restore-maintenance
+)
+
+:startRestorePoint
+cls
+echo Strating restore point ulitites...
+rstrui.exe
+pause
+goto restore-maintenance
+
+:freediskspace
+cls
+echo Freeing up disk space...
+echo This will delete temporary files and system files.
+echo Do you want to continue? (y/n) 
+set /p "input=Your choice: "
+if /i "!input!"=="y" (
+    echo Running Disk Cleanup...
+    cleanmgr /sagerun:1
+    echo Disk Cleanup completed successfully.
+    pause
+    goto restore-maintenance
+) else (
+    echo Skipping Disk Cleanup.
+    goto restore-maintenance
+)
 
 :hideWidgetsWeather
 cls
@@ -1219,7 +1445,7 @@ echo Hiding Widgets and Weather...
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarDa" /t REG_DWORD /d 0 /f >nul 2>&1
 echo Widgets and Weather hidden successfully.
 pause
-goto tweaksMenuPage3
+goto windowscustomizations
 
 :disableSearchTaskbar
 cls
@@ -1227,7 +1453,7 @@ echo Disabling Search in Taskbar...
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d 0 /f >nul 2>&1
 echo Search in Taskbar disabled successfully.
 pause
-goto tweaksMenuPage3
+goto windowscustomizations
 
 :askDisableStartup
 cls
@@ -1242,7 +1468,7 @@ if /i "!input!"=="yes" (
     echo Skipping startup items disable.
 )
 pause
-goto tweaksMenuPage3
+goto systemperf-uienchant
 
 :reins
 cls
@@ -1252,11 +1478,11 @@ echo Please wait...
 :: Check if 7zr.exe is present
 if not exist "7z.exe" (
     echo [INFO] Downloading 7z.exe from OptimizedTools++ repo...
-    curl -L -o 7z.exe https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/7z.exe
+    curl -L -o 7z.exe https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/bin/7z.exe
     if not exist "7z.exe" (
         echo [ERROR] Failed to download 7z.exe. Check your connection.
         pause
-        goto tweaksMenuPage3
+        goto uninstall-debloat
     )
 )
 curl -L -o store_files.zip https://github.com/kkkgo/LTSC-Add-MicrosoftStore/archive/refs/tags/2019.zip
@@ -1357,19 +1583,19 @@ if defined XboxIdentity (
 echo.
 echo Reinstallation completed. Please check the Start Menu or try opening Microsoft Store.
 pause
-goto tweaksMenuPage3
+goto uninstall-debloat
 
 :nofiles
 echo One or more required files are missing. Please make sure all AppX packages and XML license files are present.
 pause
-goto tweaksMenuPage3
+goto uninstall-debloat
 
 :restart
 cls
 echo Restarting your PC...
 shutdown /r /t 0 >nul 2>&1
 pause
-goto tweaksMenuPage3
+goto restore-maintenance
 
 :disablewebwidget
 cls
@@ -1377,7 +1603,7 @@ echo Disabling Edge WebWidget via registry...
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v WebWidgetAllowed /t REG_DWORD /d 0 /f
 echo Successfully disabled Edge WebWidget.
 pause
-goto tweaksMenuPage3
+goto systemperf-uienchantpage2
 
 :dualboot
 cls
@@ -1387,10 +1613,12 @@ bcdedit /timeout 3
 if %errorlevel% neq 0 (
     echo Failed to set dual boot timeout.
     echo This feature may not be supported on your system.
+    pause
+    goto windowscustomizations
 ) else (
     echo Dual boot timeout set to 3 seconds successfully.
     pause
-    goto tweaksMenuPage3
+    goto windowscustomizations
 )
 
 :fastanddisable
@@ -1399,7 +1627,7 @@ echo Disabling Fast Startup and Hibernation...
 powercfg -hibernate off
 echo Fast Startup and Hibernation disabled successfully.
 pause
-goto tweaksMenuPage3
+goto systemperf-uienchantpage2
 
 :insider
 cls
@@ -1411,7 +1639,7 @@ reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\System" /v AllowEx
 reg add "HKLM\SOFTWARE\Microsoft\PolicyManager\default\System\AllowExperimentation" /v value /t REG_DWORD /d 0 /f
 echo Successfully disabled Windows Insider Program.
 pause
-goto tweaksMenuPage3
+goto security-privacy
 
 :apptrack
 cls
@@ -1419,7 +1647,7 @@ echo Disabling App Launch Tracking...
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v Start_TrackProgs /t REG_DWORD /d 0 /f
 echo App Launch Tracking disabled.
 pause
-goto tweaksMenuPage3
+goto security-privacy
 
 :appsuggest
 cls
@@ -1435,7 +1663,7 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" 
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v SystemPaneSuggestionsEnabled /t REG_DWORD /d 0 /f
 echo App Suggestions disabled successfully.
 pause
-goto tweaksMenuPage3
+goto security-privacy
 
 :powerthrottle
 cls
@@ -1448,7 +1676,7 @@ echo Note: This setting is only effective on Intel processors (Gen 6 and above).
 echo You may need to restart your computer for the changes to take effect.
 echo.
 pause
-goto tweaksMenuPage3
+goto systemperf-uienchantpage2
 
 :disableBackgroundApps
 cls
@@ -1465,44 +1693,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v Back
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness /t REG_DWORD /d 10 /f
 echo Background apps disabled successfully.
 pause
-goto tweaksMenuPage3
-
-:tweaksMenuPage4
-cls
-echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
-call :title
-echo.
-echo                   --------------------------------------------------------------
-echo                                    Windows Tweaks Menu (Page 4)
-echo                   --------------------------------------------------------------
-echo.
-echo     64. Disable Sticky Keys and Filter Keys
-echo     65. Disable Activity History
-echo     66. Debloat Edge
-echo     67. Tweak CPU Priority
-echo     68. Disable Location, Installing Suggested Apps, Unnecessary Components
-echo     69. Disable Windows Error Reporting (beautiful number)
-echo     70. Disable all ADS
-echo     71. Make svchost processes run better
-echo     72. Back to Main Menu
-echo     73. Back to Page 3
-echo     74. Restart your PC
-echo     75. Exit
-echo.
-echo                                          Welcome. %username%
-set /p "choice=%DEL%                                 Your choice: "
-if "%choice%"=="64" goto disableStickyKeys
-if "%choice%"=="65" goto disableActivityHistory
-if "%choice%"=="66" goto debloatEdge
-if "%choice%"=="67" goto tweakCPUPriority
-if "%choice%"=="68" goto disable3
-if "%choice%"=="69" goto disableWindowsErrorReporting
-if "%choice%"=="70" goto disableADS
-if "%choice%"=="71" goto tweakSvchost
-if "%choice%"=="72" goto tweaksMenu1
-if "%choice%"=="73" goto tweaksMenuPage3
-if "%choice%"=="74" goto restart
-if "%choice%"=="75" exit
+goto systemperf-uienchant
 
 :disableStickyKeys
 cls
@@ -1518,7 +1709,7 @@ reg add "HKCU\Control Panel\Accessibility\StickyKeys" /v HotKeyEnabled /t REG_SZ
 
 echo Sticky Keys and Filter Keys disabled successfully.
 pause
-goto tweaksMenuPage4
+goto windowscustomizations
 
 :disableActivityHistory
 cls
@@ -1527,7 +1718,7 @@ echo Disabling Activity History...
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\System" /v PublishUserActivities /t REG_DWORD /d 0 /f
 echo Activity History disabled successfully.
 pause
-goto tweaksMenuPage4
+goto security-privacy
 
 :debloatEdge
 cls
@@ -1563,7 +1754,7 @@ reg add "%EDGE_USER%\MicrosoftEdge\PhishingFilter" /v EnabledV9 /t REG_DWORD /d 
 echo Edge debloating completed successfully.
 echo Note: Some settings may require a restart of Edge or the system to take effect.
 pause
-goto tweaksMenuPage4
+goto uninstall-debloat
 
 :tweakCPUPriority
 cls
@@ -1609,7 +1800,7 @@ echo.
 echo CPU priority tweaks applied.
 echo Note: Some settings may require a restart to take effect.
 pause
-goto tweaksMenuPage4
+goto systemperf-uienchantpage2
 
 :disable3
 cls
@@ -1650,7 +1841,7 @@ powershell -Command "Disable-WindowsOptionalFeature -Online -FeatureName Printin
 echo.
 echo 3 tweaks applied successfully.
 pause
-goto tweaksMenuPage4
+goto uninstall-debloat
 
 :disableWindowsErrorReporting
 cls
@@ -1679,7 +1870,7 @@ echo It may also affect the functionality of some applications.
 echo Use this tweak with caution.
 echo.
 pause
-goto tweaksMenuPage4
+goto security-privacy
 
 :disableADS
 cls
@@ -1711,7 +1902,93 @@ echo Disabling all ADS completed successfully.
 echo Note: This may affect the functionality of some apps and features.
 echo.
 pause
-goto tweaksMenuPage4
+goto security-privacy
+
+:disableQoSPacketScheduler
+cls
+echo Disabling QoS Packet Scheduler...
+:: Disable QoS Packet Scheduler
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "DisableQoS" /t REG_DWORD /d 1 /f
+:: Disable QoS Packet Scheduler in Group Policy
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched" /v "DisableQoS" /t REG_DWORD /d 1 /f
+:: Disable QoS Packet Scheduler in Network Adapter settings
+netsh interface ip set global qospacket=disabled
+:: Disable QoS Packet Scheduler in Windows Firewall
+netsh advfirewall firewall set rule group="QoS Packet Scheduler" new enable=no
+:: Disable QoS Packet Scheduler in Windows Defender
+powershell -Command "Set-NetFirewallRule -DisplayGroup 'QoS Packet Scheduler' -Enabled False"
+echo QoS Packet Scheduler disabled successfully.
+echo Note: This may improve network performance but could affect some applications.
+echo Use this tweak with caution.
+echo.
+pause
+goto networking-performance
+
+:disablenetworkthrottling
+cls
+echo Disabling Network Throttling...
+:: Disable Network Throttling via registry
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaxUserPort" /t REG_DWORD /d 65534 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpTimedWaitDelay" /t REG_DWORD /d 30 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaxFreeTcbs" /t REG_DWORD /d 0 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "MaxHashTableSize" /t REG_DWORD /d 0 /f
+echo Network Throttling disabled successfully.
+echo.
+pause
+goto networking-performance
+
+:disableNetworkDiscovery
+cls
+echo Disabling Network Discovery...
+:: Disable Network Discovery via registry
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "Start" /t REG_DWORD /d 4 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "ErrorControl" /t REG_DWORD /d 1 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "Type" /t REG_DWORD /d 0 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "DelayedAutostart" /t REG_DWORD /d 0 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "ObjectName" /t REG_SZ /d "LocalSystem" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "ImagePath" /t REG_SZ /d "%SystemRoot%\System32\svchost.exe -k LocalServiceNetworkRestricted" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "Description" /t REG_SZ /d "Function Discovery Resource Publication" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "DisplayName" /t REG_SZ /d "Function Discovery Resource Publication" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "DependOnService" /t REG_MULTI_SZ /d "Tcpip" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "DependOnGroup" /t REG_MULTI_SZ /d "NetworkService" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "FailureActions" /t REG_BINARY /d 0x00000000 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "ServiceDll" /t REG_SZ /d "%SystemRoot%\System32\fdrespub.dll" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "ServiceDllUnloadOnStop" /t REG_DWORD /d 0x00000001 /f
+echo Network Discovery disabled successfully.
+echo.
+pause
+goto networking-performance
+
+:disableCStates
+cls
+echo Disabling C-States...
+:: Disable C-States via registry
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Processor" /v "CStates" /t REG_DWORD /d 0 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Processor" /v "CStatesEnabled" /t REG_DWORD /d 0 /f
+echo C-States disabled successfully.
+echo.
+pause
+goto gaming-hardware
+
+:enableTurboBoost
+echo Enabling Turbo Boost...
+:: Enable Turbo Boost via registry
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Processor" /v "TurboBoost" /t REG_DWORD /d 1 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Processor" /v "TurboBoostEnabled" /t REG_DWORD /d 1 /f
+echo Turbo Boost enabled successfully.
+echo.
+pause
+goto gaming-hardware
+
+:enableHyperThreading
+echo Enabling Hyper-Threading...
+:: Enable Hyper-Threading via registry
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Processor" /v "HyperThreading" /t REG_DWORD /d 1 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Processor" /v "HyperThreadingEnabled" /t REG_DWORD /d 1 /f
+echo Hyper-Threading enabled successfully.
+echo.
+pause
+goto gaming-hardware
 
 :tweakSvchost
 cls
@@ -1743,7 +2020,7 @@ echo This tweak is experimental and may not work on all systems.
 echo Use at your own risk.
 echo.
 pause
-goto tweaksMenuPage4
+goto systemperf-uienchantpage2
 
 pause >nul
 
@@ -1761,20 +2038,154 @@ echo.
 echo                          1. Yes                   2. No, I will go with English
 echo.
 set /p "lang=%DEL%                                  Your choice: "
-if "%lang%"=="1" goto warn
-if "%lang%"=="2" goto downlanvn
+if "%lang%"=="1" goto downlanvn
+if "%lang%"=="2" goto warn
 goto vn
 
 :downlanvn
 cls
 echo Downloading Vietnamese language pack...
-curl -L -o "vi.bat" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/raw/main-development/vi.bat"
+curl -L -o "vi.bat" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/raw/main-development/lang/vi.bat"
 echo.
 echo Downloading completed.
 echo Starting the Vietnamese version...
 start cmd /c "vi.bat"
 exit
 goto vn
+
+:settings
+cls
+echo.
+echo                   --------------------------------------------------------------
+echo                                               Settings
+echo                   --------------------------------------------------------------
+echo.
+echo               1. Change language
+echo               2. Change theme (not available yet)
+echo               3. Switch to Unstable
+echo               4. Go back main menu
+echo.
+set /p "choice=%DEL%                                       Your choice: "
+if "%settings%"=="1" goto vn
+if "%settings%"=="2" goto theme
+if "%settings%"=="3" goto stable
+if "%settings%"=="4" goto tweakcat
+goto settings
+
+:theme
+echo Oops, not available yet.
+pause
+goto settings
+
+:stable
+cls
+echo    ------------ WARNING ------------
+echo    Unstable build is not recommended for production use.
+echo    It is intended for testing and development purposes only.
+echo    Please use at your own risk.
+echo.
+echo    This version may contain experimental features, incomplete tweaks, or bugs.
+echo    Press [Enter] to continue.
+echo.
+echo    ----------------------------------
+pause >nul
+echo Downloading Unstable...
+curl -L -o "unstable.bat" "https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/version/unstable.bat"
+echo Downloading completed.
+echo Switching to unstable...
+start cmd /c "unstable.bat"
+exit
+goto stable
+
+:debug
+cls
+echo.
+echo                   --------------------------------------------------------------
+echo                                              Debug
+echo                   --------------------------------------------------------------
+echo.
+:: 1. Windows version
+echo Windows Version:
+ver
+echo.
+
+:: 2. System architecture
+echo System/Processor Architecture:
+echo %PROCESSOR_ARCHITECTURE%
+echo.
+
+:: 4. Processor name
+echo Processor Name:
+powershell -Command "Get-CimInstance Win32_Processor | Select-Object -ExpandProperty Name"
+echo.
+
+:: 5. Processor cores
+echo Processor Cores:
+powershell -Command "(Get-CimInstance Win32_Processor).NumberOfCores"
+echo.
+
+:: 6. Processor threads
+echo Processor Threads:
+powershell -Command "(Get-CimInstance Win32_Processor).NumberOfLogicalProcessors"
+echo.
+
+:: 7. RAM size
+echo RAM Size (GB):
+powershell -Command "[math]::Round((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB, 2)"
+echo.
+
+:: 9. Graphics card
+echo Graphics Card:
+powershell -Command "Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name"
+echo.
+
+:: 11. BIOS version
+echo BIOS Version:
+powershell -Command "Get-CimInstance Win32_BIOS | Select-Object -ExpandProperty SMBIOSBIOSVersion"
+echo.
+
+:: 12. Motherboard
+echo Motherboard:
+powershell -Command "Get-CimInstance Win32_BaseBoard | Select-Object -ExpandProperty Product"
+echo.
+
+:: 13. System manufacturer
+echo System Manufacturer:
+powershell -Command "Get-CimInstance Win32_ComputerSystem | Select-Object -ExpandProperty Manufacturer"
+echo.
+
+:: 14. System model
+echo System Model:
+powershell -Command "Get-CimInstance Win32_ComputerSystem | Select-Object -ExpandProperty Model"
+echo.
+
+:: 16. System serial number
+echo System Serial Number:
+powershell -Command "Get-CimInstance Win32_BIOS | Select-Object -ExpandProperty SerialNumber"
+echo.
+
+:: 17. System UUID
+echo System UUID:
+powershell -Command "Get-CimInstance Win32_ComputerSystemProduct | Select-Object -ExpandProperty UUID"
+echo.
+
+:: 20. OptimizedTools++ Version
+echo OptimizedTools++ Version:
+echo 1.3+stable
+echo.
+
+:: 21. Build Date
+echo OptimizedTools++ Build Date:
+echo 2025-05-22 14:01:32
+echo.
+
+:: 23. Build Number
+echo OptimizedTools++ Build Number:
+echo 215
+echo.
+
+pause
+goto tweakcat
 
 :title
 echo.
