@@ -1,12 +1,12 @@
 @echo off
-title OptimizedTools++: Preparing...
+title OptimizedTools++: Đang chuẩn bị...
 REM Run as Admin
 setlocal EnableDelayedExpansion
 REM Delete the registry key
 reg delete HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v DummyEntry /f >reg_log.txt 2>&1
 reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v DummyEntry /t REG_SZ /d 1 >reg_log.txt 2>&1
 if %errorlevel% neq 0 (
-    echo Requesting administrative privileges...
+    echo Yêu cầu quyền quản trị...
     powershell -Command "Start-Process '%~dpnx0' -Verb RunAs"
     exit /b
 )
@@ -15,42 +15,42 @@ if %errorlevel% neq 0 (
 cls
 echo.
 setlocal EnableDelayedExpansion
-echo    OptimizedTools++ only supports Windows 10 or newer.
-echo    Please run it on a compatible version.
-echo    If you are running Windows 8 or older, please upgrade your OS.
+echo    OptimizedTools++ chỉ chạy từ Windows 10 trở lên.
+echo    Vui lòng chạy chương trình này trên phiên bản Windows phù hợp.
+echo    Nếu bạn đang sử dụng Windows 8 hay cũ hơn. Hãy cân nhắc nâng cấp phiên bản mới hơn.
 echo.
-echo    Warning: Running this program on an outdated version of Windows may result in system corruption.
-echo    Proceed with caution!
+echo    Cảnh báo: Chạy chương trình này trên phiên bản Windows không hỗ trợ có thể dẫn đến hệ thống hoạt động không đúng cách.
+echo    Chạy với rủi ro của bạn!
 echo.
 pause
 
 echo.
-echo Detecting Windows version...
+echo Đang tự phát hiện phiên bản Windows...
 
 for /f "tokens=*" %%a in ('systeminfo ^| findstr /B /C:"OS Name"') do (
     set "OS_Name=%%a"
 )
 
-echo Detected OS: %OS_Name%
+echo Phiên bản Windows: %OS_Name%
 
 echo.
 
 REM Check if "Windows 10" is in OS_Name
 echo "%OS_Name%" | findstr /i "Windows 10" >nul
 if %errorlevel% equ 0 (
-    echo Windows 10 detected. Proceeding with the script...
+    echo Windows 10 đã được phát hiện.
     goto :continue
 )
 
 REM Check if "Windows 11" is in OS_Name
 echo "%OS_Name%" | findstr /i "Windows 11" >nul
 if %errorlevel% equ 0 (
-    echo Windows 11 detected. Proceeding with the script...
+    echo Windows 11 đã được phát hiện.
     goto :continue
 )
 
 REM If neither is found
-echo This version of Windows is not supported. Exiting...
+echo Phiên bản Windows này không được hỗ trợ. Đang thoát chương trình...
 pause
 exit /b 1
 
@@ -66,7 +66,7 @@ REM Save the current directory and download required files
 set CURRENT_DIR=%~dp0
 
 mkdir bin
-echo [Info] Downloading required files...
+echo [Info] Đang tải các tệp cần thiết...
 
 curl -L -o bin/Button.bat https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/bin/Button.bat
 curl -L -o bin/GetInput.exe https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/bin/GetInput.exe
@@ -79,11 +79,11 @@ cd /d %CURRENT_DIR%bin
 cls
 echo.
 echo                   --------------------------------------------------------------
-echo                                        Check for updates
+echo                                        Kiểm tra cập nhật
 echo                   --------------------------------------------------------------
 echo.
-echo                                     Checking for new updates...
-echo                                           Please wait...
+echo                                 Đang kiểm tra phiên bản mới nhất...
+echo                                           Vui lòng đợi...
 echo.
 
 :: Remove the old files
@@ -98,11 +98,11 @@ set /p fileContent=<%temp%\check.txt
 
 :: Check the content and decide the action
 if "!fileContent!"=="1.3" (
-    echo                         Your version is !fileContent!, you are up to date.
+    echo                         Phiên bản của bạn là !fileContent!, đây là phiên bản mới nhất.
     ping -n 3 localhost > nul
 ) else (
-    echo                           We found a new version. Newer version: !fileContent!
-    echo                                        Do you want to update?
+    echo                           Đã tìm thấy phiên bản mới hơn: !fileContent!
+    echo                                 Bạn có muốn tải xuống không?
     :loop2
     Batbox /h 0
     Call Button 35 14 "Yes" 55 14 "No" # Press
@@ -116,7 +116,7 @@ if "!fileContent!"=="1.3" (
     :openGitHub
     cls
     echo.
-    echo                                        Opening GitHub page...
+    echo                                        Đang mở GitHub...
     start "" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest"
     exit
 )
@@ -127,10 +127,10 @@ if "!fileContent!"=="1.3" (
 cls
 echo.
 echo                   --------------------------------------------------------------
-echo                                          Restore Point
+echo                                          Điểm khôi phục
 echo                   --------------------------------------------------------------
 echo.
-echo                                     Create a restore point?
+echo                                        Tạo điểm khôi phục?
 echo.
 echo.
 echo.
@@ -179,49 +179,49 @@ cls
 title OptimizedTools++: Select Language
 echo.
 echo                   --------------------------------------------------------------
-echo                                          Select Language
+echo                                            Chọn Ngôn Ngữ
 echo                   --------------------------------------------------------------
 echo.
 echo    1. English
-echo    2. Vietnamese (translate in progress)
+echo    2. Tiếng Việt (translate in progress)
 echo    More languages coming soon...
 echo.
-set /p "lang=%DEL%                                          Your choice: "
+set /p "lang=%DEL%                                Lựa chọn: "
 if "%lang%"=="1" goto warn
 if "%lang%"=="2" goto vn
 goto launch1
 
 :warn
 cls
-title OptimizedTools++: Warning
+title OptimizedTools++: Cảnh báo
 echo.
 echo.
 call :title
 echo.
-echo                          %COL%[36mRework version of old OptimizedTools version.%COL%[0m
-echo                                   Simple - fast - lightweight.
-echo                         NOTE: OptimizedTools++ is free and open-source. 
-echo              If you paid for this program/downloaded from another source (not GitHub)
-echo                       %COL%[33mPLEASE DELETE THE PROGRAM, SCAN YOUR PC FOR VIRUS NOW!!%COL%[0m
+echo                          %COL%[36mPhiên bản Rework của OptimizedTools++%COL%[0m
+echo                                   "Simple - fast - lightweight."
+echo                         OptimizedTools++ là chương trình miễn phí và mã nguồn mở.
+echo       Nếu bạn đã trả phí cho chương trình này hoặc tải từ nơi không rõ nguồn gốc (Không phải GitHub)
+echo       %COL%[33mVUI LÒNG XOÁ CHƯƠNG TRÌNH VÀ THỰC HIỆN QUÉT VIRUS CHO MÁY TÍNH NGAY LẬP TỨC!!%COL%[0m
 echo.
 echo.
-echo    %COL%[91mWARNING:%COL%[0m
-echo    %COL%[91mUse at your own risk.%COL%[0m
-echo    I am not %COL%[91mRESPONSIBLE%COL%[0m for cases of BSOD after tweaking, 
-echo    unable to boot after restart, missing files/OS not working properly, etc.
+echo    %COL%[91mCẢNH BÁO:%COL%[0m
+echo    %COL%[91mSỬ DỤNG CHƯƠNG TRÌNH NÀY VỚI RỦI RO CỦA BẠN.%COL%[0m
+echo    Tôi không có %COL%[91mTRÁCH NHIỆM%COL%[0m Với các trường hợp bị màn hình xanh chết chóc (BSOD) hay sự mất ổn định, 
+echo    hư hỏng các tập tin/ thành phần hệ thống hay không thể khởi động,.. được sau khi chạy tweak.
 echo.
-echo    %COL%[91mPLEASE%COL%[0m do some research if you have any questions about the features 
-echo    included in this software before you use it.
+echo    %COL%[91mVUI LÒNG%COL%[0m tìm hiểu kỹ về những tính năng trong chương trình này 
+echo    trước khi sử dụng.
 echo.
-echo    %COL%[91mYOU%COL%[0m are choosing to make these modifications, and if you %COL%[91mPOINT%COL%[0m the finger 
-echo    at me for damaging your operating system, I will laugh at you.
+echo    %COL%[91mBẠN%COL%[0m đã chọn để can thiệp sâu vào hệ thống, nếu bạn %COL%[91mĐỔ LỖI%COL%[0m cho tôi 
+echo    vì đã phá hỏng hệ thống. Tôi sẽ cười vào mặt bạn.
 echo.
-echo    Even though my software have an automatic restore point feature, I highly recommend 
-echo    making a manual restore point before running.
+echo    Mặc dù chương trình này có thể tự tạo Điểm khôi phục (Restore Point), nhưng bạn vẫn nên 
+echo    tạo thủ công một điểm khôi phục trong Control Panel trước khi tiếp tục.
 echo.
-echo    For any questions and/or concerns, please go to my GitHub: NammIsADev/OptimizedToolsPlusPlus
-echo    Type "Yes" to continue: 
-set /p "input=%DEL%                                       Your input:
+echo    Với những thắc mắc hay đóng góp về chương trình này, bạn có thể liên hệ với tôi qua GitHub: NammIsADev/OptimizedToolsPlusPlus
+echo    Gõ "Yes" để xác nhận, đồng nghĩa với việc bạn chấp nhận với những cảnh báo, rủi ro có thể xảy ra: 
+set /p "input=%DEL%                                       Nhập tại đây:
 if /i "!input!" neq "yes" goto warn
 reg add "HKCU\Software\opt" /v "Disclaimer" /f >nul 2>&1
 goto tweakcat
@@ -233,18 +233,18 @@ echo.
 call :title
 echo.
 echo                   --------------------------------------------------------------
-echo                                          Tweaks Category
+echo                                        Danh mục tinh chỉnh
 echo                   --------------------------------------------------------------
 echo.
-echo    1. System Performance, UI Enhancements                  2. Windows Customizations
-echo    3. Uninstall, Debloat                                   4. Security, Privacy
-echo    5. Networking, Performance Tweaks                       6. Gaming, Hardware Optimizations
-echo    7. Utility, Extras                                      8. Restore, Maintenance Options
+echo    1. Hiệu năng, Tinh chỉnh giao diện                  2. Tinh chỉnh Windows
+echo    3. Lược bỏ, tối ưu hoá                              4. Bảo mật, quyền riêng tư
+echo    5. Tinh chỉnh mạng, hiệu năng                       6. Tối ưu hoá phần cứng, chơi game
+echo    7. Công cụ, Thêm                                    8. Khôi phục, Bảo trì
 echo.
-echo                   [9] Exit [0] Restart [r] Restore Point [s] Settings [d] Debug
+echo        [9] Thoát [0] Khởi động lại [r] Restore Point [s] Cài đặt [d] Chế độ nhà phát triển
 echo. 
-echo                                         Welcome. %username%
-set /p "choice=%DEL%                                       Your choice: "
+echo                                         Chào mừng. %username%
+set /p "choice=%DEL%                                       Lựa chọn: "
 if "%choice%"=="1" goto systemperf-uienchant
 if "%choice%"=="2" goto windowscustomizations
 if "%choice%"=="3" goto uninstall-debloat
@@ -267,34 +267,34 @@ goto restorepoint
 
 :systemperf-uienchant
 cls
-title OptimizedTools++: System Performance, UI Enhancements
+title OptimizedTools++: hiệu năng, Tinh chỉnh giao diện
 echo.
 echo                   --------------------------------------------------------------
-echo                                 System Performance, UI Enhancements
+echo                                   Hiệu năng, Tinh chỉnh giao diện
 echo                   --------------------------------------------------------------
 echo.
-echo     1. Disable Startup Delay
-echo     2. Enable Dark Mode
-echo     3. Enable File Extensions
-echo     4. Disable Animations
-echo     5. Enable Faster Shutdown
-echo     6. Enable Classic Taskbar (may not work on 23H2+)
-echo     7. Enable Verbose Boot
-echo     8. Disable Background Apps
-echo     9. Enable Ultimate Performance Plan
-echo     10. Enable Large System Cache
-echo     11. Optimize GPU Scheduling (Intel/AMD)
-echo     12. Auto Tweaks for Desktop/Laptop
-echo     13. Disable Unnecessary Windows Services
-echo     14. Align Taskbar to Left (Windows 11+ only)
-echo     15. Disable NTFS Indexing
-echo     16. Disable Superfetch (Caution: affect performance)
-echo     17. Disable Startup Items
-echo     18. Go back main menu
-echo     19. Next page
+echo     1. Tắt độ trễ khởi động
+echo     2. Bật chế độ tối
+echo     3. Bật đuôi mở rộng tập tin
+echo     4. Tắt hiệu ứng
+echo     5. Bật tắt nhanh
+echo     6. Bật Taskbar cổ điển (Không hoạt động trên 23H2+)
+echo     7. Bật khởi động Verbose
+echo     8. Tắt ứng dụng nền
+echo     9. Bật Ultimate Performance (Windows 10 Pro+)
+echo     10. Bật Large System Cache
+echo     11. Tối ưu GPU Scheduling (Windows 10 20H1+)
+echo     12. Tự động tinh chỉnh
+echo     13. Tắt các dịch vụ không cần thiết
+echo     14. Căn trái Taskbar (Windows 11)
+echo     15. Tắt NTFS Indexing
+echo     16. Tắt Superfetch (Cảnh báo: ảnh hưởng đến hiệu suất)
+echo     17. Hỏi tắt khởi động
+echo     18. Trở về trang trước
+echo     19. Trang kế tiếp
 echo.
-echo                                         Welcome. %username%
-set /p "choice=%DEL%                                       Your choice: "
+echo                                         Chào mừng. %username%
+set /p "choice=%DEL%                                       Lựa chọn: "
 if "%choice%"=="1" goto disableStartupDelay
 if "%choice%"=="2" goto enableDarkMode
 if "%choice%"=="3" goto enableFileExtensions
@@ -321,20 +321,20 @@ cls
 call :title
 echo.
 echo                   --------------------------------------------------------------
-echo                               System Performance, UI Enhancements (P2)
+echo                            Hiệu năng, Tinh chỉnh giao diện (tiếp theo)
 echo                   --------------------------------------------------------------
 echo.
-echo     20. Disable Hibernation and Fast Startup
-echo     21. Disable Power Throttling (Intel Gen 6+)
-echo     22. Tweak CPU Priority
-echo     23. Make svchost processes run better
-echo     24. Disable Webview/Webwidget
-echo     25. Disable Action Center
-echo     26. Go back page 1
-echo     27. Go back main menu
+echo     20. Tắt ngủ đông và bật khởi động nhanh
+echo     21. Tắt Power Throttling (Intel Generation 6+)
+echo     22. Tăng độ ưu tiên CPU cho các ứng dụng
+echo     23. Tăng độ ưu tiên cho svchost.exe
+echo     24. Tắt Web Widget
+echo     25. Tắt Action Center
+echo     26. Trở lại trang trước
+echo     27. Trở lại trang chính
 echo.
-echo                                         Welcome. %username%
-set /p "choice=%DEL%                                       Your choice: "
+echo                                         Chào mừng. %username%
+set /p "choice=%DEL%                                       Lựa chọn: "
 if "%choice%"=="20" goto fastanddisable
 if "%choice%"=="21" goto powerthrottle
 if "%choice%"=="22" goto tweakCPUPriority
@@ -347,13 +347,13 @@ goto systemperf-uienchantpage2
 
 :windowscustomizations
 cls
-title OptimizedTools++: Windows Customizations
+title OptimizedTools++: Tinh chỉnh Windows
 echo.
 echo                   --------------------------------------------------------------
-echo                                      Windows Customizations
+echo                                         Tinh chỉnh Windows
 echo                   --------------------------------------------------------------
 echo.
-echo    1. Set Classic Right-Click Menu (Windows 11+)
+echo    1. Bật menu chuột phải cổ điển (Windows 11)
 echo    2. Add delay to menu boot (3 seconds, only dual boot)
 echo    3. Disable Sticky Keys and Filter Keys
 echo    4. Hide Widgets and Weather (cause bug, disable in taskbar first)
