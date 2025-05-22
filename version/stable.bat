@@ -1476,7 +1476,7 @@ echo Please wait...
 :: Check if 7zr.exe is present
 if not exist "7z.exe" (
     echo [INFO] Downloading 7z.exe from OptimizedTools++ repo...
-    curl -L -o 7z.exe https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/7z.exe
+    curl -L -o 7z.exe https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/bin/7z.exe
     if not exist "7z.exe" (
         echo [ERROR] Failed to download 7z.exe. Check your connection.
         pause
