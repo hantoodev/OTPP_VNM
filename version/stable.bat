@@ -86,6 +86,9 @@ echo                                     Checking for new updates...
 echo                                           Please wait...
 echo.
 
+:: Remove the old files
+del "%temp%\check.txt"
+
 :: Download the latest version info
 curl -s -o "%temp%\check.txt" https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/update/check.txt
 ping -n 5 localhost > nul
