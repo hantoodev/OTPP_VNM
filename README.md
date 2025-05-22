@@ -24,6 +24,7 @@
 </div>
 
 # UPDATE: OptimizedTools++ now available at super lite package.
+### We need someone to translate the project!
 
 >[!CAUTION]
 > **Use at your own risk.**
@@ -116,8 +117,12 @@ This project is **open-source** and distributed under the **MIT License**.
 ## 🤝 Contribute & Feedback
 
 OptimizedTools++ is an **open-source project**, and contributions are **highly appreciated**!  
+
+
 **We need someone to translate the project!**
+
 Now only support Vietnamese language.
+
 Please fork the source, then start move the file (version/stable.bat) to lang folder, translate it to language you want, and open a pull request! 
 
 ---
