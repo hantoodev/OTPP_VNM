@@ -23,8 +23,7 @@
   </a>
 </div>
 
-# UPDATE: Installer lacking stability led to it's temporary removal. 
-## need someone to code the bat to multi language 
+# UPDATE: OptimizedTools++ now available at super lite package.
 
 >[!CAUTION]
 > **Use at your own risk.**
@@ -66,6 +65,30 @@ OptimizedTools++ is **your ultimate toolkit** for Windows enhancement, deliverin
 
 ---
 
+## 🪄 How to optimize
+### Method 1 - PowerShell (Windows 10 and later)
+
+*Open PowerShell*
+
+To do that, press the Windows key + X, then select PowerShell or Terminal.
+
+Copy and paste the code below, then press enter.
+
+`irm https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/stable.bat | iex`
+
+You will see the optimiztion options.
+
+
+### Method 2 - Traditional
+
+Download the file using one of the links below:
+
+https://github.com/NammIsADev/OptimizedToolsPlusPlus/edit/main-development/version/stable.bat
+
+Run the file named stable.bat.
+
+You will see the optimiztion options.
+
 ## 📸 Screenshots
 
 ### Latest Version
@@ -105,6 +128,9 @@ This project is **open-source** and distributed under the **MIT License**.
 ## 🤝 Contribute & Feedback
 
 OptimizedTools++ is an **open-source project**, and contributions are **highly appreciated**!  
+**We need someone to translate the project!**
+Now only support Vietnamese language.
+Please fork the source, then start move the file (version/stable.bat) to lang folder, translate it to language you want, and open a pull request! 
 
 ---
 
