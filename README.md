@@ -23,7 +23,7 @@
   </a>
 </div>
 
-# UPDATE: OptimizedTools++ now available at super lite package.
+## Warning: OptimizedTools++ dropped support for Windows 10 Beta, 1507, 1607
 ### We need someone to translate the project!
 
 >[!CAUTION]
