@@ -55,15 +55,19 @@ OptimizedTools++ is **your ultimate toolkit** for Windows enhancement, deliverin
 - Integrated app installer for easy setup
 
 ## 🪄 How to optimize
-### Method 1 - PowerShell (Windows 10 and later)
+### Method 1 - PowerShell/CMD (Windows 10 and later)
 
-*Open PowerShell*
+*Open PowerShell/CMD*
 
-To do that, press the Windows key + X, then select PowerShell or Terminal.
+To do that, press the Windows key + X, then select PowerShell, Command Prompt or Terminal.
 
 Copy and paste the code below, then press enter.
 
-`irm https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/stable.bat | iex`
+PowerShell:
+`irm https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/cloud.ps1 | iex`
+
+CMD:
+`curl -L -o "stable.bat" "https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/stable.bat" && stable.bat`
 
 You will see the optimiztion options.
 
