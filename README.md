@@ -54,6 +54,8 @@ OptimizedTools++ is **your ultimate toolkit** for Windows enhancement, deliverin
 - Respects your privacy and keep your Windows tidy, clean.
 - Integrated app installer for easy setup
 
+---
+
 ## 🪄 How to optimize
 
 ### Method 1 - PowerShell/CMD (Windows 10 and later)
@@ -80,24 +82,13 @@ You will see the optimization options.
 
 Download the file using one of the links below:
 
-[https://github.com/NammIsADev/OptimizedToolsPlusPlus/edit/main-development/version/stable.bat](https://github.com/NammIsADev/OptimizedToolsPlusPlus/edit/main-development/version/stable.bat)
+[Click here to download](https://github.com/NammIsADev/OptimizedToolsPlusPlus/edit/main-development/version/stable.bat)
 
 Run the file named `stable.bat`.
 
 You will see the optimization options.
 
 ---
-
-
-### Method 2 - Traditional
-
-Download the file using one of the links below:
-
-https://github.com/NammIsADev/OptimizedToolsPlusPlus/edit/main-development/version/stable.bat
-
-Run the file named stable.bat.
-
-You will see the optimiztion options.
 
 
 ## 📸 Screenshots
