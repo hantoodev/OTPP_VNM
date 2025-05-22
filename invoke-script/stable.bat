@@ -1,6 +1,6 @@
 @echo off
 title OptimizedTools++: Preparing...
-echo ------------- CURL version ----------------
+echo ------------- CURL/IRM IEX version ----------------
 echo You are running a version that call "cloud" 
 echo version of OptimizedTools++.
 echo.
@@ -9,7 +9,7 @@ echo without downloading the tool.
 echo.
 echo This script always up to date.
 echo Press [Enter] to continue.
-echo -------------------------------------------
+echo ---------------------------------------------------
 pause >nul
 
 REM Run as Admin
@@ -76,8 +76,6 @@ reg add HKCU\CONSOLE /v VirtualTerminalLevel /t REG_DWORD /d 1 /f >nul 2>&1
 
 REM Save the current directory and download required files
 set CURRENT_DIR=%~dp0
-dir /s
-pause
 
 mkdir bin
 echo [Info] Downloading required files...
