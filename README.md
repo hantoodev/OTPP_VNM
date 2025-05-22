@@ -12,7 +12,7 @@
     <img src="https://img.shields.io/badge/Status-Active%20Development-blue" alt="Development Status">
   </a>
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases">
-    <img src="https://img.shields.io/badge/App%20Version-1.3+unstable-red" alt="App Version">
+    <img src="https://img.shields.io/badge/App%20Version-1.3+stable-green" alt="App Version">
   </a>
   <img src="https://img.shields.io/badge/Tweaks%20Available-70%2B-blue" alt="Tweaks Available">
   <a href="https://www.codefactor.io/repository/github/nammisadev/optimizedtoolsplusplus">
@@ -93,16 +93,9 @@ You will see the optimization options.
 
 ## 📸 Screenshots
 
-### Latest Version
 
 ![image](https://github.com/user-attachments/assets/bc1de15b-0a5d-4496-8552-80904dcfb709)
 
-### Beta Versions
-
-![image](https://github.com/user-attachments/assets/538bb5d5-66e6-4aca-88b4-a746857af2ce)
-![image](https://github.com/user-attachments/assets/a121e6b3-7ad2-45ba-af32-137944308361)
-![image](https://github.com/user-attachments/assets/58d8204a-2b29-42b2-bf29-462ef5ad5736)
-![image](https://github.com/user-attachments/assets/4d1b3963-5870-4157-878b-39c660917230)
 
 ---
 
