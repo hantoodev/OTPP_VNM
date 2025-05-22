@@ -55,21 +55,38 @@ OptimizedTools++ is **your ultimate toolkit** for Windows enhancement, deliverin
 - Integrated app installer for easy setup
 
 ## 🪄 How to optimize
+
 ### Method 1 - PowerShell/CMD (Windows 10 and later)
 
-*Open PowerShell/CMD*
+**Open PowerShell/CMD**
 
-To do that, press the Windows key + X, then select PowerShell, Command Prompt or Terminal.
+To do that, press the Windows key + X, then select PowerShell, Command Prompt, or Terminal.
 
 Copy and paste the code below, then press enter.
 
-PowerShell:
-`irm https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/cloud.ps1 | iex`
+**PowerShell:**
+```powershell
+irm https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/cloud.ps1 | iex
+```
 
-CMD:
-`curl -L -o "stable.bat" "https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/stable.bat" && stable.bat`
+**CMD:**
+```cmd
+curl -L -o "stable.bat" "https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/stable.bat" && stable.bat
+```
 
-You will see the optimiztion options.
+You will see the optimization options.
+
+### Method 2 - Traditional
+
+Download the file using one of the links below:
+
+[https://github.com/NammIsADev/OptimizedToolsPlusPlus/edit/main-development/version/stable.bat](https://github.com/NammIsADev/OptimizedToolsPlusPlus/edit/main-development/version/stable.bat)
+
+Run the file named `stable.bat`.
+
+You will see the optimization options.
+
+---
 
 
 ### Method 2 - Traditional
@@ -81,6 +98,7 @@ https://github.com/NammIsADev/OptimizedToolsPlusPlus/edit/main-development/versi
 Run the file named stable.bat.
 
 You will see the optimiztion options.
+
 
 ## 📸 Screenshots
 
