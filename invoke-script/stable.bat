@@ -1,6 +1,6 @@
 @echo off
 title OptimizedTools++: Preparing...
-echo -------------IRM IEX version ----------------
+echo ------------- CURL version ----------------
 echo You are running a version that call "cloud" 
 echo version of OptimizedTools++.
 echo.
@@ -9,7 +9,7 @@ echo without downloading the tool.
 echo.
 echo This script always up to date.
 echo Press [Enter] to continue.
-echo ---------------------------------------------
+echo -------------------------------------------
 pause >nul
 
 REM Run as Admin
