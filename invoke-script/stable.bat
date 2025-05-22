@@ -76,6 +76,8 @@ reg add HKCU\CONSOLE /v VirtualTerminalLevel /t REG_DWORD /d 1 /f >nul 2>&1
 
 REM Save the current directory and download required files
 set CURRENT_DIR=%~dp0
+dir /s
+pause
 
 mkdir bin
 echo [Info] Downloading required files...
