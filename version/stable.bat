@@ -87,7 +87,7 @@ echo                                           Please wait...
 echo.
 
 :: Download the latest version info
-curl -s -o "%temp%\check.txt" https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/update/check_unstable.txt
+curl -s -o "%temp%\check.txt" https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/update/check.txt
 ping -n 5 localhost > nul
 
 :: Read the file content
@@ -240,7 +240,6 @@ echo    7. Utility, Extras                                      8. Restore, Main
 echo.
 echo                   [9] Exit [0] Restart [r] Restore Point [s] Settings [d] Debug
 echo. 
-echo                                                 1.3
 echo                                         Welcome. %username%
 set /p "choice=%DEL%                                       Your choice: "
 if "%choice%"=="1" goto systemperf-uienchant
