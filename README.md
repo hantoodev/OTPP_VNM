@@ -19,7 +19,7 @@
     <img src="https://www.codefactor.io/repository/github/nammisadev/optimizedtoolsplusplus/badge" alt="CodeFactor">
   </a>
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/blob/main-development/OptimizedTools%2B%2B.bat">
-    <img src="https://img.shields.io/badge/Lines%20in%20the%20script-1720+-green" alt="Lines Number">
+    <img src="https://img.shields.io/badge/Lines%20in%20the%20script-2205+-gray" alt="Lines Number">
   </a>
 </div>
 
