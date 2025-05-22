@@ -15,8 +15,8 @@
     <img src="https://img.shields.io/badge/App%20Version-1.3+test-darkred" alt="App Version">
   </a>
   <img src="https://img.shields.io/badge/Tweaks%20Available-70%2B-blue" alt="Tweaks Available">
-  <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus">
-    <img src="https://img.shields.io/badge/Code%20Quality-A-brightgreen?logo=codefactor" alt="Code Quality">
+  <a href="https://www.codefactor.io/repository/github/nammisadev/optimizedtoolsplusplus">
+    <img src="https://www.codefactor.io/repository/github/nammisadev/optimizedtoolsplusplus/badge" alt="CodeFactor">
   </a>
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/blob/main-development/OptimizedTools%2B%2B.bat">
     <img src="https://img.shields.io/badge/Lines%20in%20the%20script-1720+-green" alt="Lines Number">
