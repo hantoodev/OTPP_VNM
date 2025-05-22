@@ -43,27 +43,15 @@
 
 ## 🏆 What is OptimizedTools++?
 
-OptimizedTools++ is **your ultimate toolkit** for Windows enhancement, delivering **performance-boosting tweaks** that make your system run smoother, faster, and **more efficient** than ever. Designed for both casual users and tech enthusiasts, this utility **refines, cleans, and optimizes** your OS for an **unparalleled computing experience**.
+OptimizedTools++ is **your ultimate toolkit** for Windows enhancement, delivering **performance-boosting tweaks** that make your system run smoother, faster, and **more efficient** than ever. Designed for both casual users and tech enthusiasts, this utility **refines, cleans, and optimizes** your OS for an **best performance**.
 
 ---
 
-## 🌟 Why use OptimizedTools++?
-
-+ **Optimize your performance**
-+ **Highly recommended for fresh installs**
-+ **Removes unnecessary clutter and improves workflow**
-+ **Stable CLI UI**
-
----
-
-## 🔧 Features
-
-- ⚡  **70+ tweaks**
-- 🔄 **Restore point creation**
-- 🔧 **Integrated updater**
-- 📦 **App installer**
-
----
+## ✨ What's Inside?
+- 70+ powerful tweaks for ultimate control
+- Performance enhancements to keep things running smoothly
+- Respects your privacy and keep your Windows tidy, clean.
+- Integrated app installer for easy setup
 
 ## 🪄 How to optimize
 ### Method 1 - PowerShell (Windows 10 and later)
