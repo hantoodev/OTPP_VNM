@@ -112,7 +112,7 @@ ping -n 5 localhost > nul
 set /p fileContent=<%temp%\check_unstable.txt
 
 :: Check the content and decide the action
-if "!fileContent!"=="1.3+unstable" (
+if "!fileContent!"=="1.4+unstable" (
     echo                         Your version is !fileContent!, you are up to date.
     ping -n 3 localhost > nul
 ) else (
