@@ -8,13 +8,12 @@
 
 <div align="center">
   <img src="https://img.shields.io/badge/Test-Passing-green?logo=github" alt="Build Status">
-  <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/commits/main-development">
-    <img src="https://img.shields.io/badge/Status-Active%20Development-blue" alt="Development Status">
   </a>
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases">
-    <img src="https://img.shields.io/badge/App%20Version-1.3+stable-green" alt="App Version">
+    <img src="https://img.shields.io/badge/Version-1.4+unstable-red" alt="Version">
   </a>
-  <img src="https://img.shields.io/badge/Tweaks%20Available-70%2B-blue" alt="Tweaks Available">
+  <img src="https://img.shields.io/badge/Tweaks-70%2B-blue" alt="Tweaks Available">
+  </a>
   <a href="https://www.codefactor.io/repository/github/nammisadev/optimizedtoolsplusplus">
     <img src="https://www.codefactor.io/repository/github/nammisadev/optimizedtoolsplusplus/badge" alt="CodeFactor">
   </a>
