@@ -1,12 +1,12 @@
 @echo off
-title OptimizedTools++: Đang khởi tạo...
+title OptimizedTools++: Đang chuẩn bị...
 REM Run as Admin
 setlocal EnableDelayedExpansion
 REM Delete the registry key
 reg delete HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v DummyEntry /f >reg_log.txt 2>&1
 reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v DummyEntry /t REG_SZ /d 1 >reg_log.txt 2>&1
 if %errorlevel% neq 0 (
-    echo Đang yêu cầu quyền quản trị...
+    echo Yêu cầu quyền quản trị...
     powershell -Command "Start-Process '%~dpnx0' -Verb RunAs"
     exit /b
 )
@@ -176,7 +176,7 @@ goto launch1
 
 :launch1
 cls
-title OptimizedTools++: Lựa chọn ngôn ngữ
+title OptimizedTools++: Select Language
 echo.
 echo                   --------------------------------------------------------------
 echo                                            Chọn Ngôn Ngữ
@@ -184,7 +184,7 @@ echo                   ---------------------------------------------------------
 echo.
 echo    1. English
 echo    2. Tiếng Việt (translate in progress)
-echo    Nhiều ngôn ngữ sẽ tới sau...
+echo    More languages coming soon...
 echo.
 set /p "lang=%DEL%                                Lựa chọn: "
 if "%lang%"=="1" goto warn
@@ -236,10 +236,10 @@ echo                   ---------------------------------------------------------
 echo                                        Danh mục tinh chỉnh
 echo                   --------------------------------------------------------------
 echo.
-echo    1. Hiệu năng, tinh chỉnh giao diện                  2. Tinh chỉnh Windows
-echo    3. Lược bỏ, giảm rác                              4. Bảo mật, quyền riêng tư
-echo    5. Tinh chỉnh mạng, hiệu năng                       6. Tối ưu hoá phần cứng, hiệu năng game
-echo    7. Công cụ cần thiết                                    8. Khôi phục, Bảo trì
+echo    1. Hiệu năng, Tinh chỉnh giao diện                  2. Tinh chỉnh Windows
+echo    3. Lược bỏ, tối ưu hoá                              4. Bảo mật, quyền riêng tư
+echo    5. Tinh chỉnh mạng, hiệu năng                       6. Tối ưu hoá phần cứng, chơi game
+echo    7. Công cụ, Thêm                                    8. Khôi phục, Bảo trì
 echo.
 echo        [9] Thoát [0] Khởi động lại [r] Restore Point [s] Cài đặt [d] Chế độ nhà phát triển
 echo. 
@@ -277,19 +277,19 @@ echo     1. Tắt độ trễ khởi động
 echo     2. Bật chế độ tối
 echo     3. Bật đuôi mở rộng tập tin
 echo     4. Tắt hiệu ứng
-echo     5. Bật chế độ tắt máy nhanh hơn
-echo     6. Bật Taskbar cổ điển (Không hoạt động trên W11 23H2+)
-echo     7. Bật gỡ lỗi khởi động LogonUI (Verbose)
+echo     5. Bật tắt nhanh
+echo     6. Bật Taskbar cổ điển (Không hoạt động trên 23H2+)
+echo     7. Bật khởi động Verbose
 echo     8. Tắt ứng dụng nền
 echo     9. Bật Ultimate Performance (Windows 10 Pro+)
-echo     10. Bật cache hệ thống to
+echo     10. Bật Large System Cache
 echo     11. Tối ưu GPU Scheduling (Windows 10 20H1+)
 echo     12. Tự động tinh chỉnh
 echo     13. Tắt các dịch vụ không cần thiết
 echo     14. Căn trái Taskbar (Windows 11)
 echo     15. Tắt NTFS Indexing
 echo     16. Tắt Superfetch (Cảnh báo: ảnh hưởng đến hiệu suất)
-echo     17. Tắt các app khởi động
+echo     17. Hỏi tắt khởi động
 echo     18. Trở về trang trước
 echo     19. Trang kế tiếp
 echo.
@@ -324,10 +324,10 @@ echo                   ---------------------------------------------------------
 echo                            Hiệu năng, Tinh chỉnh giao diện (tiếp theo)
 echo                   --------------------------------------------------------------
 echo.
-echo     20. Tắt ngủ đông và khởi động nhanh
-echo     21. Tắt hạn chế nguồn điện CPU (Intel Generation 6+)
+echo     20. Tắt ngủ đông và bật khởi động nhanh
+echo     21. Tắt Power Throttling (Intel Generation 6+)
 echo     22. Tăng độ ưu tiên CPU cho các ứng dụng
-echo     23. Làm cho svchost.exe
+echo     23. Tăng độ ưu tiên cho svchost.exe
 echo     24. Tắt Web Widget
 echo     25. Tắt Action Center
 echo     26. Trở lại trang trước
@@ -354,15 +354,15 @@ echo                                         Tinh chỉnh Windows
 echo                   --------------------------------------------------------------
 echo.
 echo    1. Bật menu chuột phải cổ điển (Windows 11)
-echo    2. Add delay to menu boot (3 seconds, only dual boot)
-echo    3. Disable Sticky Keys and Filter Keys
-echo    4. Hide Widgets and Weather (cause bug, disable in taskbar first)
-echo    5. Disable Search in Taskbar
-echo    6. Disable Fullscreen Optimizations
-echo    7. Go back main menu
+echo    2. Thêm thời gian chờ vào menu Dual boot (3 giây chờ)
+echo    3. Tắt Sticky Keys và Filter Keys 
+echo    4. Ẩn Widgets và Weather (Có thể lỗi, vui lòng tắt nó trên taskbar trước)
+echo    5. Tắt tìm kiếm trên Taskbar
+echo    6. Tắt tối ưu hoá toàn màn hình
+echo    7. Trở lại trang chính
 echo.
-echo                                         Welcome. %username%
-set /p "choice=%DEL%                                       Your choice: "
+echo                                         Chào mừng. %username%
+set /p "choice=%DEL%                                       Lựa chọn: "
 if "%choice%"=="1" goto setClassicRightClickMenu
 if "%choice%"=="2" goto dualboot
 if "%choice%"=="3" goto disableStickyKeys
@@ -377,21 +377,21 @@ cls
 title OptimizedTools++: Uninstall, Debloat
 echo.
 echo                   --------------------------------------------------------------
-echo                                        Uninstall, Debloat
+echo                                         Xoá và tối ưu hoá
 echo                   --------------------------------------------------------------
 echo.
-echo     1. Clear Temporary Files
-echo     2. Remove Bloatware
-echo     3. Debloat Windows 10/11
-echo     4. Uninstall OneDrive
-echo     5. Uninstall Microsoft Edge (Powered by ShadowWhisperer)
-echo     6. Reinstall Microsoft Store
-echo     7. Debloat Edge
-echo     8. Disable Location, Installing Suggested Apps, Unnecessary Components
-echo     9. Go back main menu
+echo     1. Xoá các tệp tạm thời
+echo     2. Xoá bloatware
+echo     3. Tối ưu hoá Windows 10/11
+echo     4. Xoá OneDrive
+echo     5. Xoá Microsoft Edge (Powered by ShadowWhisperer)
+echo     6. Cài đặt lại Microsoft Store
+echo     7. Tối ưu Microsoft Edge
+echo     8. Tắt vị trí, cài đặt ứng dụng đề xuất, xoá các thành phần không cần thiết
+echo     9. Trở lại trang chính
 echo.
-echo                                         Welcome. %username%
-set /p "choice=%DEL%                                       Your choice: "
+echo                                         Chào mừng. %username%
+set /p "choice=%DEL%                                       Lựa chọn: "
 if "%choice%"=="1" goto clearTempFiles
 if "%choice%"=="2" goto removeBloatware
 if "%choice%"=="3" goto debloatWindows
@@ -408,7 +408,7 @@ cls
 title OptimizedTools++: Security, Privacy
 echo.
 echo                   --------------------------------------------------------------
-echo                                         Security, Privacy
+echo                                       Bảo mật, Quyền riêng tư
 echo                   --------------------------------------------------------------
 echo.
 echo     1. Disable Telemetry
