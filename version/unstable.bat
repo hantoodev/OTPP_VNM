@@ -12,6 +12,10 @@ if %errorlevel% neq 0 (
 )
 
 @echo off
+REM Blank/Color Character
+for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (set "DEL=%%a" & set "COL=%%b")
+REM Add ANSI escape sequences
+reg add HKCU\CONSOLE /v VirtualTerminalLevel /t REG_DWORD /d 1 /f >nul 2>&1
 cls
 echo.
 echo    ------------ YOU ARE RUNNING AN UNSTABLE BUILD ------------
@@ -23,17 +27,24 @@ echo    Detected: You are running this unstable build directly from the source c
 echo    This version may contain experimental features, incomplete tweaks, or bugs.
 echo    For the latest stable release, visit: https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases
 echo.
+echo     Press [Enter] to continue. 
 echo    ------------------------------------------------------------
 echo.
+pause >nul
+cls
 setlocal EnableDelayedExpansion
-echo    OptimizedTools++ only supports Windows 10 or newer.
-echo    Please run it on a compatible version.
-echo    If you are running Windows 8 or older, please upgrade your OS.
+call :title
 echo.
-echo    Warning: Running this program on an outdated version of Windows may result in system corruption.
-echo    Proceed with caution!
+echo                                  %COL%[33mA litte warning for you^^!%COL%[0m
 echo.
-pause
+echo                     OptimizedTools++ only supports Windows 10 or newer.
+echo                          %COL%[31mPlease run it on a compatible version.%COL%[0m
+echo                 If you are running Windows 8 or older, please upgrade your OS.
+echo.
+echo                                   Proceed with caution^^!
+echo                                  %COL%[32mPress Enter to continue.%COL%[0m
+echo.
+pause >nul
 
 echo.
 echo Detecting Windows version...
@@ -68,10 +79,6 @@ exit /b 1
 :continue
 Mode 100,43
 
-REM Blank/Color Character
-for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (set "DEL=%%a" & set "COL=%%b")
-REM Add ANSI escape sequences
-reg add HKCU\CONSOLE /v VirtualTerminalLevel /t REG_DWORD /d 1 /f >nul 2>&1
 
 REM Save the current directory and download required files
 set CURRENT_DIR=%~dp0
