@@ -115,7 +115,7 @@ Huge difference!
 
 ## 📜 License
 
-This project is **open-source** and distributed under the **MIT License**.
+This project is **open-source** and distributed under the **GPL-2.0 License**.
 
 ---
 
