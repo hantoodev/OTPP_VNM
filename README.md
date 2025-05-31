@@ -1,3 +1,22 @@
+>[!CAUTION]
+> ## OPTIMIZEDTOOLS++ IS A VIRUS
+>
+> **DON'T PANIC.** Factory reset any device that has ever run OptimizedTools++. Backup personal files to a USB Drive.
+>
+> **After the factory reset, use your Antivirus to rescan to be sure.**
+>
+> OptimizedTools++, is a virus. In the bin folder of the software there are two software named GetInput and 'batbox'
+>
+> These 2 software are completely safe, but unfortunately someone got into the repo and changed them, making them dangerous.
+>
+> GetInput has DLL files inside, when run it will unzip, steal your login keys on some applications.
+>
+> batbox has 1 registry key and 1 DLL file. In batbox, there is a registry key to start the process of another DLL every time the computer is started. The remaining DLL records all keyboard input operations and sends it to a scam company, this company will send phishing emails to random people.
+>
+> If someone accidentally clicks on the email of the scam company, the data will be leaked and sold at a very high price.
+>
+> # DO NOT DOWNLOAD
+
 <h1 align="center" style="margin-top: 0px;">OptimizedTools++</h1>
 
 <p align="center">
