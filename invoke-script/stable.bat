@@ -87,54 +87,6 @@ curl -L -o bin/batbox.exe https://raw.githubusercontent.com/NammIsADev/Optimized
 REM Change to the 'bin' directory within the current directory
 cd /d %CURRENT_DIR%bin
 
-:update
-cls
-echo.
-echo                   --------------------------------------------------------------
-echo                                        Check for updates
-echo                   --------------------------------------------------------------
-echo.
-echo                                     Checking for new updates...
-echo                                           Please wait...
-echo.
-
-:: Remove the old files
-del "%temp%\check.txt"
-
-:: Download the latest version info
-curl -s -o "%temp%\check.txt" https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/update/check.txt
-ping -n 5 localhost > nul
-
-:: Read the file content
-set /p fileContent=<%temp%\check.txt
-
-:: Check the content and decide the action
-if "!fileContent!"=="1.3" (
-    echo                         Your version is !fileContent!, you are up to date.
-    ping -n 3 localhost > nul
-) else (
-    echo                           We found a new version. Newer version: !fileContent!
-    echo                                        Do you want to update?
-    :loop2
-    Batbox /h 0
-    Call Button 35 14 "Yes" 55 14 "No" # Press
-    Getinput /m %Press% /h 70
-    :: Check for the pressed button 
-    if %errorlevel%==1 (goto openGitHub)
-    if %errorlevel%==2 (goto restorepoint)
-    goto loop2
-    ping -n 5 localhost > nul
-
-    :openGitHub
-    cls
-    echo.
-    echo                                        Opening GitHub page...
-    start "" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest"
-    exit
-)
-
-
-
 :restorepoint
 cls
 echo.
