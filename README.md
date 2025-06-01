@@ -62,7 +62,7 @@ OptimizedTools++ is **your ultimate toolkit** for Windows enhancement, deliverin
 
 ---
 
-## 🪄 How to optimize
+## ❓ How to optimize
 
 ### Method 1 - PowerShell/CMD (Windows 10 and later)
 
@@ -133,13 +133,10 @@ OptimizedTools++ is an **open-source project**, and contributions are **highly a
 
 **We need someone to translate the project!**
 
-and we will credit you.
 
-Now only support Vietnamese language.
-
-Please fork the source, then start move the file (version/stable.bat) to lang folder, translate it to language you want, and open a pull request! 
+## ❤️‍🔥 List of contributor
+![list](https://github.com/user-attachments/assets/2a915afc-b9e3-46e9-bc94-e11de4d68be3)
 
 ---
 
 ## Made with love 💖
-
