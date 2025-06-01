@@ -2160,10 +2160,28 @@ echo                       Do you want to download the Vietnamese language pack?
 echo.
 echo                          1. Yes                   2. No, I will go with English
 echo.
-set /p "lang=%DEL%                                  Your choice: "
+set /p "lang=%DEL%                                     	     Your choice: "
 if "%lang%"=="1" goto downlanvn
 if "%lang%"=="2" goto warn
 goto vn
+
+:vn2
+cls
+echo.
+echo                   --------------------------------------------------------------
+echo                                       Download Language Pack
+echo                   --------------------------------------------------------------
+echo.
+echo                                      You choose: Vietnamese
+echo                                       Download size: 300kb
+echo                       Do you want to download the Vietnamese language pack?
+echo.
+echo                          1. Yes                   2. No, I will go with English
+echo.
+set /p "lang=%DEL%                                     	     Your choice: "
+if "%lang%"=="1" goto downlanvn
+if "%lang%"=="2" goto settings
+goto vn2
 
 :downlanvn
 cls
@@ -2189,8 +2207,8 @@ echo               3. Turn on Light mode (Experimental)
 echo               4. Switch to Stable
 echo               5. Go back main menu
 echo.
-set /p "choice=%DEL%                                       Your choice: "
-if "%settings%"=="1" goto vn
+set /p "settings=%DEL%                                       Your choice: "
+if "%settings%"=="1" goto vn2
 if "%settings%"=="2" goto theme
 if "%settings%"=="3" goto lightmode
 if "%settings%"=="4" goto stable
@@ -2202,7 +2220,7 @@ cls
 echo.
 echo Please choose a color theme:
 echo 1. Default 
-echo 2. Light 
+echo 2. moreFontLight+
 echo 3. Blue
 echo 4. Yellow
 echo 5. Green
@@ -2283,9 +2301,10 @@ goto settings
 :lightmode
 cls
 echo Turning on Light mode...
-color 0F
+color F0
 echo Light mode enabled.
 echo Note: This is an experimental feature and may not work as expected.
+echo Revert by: Go to Change color theme and select Default
 echo If you encounter any issues, please report them on GitHub.
 echo.
 pause

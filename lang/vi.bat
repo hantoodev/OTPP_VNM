@@ -242,7 +242,7 @@ echo    3. Lược bỏ, tối ưu hoá                              4. Bảo m�
 echo    5. Tinh chỉnh mạng, hiệu năng                       6. Tối ưu hoá phần cứng, chơi game
 echo    7. Công cụ, Thêm                                    8. Khôi phục, Bảo trì
 echo.
-echo        [9] Thoát [0] Khởi động lại [r] Restore Point [s] Cài đặt [d] Chế độ nhà phát triển
+echo                [9] Thoát [0] Khởi động lại [r] Restore Point [s] Cài đặt [d] Gỡ lỗi
 echo. 
 echo                                         Chào mừng. %username%
 set /p "choice=%DEL%                                       Lựa chọn: "
@@ -268,7 +268,7 @@ goto restorepoint
 
 :systemperf-uienchant
 cls
-title OptimizedTools++: hiệu năng, Tinh chỉnh giao diện
+title OptimizedTools++: Hiệu năng, Tinh chỉnh giao diện
 echo.
 echo                   --------------------------------------------------------------
 echo                                   Hiệu năng, Tinh chỉnh giao diện
@@ -375,7 +375,7 @@ goto windowscustomizations
 
 :uninstall-debloat
 cls
-title OptimizedTools++: Uninstall, Debloat
+title OptimizedTools++: Xóa và tối ưu hóa
 echo.
 echo                   --------------------------------------------------------------
 echo                                         Xoá và tối ưu hoá
@@ -406,30 +406,30 @@ goto uninstall-debloat
 
 :security-privacy
 cls
-title OptimizedTools++: Security, Privacy
+title OptimizedTools++: Bảo mật, Quyền riêng tư
 echo.
 echo                   --------------------------------------------------------------
 echo                                       Bảo mật, Quyền riêng tư
 echo                   --------------------------------------------------------------
 echo.
-echo     1. Disable Telemetry
-echo     2. Disable Cortana (Old Windows 10)
-echo     3. Disable Windows Defender
-echo     4. Turn Off Reserved Storage
-echo     5. Turn Off Spectre and Meltdown Mitigations (CAUTION)
-echo     6. Disable Office Telemetry
-echo     7. Disable SmartScreen (Caution: may affect security)
-echo     8. Disable Microsoft Store App Updates
-echo     9. Disable Windows Insider (Caution: cause bug in Settings app)
-echo     10. Disable App Launch Tracking
-echo     11. Disable App Suggestions
-echo     12. Disable Activity History
-echo     13. Disable Windows Error Reporting
-echo     14. Disable all ADS
-echo     15. Go back main menu
+echo     1. Tắt các dịch vụ Telemetry
+echo     2. Tắt Cortana (Windows 10 1809 trở xuống)
+echo     3. Tắt trình bảo vệ Windows (Windows Defender, giảm bảo mật)
+echo     4. Tắt Reserved Storage
+echo     5. Tắt Spectre and Meltdown Mitigations (CẨN THẬN KHI XÀI)
+echo     6. Tắt Office Telemetry
+echo     7. Tắt SmartScreen (CẢNH BÁO: giảm bảo mật)
+echo     8. Tắt cập nhật các ứng dụng từ Microsoft Store
+echo     9. Tắt các bản Beta của Windows (Windows Insider, có thể gây ra lỗi)
+echo     10. Tắt theo dõi ứng dụng (App Tracking)
+echo     11. Tắt gợi ý ứng dụng (App Suggestions)
+echo     12. Tắt Activity History (Lịch sử hoạt động)
+echo     13. Tắt báo cáo lỗi
+echo     14. Tắt ADS
+echo     15. Trở lại trang chính
 echo.
-echo                                         Welcome. %username%
-set /p "choice=%DEL%                                       Your choice: "
+echo                                         Chào mừng. %username%
+set /p "choice=%DEL%                                       Lựa chọn: "
 if "%choice%"=="1" goto disableTelemetry
 if "%choice%"=="2" goto disableCortana
 if "%choice%"=="3" goto disableWindowsDefender
@@ -449,26 +449,26 @@ goto security-privacy
 
 :networking-performance
 cls
-title OptimizedTools++: Networking, Performance Tweaks
+title OptimizedTools++: Tinh chỉnh hiệu năng mạng
 echo.
 echo                   --------------------------------------------------------------
-echo                                    Networking, Performance Tweaks
+echo                                    Tinh chỉnh hiệu năng mạng
 echo                   --------------------------------------------------------------
 echo.
-echo     1. Optimize Network Performance
-echo     2. Disable IPv6
-echo     3. Disable Teredo
-echo     4. Tweak TCP/IP Settings
-echo     5. Flush DNS Cache
-echo     6. Change DNS Server
-echo     7. Disable QoS Packet Scheduler
-echo     8. Disable Network Throttling
-echo     9. Disable Network Discovery
-echo     10. Enhance System Network (using Network+)
-echo     11. Go back main menu
+echo     1. Tối ưu hiệu suất mạng
+echo     2. Tắt IPv6
+echo     3. Tắt Teredo (khuyến nghị)
+echo     4. Tinh chỉnh TCP/IP
+echo     5. Xóa DNS Cache
+echo     6. Đổi DNS
+echo     7. Tắt QoS Packet Scheduler
+echo     8. Tắt bóp băng thông
+echo     9. Tắt dò thiết bị mạng (Network Discovery)
+echo     10. Tăng cường hiệu suất mạng nội bộ
+echo     11. Trở về trang chính
 echo.
-echo                                         Welcome. %username%
-set /p "choice=%DEL%                                       Your choice: "
+echo                                         Chào mừng. %username%
+set /p "choice=%DEL%                                       Lựa chọn: "
 if "%choice%"=="1" goto optimizeNetwork
 if "%choice%"=="2" goto disableIPv6
 if "%choice%"=="3" goto disableTeredo
@@ -484,21 +484,21 @@ goto networking-performance
 
 :gaming-hardware
 cls
-title OptimizedTools++: Gaming, Hardware Optimizations
+title OptimizedTools++: Hiệu năng game, Tối ưu phần cứng
 echo.
 echo                   --------------------------------------------------------------
-echo                                   Gaming, Hardware Optimizations
+echo                                   Hiệu năng game, Tối ưu phần cứng
 echo                   --------------------------------------------------------------
 echo.
-echo     1. NVIDIA GPU Optimization
-echo     2. Disable HPET
-echo     3. Disable CPU C-States
-echo     4. Enable CPU Turbo Boost
-echo     5. Enable Hyper Threading
-echo     6. Go back main menu
+echo     1. Tối ưu NVIDIA GPU
+echo     2. Tắt HPET
+echo     3. Tắt CPU tự tiết kiệm điện
+echo     4. Bật Turbo Boost (Intel) (nếu hỗ trợ)
+echo     5. Bật Hyper-Threading (Intel) (nếu hỗ trợ)
+echo     6. Trở lại trang chính
 echo.
-echo                                         Welcome. %username%
-set /p "choice=%DEL%                                       Your choice: "
+echo                                         Chào mừng. %username%
+set /p "choice=%DEL%                                       Lựa chọn: "
 if "%choice%"=="1" goto nvidiaOptimization
 if "%choice%"=="2" goto disableHPET
 if "%choice%"=="3" goto disableCStates
@@ -509,18 +509,18 @@ goto gaming-hardware
 
 :utility-extras
 cls
-title OptimizedTools++: Utility, Extras
+title OptimizedTools++: Tiện ích và hơn
 echo.
 echo                   --------------------------------------------------------------
-echo                                         Utility, Extras
+echo                                         Tiện ích và hơn
 echo                   --------------------------------------------------------------
-echo     1. Install Useful Apps (Notepad++, Discord, Browser)
-echo     2. Activate Windows (Powered by MAS)
-echo     3. Disable Microsoft Copilot
-echo     4. Go back main menu
+echo     1. Cài đặt app hữu dụng (Notepad++, Discord, Browser)
+echo     2. Đăng kí bản quyền Windows (MAS)
+echo     3. Tắt Microsoft Copilot (Windows 11 23H2+)
+echo     4. Trở lại trang chính
 echo.
-echo                                         Welcome. %username%
-set /p "choice=%DEL%                                       Your choice: "
+echo                                         Chào mừng. %username%
+set /p "choice=%DEL%                                       Lựa chọn: "
 if "%choice%"=="1" goto installUsefulApps
 if "%choice%"=="2" goto activateWindows
 if "%choice%"=="3" goto disableMicrosoftCopilot
@@ -529,22 +529,22 @@ goto utility-extras
 
 :restore-maintenance
 cls
-title OptimizedTools++: Restore, Maintenance Options
+title OptimizedTools++: Khôi phục, Bảo trì
 echo.
 echo                   --------------------------------------------------------------
-echo                                    Restore, Maintenance Options
+echo                                         Khôi phục, Bảo trì
 echo                   --------------------------------------------------------------
-echo     1. Disable Windows Updates (Caution: may affect security)
-echo     2. Restart your PC
+echo     1. Tắt cập nhật Windows (Windows Updates) (Windows 10/11)
+echo     2. Khởi động lại máy tính
 echo     3. SFC /scannow
 echo     4. DISM /Online /Cleanup-Image /RestoreHealth
-echo     5. Start Restore Point
-echo     6. Free up Disk Space
+echo     5. Tạo điểm khôi phục
+echo     6. Giải phóng dung lượng đĩa
 echo     7. Chkdsk /f /r C:
-echo     8. Go back main menu
+echo     8. Trở lại trang chính
 echo.
-echo                                         Welcome. %username%
-set /p "choice=%DEL%                                       Your choice: "
+echo                                         Chào mừng. %username%
+set /p "choice=%DEL%                                       Lựa chọn: "
 if "%choice%"=="1" goto disableWindowsUpdates
 if "%choice%"=="2" goto restart
 if "%choice%"=="3" goto sfc1
@@ -558,7 +558,7 @@ goto restore-maintenance
 :disableStartupDelay
 cls
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v "StartupDelayInMSec" /t REG_DWORD /d 0 /f
-echo Disabled Startup Delay.
+echo Đã tắt độ trễ khởi động.
 pause
 goto systemperf-uienchant
 
@@ -566,7 +566,7 @@ goto systemperf-uienchant
 cls
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "AppsUseLightTheme" /t REG_DWORD /d 0 /f
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v "SystemUsesLightTheme" /t REG_DWORD /d 0 /f
-echo Enabled Dark Mode.
+echo Đã bật chế độ tối.
 pause
 goto systemperf-uienchant
 
@@ -643,7 +643,7 @@ reg add "HKCU\SOFTWARE\Microsoft\Office\15.0\Common\Feedback" /v "Enabled" /t RE
 reg add "HKCU\SOFTWARE\Policies\Microsoft\Office\17.0\OSM" /v "EnableUpload" /t REG_DWORD /d 0 /f
 reg add "HKCU\SOFTWARE\Policies\Microsoft\Office\16.0\OSM" /v "EnableUpload" /t REG_DWORD /d 0 /f
 reg add "HKCU\SOFTWARE\Policies\Microsoft\Office\15.0\OSM" /v 
-echo Disabled Telemetry.
+echo Đã tắt các dịch vụ Telemetry.
 pause
 goto security-privacy
 
@@ -651,21 +651,21 @@ goto security-privacy
 cls
 reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpAckFrequency" /t REG_DWORD /d 1 /f
 reg add "HKLM\System\CurrentControlSet\Services\Tcpip\Parameters" /v "TCPNoDelay" /t REG_DWORD /d 1 /f
-echo Optimized Network Performance.
+echo Đã tối ưu hiệu suất mạng.
 pause
 goto networking-performance
 
 :disableCortana
 cls
 reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d 0 /f
-echo Disabled Cortana.
+echo Đã tắt Cortana.
 pause
 goto security-privacy
 
 :enableFileExtensions
 cls
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t REG_DWORD /d 0 /f
-echo Enabled File Extensions.
+echo Đã bật đuôi mở rộng tập tin.
 pause
 goto systemperf-uienchant
 
@@ -673,14 +673,14 @@ goto systemperf-uienchant
 cls
 reg add "HKCU\Control Panel\Desktop" /v "UserPreferencesMask" /t REG_BINARY /d 9012038010000000 /f
 reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v "MinAnimate" /t REG_SZ /d 0 /f
-echo Disabled Animations.
+echo Đã tắt hiệu ứng.
 pause
 goto systemperf-uienchant
 
 :clearTempFiles
 cls
 del /q /s %temp%\*
-echo Cleared Temporary Files.
+echo Đã xóa các tệp tạm thời.
 pause
 goto uninstall-debloat
 
@@ -689,14 +689,15 @@ cls
 reg add "HKLM\System\CurrentControlSet\Control" /v "WaitToKillServiceTimeout" /t REG_SZ /d 2000 /f
 reg add "HKCU\Control Panel\Desktop" /v "WaitToKillAppTimeout" /t REG_SZ /d 2000 /f
 reg add "HKCU\Control Panel\Desktop" /v "HungAppTimeout" /t REG_SZ /d 2000 /f
-echo Enabled Faster Shutdown.
+echo Đã bật tắt máy nhanh.
 pause
 goto systemperf-uienchant
 
 :removeBloatware
 cls
-echo Removing ALL pre-installed Windows apps including Store, Photos, Camera, Terminal...
-echo This may break app installations or basic tools. Proceeding anyway.
+echo Đang xóa bloatware...
+echo Cảnh báo: Việc này sẽ xóa tất cả các ứng dụng cài sẵn của Windows, bao gồm Microsoft Store, Photos, Terminal, v.v.
+echo Tweak này có thể làm hỏng một số ứng dụng hoặc tính năng của Windows. Đang gỡ...
 
 REM Remove installed AppxPackages for all users
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
@@ -723,13 +724,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
 }"
 
 echo.
-echo All pre-installed apps (including Store, Photos, Terminal, etc.) removed.
+echo Đã xóa bloatware thành công.
 pause
 goto uninstall-debloat
 
 :debloatWindows
 cls
-echo Debloating Windows...
+echo Đang tối ưu hóa Windows...
 :: Disable Xbox services
 sc config XblAuthManager start= disabled >nul 2>&1
 sc config XblGameSave start= disabled >nul 2>&1
@@ -748,7 +749,7 @@ reg add "HKLM\Software\Policies\Microsoft\Windows\OneDrive" /v "DisableFileSync"
 :: Disable unnecessary startup apps
 powershell -Command "Get-CimInstance Win32_StartupCommand | Where-Object { $_.Command -like '*OneDrive*' -or $_.Command -like '*Teams*' } | Remove-CimInstance"
 
-echo Windows debloated successfully.
+echo Đã tối ưu hóa Windows thành công.
 pause
 goto uninstall-debloat
 
@@ -756,93 +757,102 @@ goto uninstall-debloat
 cls
 reg add "HKLM\Software\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\Windows Defender" /v "DisableRealtimeMonitoring" /t REG_DWORD /d 1 /f
-echo Disabled Windows Defender.
+echo Đã tắt trình bảo vệ Windows.
 pause
 goto security-privacy
 
 :enableClassicTaskbar
 cls
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarSmallIcons" /t REG_DWORD /d 1 /f
-echo Enabled Classic Taskbar.
+echo Đã bật Taskbar cũ.
+echo Trên Windows 10 thì nó là taskbar nhỏ.
 pause
 goto systemperf-uienchant
 
 :disableActionCenter
 cls
 reg add "HKLM\Software\Policies\Microsoft\Windows\Explorer" /v "DisableNotificationCenter" /t REG_DWORD /d 1 /f
-echo Disabled Action Center.
+echo Đã tắt Action Center.
 pause
 goto systemperf-uienchantpage2
 
 :enableVerboseBoot
 cls
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System" /v "VerboseStatus" /t REG_DWORD /d 1 /f
-echo Enabled Verbose Boot.
+echo Đã bật khởi động Verbose.
 pause
 goto systemperf-uienchant
 
 :uninstallOneDrive
 cls
-echo Uninstalling OneDrive...
+echo Đang gỡ OneDrive...
 %SystemRoot%\SysWOW64\OneDriveSetup.exe /uninstall
 reg delete "HKCU\Software\Microsoft\OneDrive" /f >nul 2>&1
 reg delete "HKLM\Software\Microsoft\OneDrive" /f >nul 2>&1
 reg delete "HKLM\Software\WOW6432Node\Microsoft\OneDrive" /f >nul 2>&1
-echo OneDrive uninstalled successfully.
+echo OneDrive đã được gỡ thành công.
 pause
 goto uninstall-debloat
 
 :disableFullscreenOptimizations
 cls
-echo Disabling Fullscreen Optimizations...
+echo Tắt tối ưu hóa toàn màn hình...
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_FSEBehaviorMode" /t REG_DWORD /d 2 /f >nul 2>&1
 reg add "HKCU\System\GameConfigStore" /v "GameDVR_HonorUserFSEBehaviorMode" /t REG_DWORD /d 1 /f >nul 2>&1
-echo Fullscreen Optimizations disabled successfully.
+echo Tắt thành công.
 pause
 goto windowscustomizations
 
 :disableMicrosoftCopilot
 cls
-echo Disabling Microsoft Copilot...
+echo Tắt Copilot...
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowCopilotButton" /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Copilot" /v "TurnOffWindowsCopilot" /t REG_DWORD /d 1 /f >nul 2>&1
-echo Microsoft Copilot disabled. You might need to restart Explorer or your computer for the change to take full effect.
+echo Đã tắt Microsoft Copilot.
+echo Đang khởi động lại Explorer...
+taskkill /f /im explorer.exe >nul 2>&1
+start explorer.exe >nul 2>&1
+echo Explorer đã được khởi động lại.
 pause
 goto utility-extras
 
 :disableIPv6
 cls
-echo Disabling IPv6...
+echo Tắt IPv6
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" /v "DisabledComponents" /t REG_DWORD /d 0xffffffff /f >nul 2>&1
-echo IPv6 disabled. You might need to restart your computer for the changes to take effect.
+echo Đã tắt IPv6.
+echo Nhớ khởi động lại máy.
 pause
 goto networking-performance
 
 :disableTeredo
 cls
-echo Disabling Teredo...
+echo Tắt Teredo...
 netsh interface teredo set state disabled
-echo Teredo disabled.
+echo Đã tắt Teredo.
 pause
 goto networking-performance
 
 :setClassicRightClickMenu
 cls
-echo Setting classic right-click menu...
+echo Đang bật menu chuột phải cổ điển...
 reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /ve /t REG_SZ /d "" /f >nul 2>&1
 reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" /v "ThreadingModel" /t REG_SZ /d "Apartment" /f >nul 2>&1
 taskkill /f /im explorer.exe && explorer.exe
-echo Classic right-click menu set. 
+echo Đã bật menu chuột phải cổ điển.
 goto windowscustomizations
 
 :removeEdge
 cls
-echo Uninstalling Microsoft Edge...
-echo This process uses PowerShell and might take a few moments.
-echo Method 1: trying
+echo Đang gỡ Microsoft Edge...
+echo Cảnh báo: Việc này sẽ gỡ bỏ Microsoft Edge và WebView2 khỏi hệ thống của bạn.
+echo Việc này sử dụng PowerShell và có thể mất một thời gian.
+echo Đang thử gỡ Microsoft Edge bằng PowerShell...
 powershell -Command "Get-AppxPackage -Name Microsoft.MicrosoftEdge.* | Remove-AppxPackage"
-echo Microsoft Edge uninstallation initiated. Check the PowerShell window for progress.
-echo Method 2: trying
+echo Microsoft Edge đã được gỡ bỏ. Vui lòng bấm enter để gỡ chuyên sâu tiếp tục.
+pause >nul
+echo Không được đụng đến máy tính trong quá trình gỡ bỏ.
+echo Đang gỡ Microsoft Edge bằng script nâng cao...
 net session >NUL 2>&1 || (echo. & echo Run Script As Admin & echo. & pause & exit)
 title Edge Remover - 2/18/2025 - Powered by ShadowWhisperer
 set "expected=4963532e63884a66ecee0386475ee423ae7f7af8a6c6d160cf1237d085adf05e"
@@ -857,11 +867,11 @@ if exist "%fileSetup%" goto file_check;
 :file_download
 set "onHashErr=error"
 ipconfig | find "IPv" >NUL
-if %errorlevel% neq 0 echo. & echo You are not connected to a network ! & echo. & pause & exit
+if %errorlevel% neq 0 echo. & echo Vui lòng kết nối vào mạng. & echo. & pause & exit
 
 echo - Downloading Required File
 powershell -Command "try { (New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/ShadowWhisperer/Remove-MS-Edge/main/_Source/setup.exe', '%fileSetup%') } catch { Write-Host 'Error downloading the file.' }"
-if not exist "%fileSetup%" echo File download failed. Check your internet connection & echo & pause & exit
+if not exist "%fileSetup%" echo Tải xuống thất bại, vui lòng kiểm tra mạng. & echo & pause & exit
 
 :file_check
 powershell -Command "exit ((Get-FileHash '%fileSetup%' -Algorithm SHA256).Hash.ToLower() -ne '%expected%')"
@@ -869,7 +879,7 @@ if %errorlevel% neq 0 goto file_%onHashErr%
 echo. & goto uninst_edge
 
 :file_error
-echo File hash does not match the expected value. & echo & pause & exit
+echo Lỗi! Vui lòng chạy lại script này. & echo & pause & exit
 
 
 REM #Edge
@@ -982,66 +992,65 @@ for /d %%d in ("%SystemRoot%\SystemApps\Microsoft.MicrosoftEdge*") do (
  takeown /f "%%d" /r /d y >NUL 2>&1
  icacls "%%d" /grant administrators:F /t >NUL 2>&1
  rd /s /q "%%d" >NUL 2>&1)
-echo Microsoft Edge uninstalled successfully.
+echo Đã gỡ Microsoft Edge và WebView2 thành công.
 pause
 title OptimizedTools++
 goto uninstall-debloat
 
 :installUsefulApps
 cls
-echo Installing useful applications...
+echo Cài đặt ứng dụng hữu dụng...
 
 REM Check if Chocolatey is installed
 where choco >nul 2>&1
 if %errorlevel% neq 0 (
-    echo Chocolatey not found. Installing Chocolatey...
+    echo Không tìm thấy Chocolatey. Đang cài đặt Chocolatey...
     powershell -NoProfile -ExecutionPolicy Bypass -Command ^
      "Set-ExecutionPolicy Bypass -Scope Process -Force; ^
       [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; ^
       iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
     if %errorlevel% neq 0 (
-        echo Failed to install Chocolatey. Please install it manually and re-run this script.
+        echo Không thể cài đặt Chocolatey. Vui lòng kiểm tra kết nối mạng hoặc quyền truy cập.
         pause
         goto utility-extras
     )
-    echo Chocolatey installed successfully.
+    echo Chocolatey đã được cài đặt thành công.
 ) else (
-    echo Chocolatey is already installed.
+    echo Chocolatey đã được cài đặt sẵn.
 )
 
 REM Install useful applications
-echo Installing Notepad++, Discord, Firefox, VLC, and WinRAR...
+echo Đang cài đặt...
 choco install -y notepadplusplus discord firefox vlc winrar
 
 echo.
-echo All applications installed successfully.
+echo Các ứng dụng hữu dụng đã được cài đặt thành công.
 pause
 goto utility-extras
 
 
 :enableUltimatePerformance
 cls
-echo Enabling Ultimate Performance power plan...
+echo Đang bật chế độ Ultimate Performance...
 
-echo Checking for Ultimate Performance power scheme...
+echo Đang kiểm tra hệ thống...
 powercfg /list | findstr /i "Ultimate Performance" >nul 2>&1
 
 if %errorlevel% neq 0 (
-    echo Ultimate Performance scheme not found. Attempting to create it...
+    echo Không tìm thấy chế độ Ultimate Performance. Đang tạo mới...
     powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 >nul 2>&1
     if %errorlevel% equ 0 (
-        echo Ultimate Performance scheme created successfully.
+        echo Đã tạo chế độ Ultimate Performance thành công.
     ) else (
-        echo Failed to create Ultimate Performance scheme.
-        echo This feature may not be supported on your system.
+        echo Không thể tạo chế độ Ultimate Performance.
+        echo Chế độ này có thể không được hỗ trợ trên hệ thống của bạn.
     )
 ) else (
-    echo Ultimate Performance scheme already exists.
+    echo Chế độ Ultimate Performance đã tồn tại.
+    echo Đang áp dụng chế độ...
 )
 
 echo.
-echo Applying power scheme changes...
-
 :: Step 1: Activate Balanced (optional reset)
 powercfg -setactive scheme_min
 if %errorlevel% neq 0 echo [Warning] Failed to activate 'Balanced' (scheme_min)
@@ -1062,34 +1071,31 @@ if %errorlevel% neq 0 echo [Warning] Failed to set AC standby timeout
 powercfg /X standby-timeout-dc 0
 if %errorlevel% neq 0 echo [Warning] Failed to set DC standby timeout
 
-echo.
-echo All power settings applied.
-
-
 :: Set the Ultimate Performance scheme as active
 powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61
 if %errorlevel% equ 0 (
-    echo Ultimate Performance power plan enabled.
+    echo Đã bật chế độ Ultimate Performance thành công.
+    pause
+    goto systemperf-uienchant
 ) else (
-    echo Failed to enable Ultimate Performance power plan.
-    echo This feature might not be supported on your system.
+    echo Không thể bật chế độ Ultimate Performance.
+    echo Chế độ này có thể không được hỗ trợ trên hệ thống của bạn.
+    pause
+    goto systemperf-uienchant
 )
-
-echo Power plan changes applied successfully.
-pause
-goto systemperf-uienchant
 
 :turnOffReservedStorage
 cls
-echo Turning off reserved storage...
+echo Đang tắt Reserved Storage...
 reg add "HKLM\Software\Microsoft\Windows\ReservedStorage" /v "AllowUninstall" /t REG_DWORD /d 1 /f >nul 2>&1
-echo Attempting to turn off reserved storage. This might not be effective on all systems and might require further steps or a reboot.
+echo Reserved Storage đã được tắt.
+echo Lưu ý: Việc tắt Reserved Storage có thể ảnh hưởng đến khả năng cập nhật và bảo trì hệ thống.
 pause
 goto security-privacy
 
 :tweakTCPIP
 cls
-echo Tweaking TCP/IP settings...
+echo Đang tinh chỉnh...
 
 REM Enable TCP Fast Open (Windows 10+ supports this partially)
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpFastOpen" /t REG_DWORD /d 1 /f
@@ -1110,111 +1116,120 @@ netsh int tcp set global rss=enabled
 REM Enable Chimney Offload — note: deprecated in latest Windows versions
 netsh int tcp set global chimney=enabled
 
-echo TCP/IP tweaks applied successfully.
+echo Áp dụng các tinh chỉnh TCP/IP thành công.
 pause
 goto networking-performance
 
 :flushDNSCache
 cls
-echo Flushing DNS cache...
+echo Đang xóa bộ nhớ cache DNS...
+net stop dnscache >nul 2>&1
 ipconfig /flushdns
-echo DNS cache flushed successfully.
+net start dnscache >nul 2>&1
+echo Đã xóa bộ nhớ cache DNS thành công.
 pause
 goto networking-performance
 
 :enableLargeSystemCache
 cls
-echo Enabling large system cache...
-echo Warning: Enabling large system cache can improve performance for certain workloads but may affect system stability.
-set /p "enableLargeCache=Enable large system cache now? (y/n): "
+echo Đang bật bộ nhớ đệm hệ thống lớn...
+echo Lưu ý: Việc này có thể cải thiện hiệu suất hệ thống nhưng cũng có thể làm tăng mức sử dụng RAM.
+set /p "enableLargeCache=Bạn có muốn bật? (y/n): "
 if /i "%enableLargeCache%"=="y" (
     reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 1 /f >nul 2>&1
-    echo Large system cache enabled.
+    echo Bộ nhớ đệm hệ thống lớn đã được bật.
     pause
     goto systemperf-uienchant
 ) else (
-    echo Skipping large system cache.
+    echo Bộ nhớ đệm hệ thống lớn không được bật.
     goto systemperf-uienchant
 )
 
 :optimizeGPUScheduling
 cls
-echo Optimizing GPU scheduling...
+echo Đang tối ưu hóa lập lịch GPU phần cứng...
 reg add "HKLM\System\CurrentControlSet\Control\GraphicsDrivers" /v "HwSchMode" /t REG_DWORD /d 2 /f >nul 2>&1
-echo Hardware-accelerated GPU scheduling enabled. You might need to restart your computer.
+echo Lập lịch GPU phần cứng đã được tối ưu hóa.
+echo Lưu ý: Việc này có thể cải thiện hiệu suất đồ họa nhưng cũng có thể làm tăng mức sử dụng CPU. 
 pause
 goto systemperf-uienchant
 
 :turnOffSpectreMeltdown
 cls
-echo Turning off Spectre and Meltdown mitigations...
-echo Warning: Disabling these mitigations can improve performance but might increase security risks. Proceed with caution.
-set /p "disableMitigations=Are you sure you want to disable Spectre & Meltdown mitigations? (y/n): "
+echo Đang tắt các biện pháp bảo vệ Spectre và Meltdown...
+echo Lưu ý: Việc này có thể làm tăng nguy cơ bảo mật hệ thống của bạn.
+echo Chỉ nên thực hiện nếu bạn hiểu rõ các rủi ro liên quan.
+echo Việc này có thể làm tăng hiệu suất hệ thống nhưng cũng có thể làm giảm bảo mật.
+set /p "disableMitigations=Bạn có chắc chắn muốn tắt các biện pháp bảo vệ này không? (y/n): "
 if /i "%disableMitigations%"=="y" (
     reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\FeatureSettingsOverride" /v "FeatureSettingsOverride" /t REG_DWORD /d 3 /f >nul 2>&1
     reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\FeatureSettingsOverride" /v "FeatureSettingsOverrideMask" /t REG_DWORD /d 3 /f >nul 2>&1
-    echo Spectre and Meltdown mitigations disabled. A system restart is highly recommended.
+    echo Đã tắt các biện pháp bảo vệ Spectre và Meltdown thành công.
+    pause
+    gôto security-privacy
 ) else (
-    echo Spectre and Meltdown mitigations not disabled.
+    echo Không tắt.
+    pause
+    goto security-privacy
 )
-pause
-goto security-privacy
 
 :nvidiaOptimization
 cls
-echo Optimizing NVIDIA GPU settings...
+echo Tối ưu hóa cài đặt NVIDIA GPU...
 reg add "HKLM\Software\NVIDIA Corporation\Global\NvCplApi\Policies" /v "PowerMizerEnable" /t REG_DWORD /d 1 /f >nul 2>&1
 reg add "HKLM\Software\NVIDIA Corporation\Global\NvCplApi\Policies" /v "PowerMizerLevel" /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKLM\Software\NVIDIA Corporation\Global\NvCplApi\Policies" /v "PowerMizerLevelAC" /t REG_DWORD /d 0 /f >nul 2>&1
-echo NVIDIA GPU settings optimized successfully.
+echo Đã tối ưu hóa cài đặt NVIDIA GPU thành công.
 pause
 goto gaming-hardware
 
 :autoTweaks
 cls
-echo Applying auto tweaks for Desktop/Laptop...
+echo Đang áp dụng các tinh chỉnh tự động...
 for /f "tokens=2 delims==" %%i in ('wmic computersystem get pcSystemType /value') do set "pcType=%%i"
 if "%pcType%"=="2" (
-    echo Detected Desktop. Applying desktop-specific tweaks...
+    echo Đã phát hiện máy tính để bàn. Áp dụng các tinh chỉnh dành cho máy tính để bàn...
+    powercfg /setactive SCHEME_PERFORMANCE
     reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 1 /f >nul 2>&1
     reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoLowDiskSpaceChecks" /t REG_DWORD /d 1 /f >nul 2>&1
 ) else (
-    echo Detected Laptop. Applying laptop-specific tweaks...
+    echo Đã phát hiện máy tính xách tay. Áp dụng các tinh chỉnh dành cho máy tính xách tay...
     powercfg /setactive SCHEME_BALANCED
     reg add "HKLM\System\CurrentControlSet\Control\Power" /v "HibernateEnabled" /t REG_DWORD /d 1 /f >nul 2>&1
 )
-echo Auto tweaks applied successfully.
+echo Áp dụng các tinh chỉnh tự động thành công.
 pause
 goto systemperf-uienchant
 
 :activateWindows
 cls
-echo Activating Windows...
-echo Downloading HWID activation script...
+echo Đang kích hoạt Windows...
+echo Đang tải xuống script kích hoạt HWID...
 curl -o "temp_hwid.cmd" "https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/master/MAS/Separate-Files-Version/Activators/HWID_Activation.cmd"
 if "%errorlevel%"=="0" (
-    echo HWID activation script downloaded successfully.
+    echo Tải xuống thành công.
     echo.
-    echo Running HWID activation script...
+    echo Đang chạy script kích hoạt HWID...
     call "temp_hwid.cmd"
     pause
     if "%errorlevel%"=="0" (
         echo.
-        echo HWID activation process completed.
+        echo Đã kích hoạt Windows thành công.
     ) else (
         echo.
-        echo Error occurred during HWID activation. Please check the output of the script.
+        echo Kích hoạt Windows không thành công. Vui lòng kiểm tra lại.
     )
     echo.
-    echo Removing temporary HWID activation script...
+    echo Đang xóa script tạm thời...
     del /f /q "temp_hwid.cmd"
     if "%errorlevel%"=="0" (
-        echo Temporary script removed.
+        echo Đã xóa script tạm thời thành công.
     ) else (
-        echo Error removing temporary script.
+        echo Lỗi! Không thể xóa script tạm thời. Vui lòng xóa thủ công.
+        echo Bạn có thể tìm thấy script tại: %cd%\temp_hwid.cmd
     )
 ) else (
-    echo Error downloading HWID activation script. Please check your internet connection.
+    echo Lỗi! Không thể tải xuống script kích hoạt HWID. Vui lòng kiểm tra kết nối mạng hoặc quyền truy cập.
 )
 
 echo.
@@ -1223,25 +1238,25 @@ goto utility-extras
 
 :disableHPET
 cls
-echo Disabling HPET...
+echo Tắt HPET (High Precision Event Timer)...
 bcdedit /set useplatformclock false
-echo HPET disabled successfully.
+echo Tắt thành công.
 pause
 goto gaming-hardware
 
 :enhanceSystemNetwork
 cls
-echo Enhancing system and network performance...
+echo Đang cải thiện hiệu suất mạng...
 netsh int tcp set global autotuninglevel=normal
 netsh int tcp set global rss=enabled
 reg add "HKLM\System\CurrentControlSet\Services\LanmanServer\Parameters" /v "Size" /t REG_DWORD /d 3 /f
-echo System and network performance enhanced successfully.
+echo Cải thiện thành công.
 pause
 goto networking-performance
 
 :disableUnnecessaryServices
 cls
-echo Disabling unnecessary Windows services...
+echo Đang tắt các dịch vụ không cần thiết...
 
 sc config "DiagTrack" start= disabled
 sc config "dmwappushservice" start= disabled
@@ -1268,21 +1283,22 @@ sc config "Themes" start= disabled
 sc config "TabletInputService" start= disabled
 sc config "WERSvc" start= disabled
 
-echo Unnecessary services disabled successfully.
+echo Các dịch vụ không cần thiết đã được tắt thành công.
 pause
 goto systemperf-uienchant
 
 :disableOfficeTelemetry
 cls
-echo Disabling Office telemetry...
+echo Đang tắt Office Telemetry...
 reg add "HKCU\Software\Policies\Microsoft\Office\16.0\Common\Telemetry" /v "DisableTelemetry" /t REG_DWORD /d 1 /f
-echo Office telemetry disabled successfully.
+echo Đã tắt Office Telemetry thành công.
 pause
 goto security-privacy
 
 :changeDNS
 cls
-echo Changing DNS server...
+echo Đang thay đổi máy chủ DNS...
+echo Vui lòng chọn máy chủ DNS bạn muốn sử dụng:
 echo 1. Google DNS (8.8.8.8, 8.8.4.4)
 echo 2. Cloudflare DNS (1.1.1.1, 1.0.0.1)
 echo 3. OpenDNS (208.67.222.222, 208.67.220.220)
@@ -1297,26 +1313,36 @@ if "%dnsChoice%"=="1" (
     netsh interface ip set dns name="Ethernet" static 208.67.222.222
     netsh interface ip add dns name="Ethernet" 208.67.220.220 index=2
 ) else (
-    echo Invalid choice. Skipping DNS change.
+    echo Lỗi: Lựa chọn không hợp lệ. Vui lòng chọn 1, 2 hoặc 3.
 )
-echo DNS server changed successfully.
+echo Đã thay đổi máy chủ DNS thành công.
 pause
 goto networking-performance
 
 :disableWindowsUpdates
 cls
-echo Disabling Windows Updates...
+echo Đang tắt Windows Updates...
 sc config wuauserv start= disabled >nul 2>&1
 sc stop wuauserv >nul 2>&1
-echo Windows Updates disabled successfully.
+sc config bits start= disabled >nul 2>&1
+sc stop bits >nul 2>&1
+sc config dosvc start= disabled >nul 2>&1
+sc stop dosvc >nul 2>&1
+sc config wuauserv start= disabled >nul 2>&1
+sc stop wuauserv >nul 2>&1
+reg add "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate" /v "DisableOSUpgrade" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate" /v "DisableWindowsUpdateAccess" /t REG_DWORD /d 1 /f >nul 2>&1
+echo Windows Updates đã được tắt thành công.
 pause
 goto restore-maintenance
 
 :alignTaskbarLeft
 cls
-echo Aligning Taskbar to Left...
+echo Đang căn chỉnh Taskbar sang trái...
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "TaskbarAl" /t REG_DWORD /d 0 /f >nul 2>&1
-echo Taskbar aligned to the left successfully.
+echo Taskbar đã được căn chỉnh sang trái thành công.
+echo ê muốn xài kiểu Windows 10 thì downgrade đi bạn=)) xài windows 11 gì cho khổ
 pause
 goto systemperf-uienchant
 
