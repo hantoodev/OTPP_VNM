@@ -17,7 +17,7 @@
   <img src="https://img.shields.io/badge/Test-Passing-green?logo=github" alt="Build Status">
   </a>
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases">
-    <img src="https://img.shields.io/badge/Version-1.4+unstable-red" alt="Version">
+    <img src="https://img.shields.io/badge/Version-1.5+unstable-red" alt="Version">
   </a>
   <img src="https://img.shields.io/badge/Tweaks-70%2B-blue" alt="Tweaks Available">
   </a>
