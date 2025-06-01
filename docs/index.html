@@ -50,7 +50,7 @@
     .top-bar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-between; /* Adjusted to space-between for alignment */
       gap: 20px;
       margin-bottom: 48px;
     }
@@ -262,6 +262,12 @@
       .top-bar { flex-direction: column; gap: 8px;}
       .top-buttons { flex-wrap: wrap;}
     }
+    /* Specific styling for the warning box in the second snippet */
+    .caution.warning-support {
+        background: #ffe066;
+        color: #c0392b;
+        border-left: 6px solid #c0392b; /* Match border to text color for consistency */
+    }
   </style>
 </head>
 <body>
@@ -292,39 +298,57 @@
         <img src="https://img.shields.io/badge/Lines%20in%20the%20script-2205+-green" alt="Lines Number">
       </a>
     </div>
+
+    <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
+      <a class="btn btn-download" href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest">Download</a>
+      <a class="btn btn-wiki" href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/wiki">Wiki</a>
+    </div>
+
+    <div class="caution warning-support">
+      <strong>Warning:</strong> OptimizedTools++ dropped support for Windows 10 Beta, 1507, 1607.<br>
+      <strong>We need someone to translate the project!</strong>
+    </div>
+
     <div class="caution">
-      <h2>⚠️ CAUTION: Use at your own risk.</h2>
+      <h2>⚠️ Use at your own risk.</h2>
       <ul>
-        <li>BSOD errors</li>
-        <li>System failing to boot after restart</li>
-        <li>Missing files or OS not working properly</li>
+        <li>I am not RESPONSIBLE for cases of BSOD after tweaking, unable to boot after restart, missing files/OS not working properly, etc.</li>
+        <li>PLEASE do some research if you have any questions about the features included in this software before you use it.</li>
+        <li>YOU are choosing to make these modifications, and if you POINT the finger at me for damaging your operating system, I will laugh at you.</li>
+        <li>Even though my software has an automatic restore point feature, I highly recommend making a manual restore point before running.</li>
       </ul>
-      <p>Please do your research before using this software. Creating a restore point is highly recommended before running.</p>
     </div>
+
     <div class="card">
-      <h2>Features</h2>
+      <h2>🏆 What is OptimizedTools++?</h2>
+      <p>OptimizedTools++ is your ultimate toolkit for Windows enhancement, delivering performance-boosting tweaks that make your system run smoother, faster, and more efficient than ever. Designed for both casual users and tech enthusiasts, this utility refines, cleans, and optimizes your OS for best performance.</p>
+    </div>
+
+    <div class="card">
+      <h2>✨ What's Inside?</h2>
       <ul class="features-list">
-        <li>⚡ 70+ performance tweaks</li>
-        <li>🔄 Automatic restore point</li>
-        <li>🔧 Integrated updater</li>
-        <li>📦 App installer</li>
+        <li>⚡ 70+ powerful tweaks for ultimate control</li>
+        <li>Performance enhancements to keep things running smoothly</li>
+        <li>Respects your privacy and keep your Windows tidy, clean.</li>
+        <li>Integrated app installer for easy setup</li>
       </ul>
     </div>
+
     <div class="card">
-      <h2>What is OptimizedTools++?</h2>
+      <h2>❓ How to optimize</h2>
       <p>
-        OptimizedTools++ is your ultimate toolkit for Windows enhancement, delivering performance-boosting tweaks that make your system run smoother, faster, and more securely.
+        <b>Method 1 - PowerShell/CMD (Windows 10 and later):</b><br>
+        Open PowerShell/CMD<br>
+        <code>irm https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/cloud.ps1 | iex</code><br>
+        <code>curl -L -o "stable.bat" "https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/stable.bat" && stable.bat</code>
+      </p>
+      <p>
+        <b>Method 2 - Traditional:</b><br>
+        <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/latest" class="btn btn-download">Click here to download</a><br>
+        Run the file named <code>stable.bat</code>.
       </p>
     </div>
-    <div class="card">
-      <h2>Why use OptimizedTools++?</h2>
-      <ul>
-        <li>Optimize your performance</li>
-        <li>Great for fresh installs</li>
-        <li>Removes unnecessary clutter</li>
-        <li>Stable CLI UI</li>
-      </ul>
-    </div>
+
     <div class="card">
       <h2>Screenshots</h2>
       <div class="screenshots">
@@ -342,14 +366,19 @@
       <img src="https://github.com/user-attachments/assets/2403e58e-f0bc-4d28-b7a5-b703d83bb039" alt="Benchmark After">
       <p>Huge difference!</p>
     </div>
+
     <div class="card">
       <h2>License</h2>
       <p>This project is <strong>open-source</strong> and distributed under the <strong>MIT License</strong>.</p>
     </div>
+
     <div class="card">
-      <h2>Contribute & Feedback</h2>
-      <p>OptimizedTools++ is an <strong>open-source project</strong>, and contributions are <strong>highly appreciated</strong>!</p>
+      <h2>🤝 Contribute & Feedback</h2>
+      <p>OptimizedTools++ is an open-source project, and contributions are highly appreciated!</p>
+      <p><strong>We need someone to translate the project!</strong></p>
+      <img src="https://private-user-images.githubusercontent.com/194782918/449708562-2a915afc-b9e3-46e9-bc94-e11de4d68be3.png" alt="Contributors">
     </div>
+
     <div class="socials">
       <a href="https://zalo.me/0931981731"><img src="https://img.shields.io/badge/Zalo-Namm-blue?style=flat-square" alt="Zalo"></a>
       <a href="http://youtube.com/@bnamm12"><img src="https://img.shields.io/badge/YouTube-ok%20but%20who%20ask-red?style=flat-square" alt="YouTube"></a>
@@ -357,6 +386,7 @@
       <a href="https://www.tiktok.com/@_.techphone_"><img src="https://img.shields.io/badge/TikTok-rootlocalhost-black?style=flat-square" alt="TikTok"></a>
       <a href="https://fireos.my.canva.site"><img src="https://img.shields.io/badge/Website-fireOS%20make%20by%20me-blue?style=flat-square" alt="Website"></a>
     </div>
+    <div style="text-align:center; margin-top: 30px;">Made with love 💖</div>
   </div>
   <script>
     // Modern, reliable theme toggle with localStorage and smooth transition
