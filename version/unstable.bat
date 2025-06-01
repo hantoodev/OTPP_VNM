@@ -833,7 +833,11 @@ cls
 echo Disabling Microsoft Copilot...
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowCopilotButton" /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Copilot" /v "TurnOffWindowsCopilot" /t REG_DWORD /d 1 /f >nul 2>&1
-echo Microsoft Copilot disabled. You might need to restart Explorer or your computer for the change to take full effect.
+echo Microsoft Copilot disabled. 
+echo Restarting Explorer...
+taskkill /f /im explorer.exe >nul 2>&1
+start explorer.exe >nul 2>&1
+echo Done.
 pause
 goto utility-extras
 
@@ -1192,12 +1196,15 @@ echo All power settings applied.
 powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61
 if %errorlevel% equ 0 (
     echo Ultimate Performance power plan enabled.
+    pause
+    goto systemperf-uienchant
 ) else (
     echo Failed to enable Ultimate Performance power plan.
     echo This feature might not be supported on your system.
+    pause
+    goto systemperf-uienchant
 )
 
-echo Power plan changes applied successfully.
 pause
 goto systemperf-uienchant
 
@@ -1239,7 +1246,9 @@ goto networking-performance
 :flushDNSCache
 cls
 echo Flushing DNS cache...
+net stop dnscache >nul 2>&1
 ipconfig /flushdns
+net start dnscache >nul 2>&1
 echo DNS cache flushed successfully.
 pause
 goto networking-performance
@@ -1298,6 +1307,7 @@ echo Applying auto tweaks for Desktop/Laptop...
 for /f "tokens=2 delims==" %%i in ('wmic computersystem get pcSystemType /value') do set "pcType=%%i"
 if "%pcType%"=="2" (
     echo Detected Desktop. Applying desktop-specific tweaks...
+    powercfg /setactive SCHEME_PERFORMANCE
     reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 1 /f >nul 2>&1
     reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoLowDiskSpaceChecks" /t REG_DWORD /d 1 /f >nul 2>&1
 ) else (
@@ -1430,6 +1440,13 @@ cls
 echo Disabling Windows Updates...
 sc config wuauserv start= disabled >nul 2>&1
 sc stop wuauserv >nul 2>&1
+sc config bits start= disabled >nul 2>&1
+sc stop bits >nul 2>&1
+sc config dosvc start= disabled >nul 2>&1
+sc stop dosvc >nul 2>&1
+reg add "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate" /v "DisableOSUpgrade" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate" /v "DisableWindowsUpdateAccess" /t REG_DWORD /d 1 /f >nul 2>&1
 echo Windows Updates disabled successfully.
 pause
 goto restore-maintenance
