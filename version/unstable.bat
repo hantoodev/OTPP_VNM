@@ -79,9 +79,9 @@ exit /b 1
 :continue
 Mode 100,43
 
-
 REM Save the current directory and download required files
 set CURRENT_DIR=%~dp0
+cd %CURRENT_DIR%
 
 mkdir bin
 echo [Info] Downloading required files...
