@@ -1,15 +1,13 @@
 @echo off
 title OptimizedTools++: Preparing...
-echo ------------- CURL/IRM IEX version ----------------
-echo You are running a version that call "cloud" 
-echo version of OptimizedTools++.
+echo     ------------- CURL/IRM IEX version ----------------
+echo     You are running a version that call "cloud" version of OptimizedTools++.
 echo.
-echo This script allow you run OptimizedTools++
-echo without downloading the tool.
+echo     This script allow you run OptimizedTools++ without downloading the tool.
 echo.
-echo This script always up to date.
-echo Press [Enter] to continue.
-echo ---------------------------------------------------
+echo     This script always up to date (Current: StableInvoke)
+echo     Press [Enter] to continue.
+echo     ---------------------------------------------------
 pause >nul
 
 REM Run as Admin
@@ -76,6 +74,7 @@ reg add HKCU\CONSOLE /v VirtualTerminalLevel /t REG_DWORD /d 1 /f >nul 2>&1
 
 REM Save the current directory and download required files
 set CURRENT_DIR=%~dp0
+cd %CURRENT_DIR%
 
 mkdir bin
 echo [Info] Downloading required files...
@@ -233,6 +232,7 @@ goto restorepoint
 cls
 title OptimizedTools++: System Performance, UI Enhancements
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                 System Performance, UI Enhancements
 echo                   --------------------------------------------------------------
@@ -284,6 +284,7 @@ goto systemperf-uienchant
 cls
 call :title
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                               System Performance, UI Enhancements (P2)
 echo                   --------------------------------------------------------------
@@ -313,6 +314,7 @@ goto systemperf-uienchantpage2
 cls
 title OptimizedTools++: Windows Customizations
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                      Windows Customizations
 echo                   --------------------------------------------------------------
@@ -340,6 +342,7 @@ goto windowscustomizations
 cls
 title OptimizedTools++: Uninstall, Debloat
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                        Uninstall, Debloat
 echo                   --------------------------------------------------------------
@@ -371,6 +374,7 @@ goto uninstall-debloat
 cls
 title OptimizedTools++: Security, Privacy
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                         Security, Privacy
 echo                   --------------------------------------------------------------
@@ -414,6 +418,7 @@ goto security-privacy
 cls
 title OptimizedTools++: Networking, Performance Tweaks
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                    Networking, Performance Tweaks
 echo                   --------------------------------------------------------------
@@ -449,6 +454,7 @@ goto networking-performance
 cls
 title OptimizedTools++: Gaming, Hardware Optimizations
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                   Gaming, Hardware Optimizations
 echo                   --------------------------------------------------------------
@@ -474,6 +480,7 @@ goto gaming-hardware
 cls
 title OptimizedTools++: Utility, Extras
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                         Utility, Extras
 echo                   --------------------------------------------------------------
@@ -494,6 +501,7 @@ goto utility-extras
 cls
 title OptimizedTools++: Restore, Maintenance Options
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                    Restore, Maintenance Options
 echo                   --------------------------------------------------------------
