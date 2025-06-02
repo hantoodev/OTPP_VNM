@@ -23,7 +23,7 @@ echo    This build is not recommended for production use.
 echo    It is intended for testing and development purposes only.
 echo    Please use at your own risk.
 echo.
-echo    This version may contain experimental features, incomplete tweaks, or bugs.
+echo    This version may contain experimental features, incomplete tweaks, latest bugfixes or bugs.
 echo    For the latest stable release, visit: https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases
 echo.
 echo     Press [Enter] to continue. 
