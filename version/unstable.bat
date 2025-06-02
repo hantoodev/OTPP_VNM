@@ -23,7 +23,6 @@ echo    This build is not recommended for production use.
 echo    It is intended for testing and development purposes only.
 echo    Please use at your own risk.
 echo.
-echo    Detected: You are running this unstable build directly from the source code.
 echo    This version may contain experimental features, incomplete tweaks, or bugs.
 echo    For the latest stable release, visit: https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases
 echo.
@@ -287,6 +286,7 @@ cls
 title OptimizedTools++: System Performance, UI Enhancements
 echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                 System Performance, UI Enhancements
 echo                   --------------------------------------------------------------
@@ -337,6 +337,7 @@ goto systemperf-uienchant
 :systemperf-uienchantpage2
 cls
 echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
+echo.
 call :title
 echo.
 echo                   --------------------------------------------------------------
@@ -369,6 +370,7 @@ cls
 title OptimizedTools++: Windows Customizations
 echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                      Windows Customizations
 echo                   --------------------------------------------------------------
@@ -397,6 +399,7 @@ cls
 title OptimizedTools++: Uninstall, Debloat
 echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                        Uninstall, Debloat
 echo                   --------------------------------------------------------------
@@ -429,6 +432,7 @@ cls
 title OptimizedTools++: Security, Privacy
 echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                         Security, Privacy
 echo                   --------------------------------------------------------------
@@ -473,6 +477,7 @@ cls
 title OptimizedTools++: Networking, Performance Tweaks
 echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                    Networking, Performance Tweaks
 echo                   --------------------------------------------------------------
@@ -509,6 +514,7 @@ cls
 title OptimizedTools++: Gaming, Hardware Optimizations
 echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                   Gaming, Hardware Optimizations
 echo                   --------------------------------------------------------------
@@ -535,6 +541,7 @@ cls
 title OptimizedTools++: Utility, Extras
 echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                         Utility, Extras
 echo                   --------------------------------------------------------------
@@ -558,6 +565,7 @@ cls
 title OptimizedTools++: Restore, Maintenance Options
 echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
 echo.
+call :title
 echo                   --------------------------------------------------------------
 echo                                    Restore, Maintenance Options
 echo                   --------------------------------------------------------------
