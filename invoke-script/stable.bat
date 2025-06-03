@@ -22,17 +22,25 @@ if %errorlevel% neq 0 (
 )
 
 @echo off
+REM Blank/Color Character
+for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (set "DEL=%%a" & set "COL=%%b")
+REM Add ANSI escape sequences
+reg add HKCU\CONSOLE /v VirtualTerminalLevel /t REG_DWORD /d 1 /f >nul 2>&1
 cls
-echo.
 setlocal EnableDelayedExpansion
-echo    OptimizedTools++ only supports Windows 10 or newer.
-echo    Please run it on a compatible version.
-echo    If you are running Windows 8 or older, please upgrade your OS.
 echo.
-echo    Warning: Running this program on an outdated version of Windows may result in system corruption.
-echo    Proceed with caution!
+call :title
 echo.
-pause
+echo                                  %COL%[33mA litte warning for you^^!%COL%[0m
+echo.
+echo                     OptimizedTools++ only supports Windows 10 or newer.
+echo                          %COL%[31mPlease run it on a compatible version.%COL%[0m
+echo                 If you are running Windows 8 or older, please upgrade your OS.
+echo.
+echo                                   Proceed with caution^^!
+echo                                  %COL%[32mPress Enter to continue.%COL%[0m
+echo.
+pause >nul
 
 echo.
 echo Detecting Windows version...
@@ -67,14 +75,10 @@ exit /b 1
 :continue
 Mode 100,43
 
-REM Blank/Color Character
-for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (set "DEL=%%a" & set "COL=%%b")
-REM Add ANSI escape sequences
-reg add HKCU\CONSOLE /v VirtualTerminalLevel /t REG_DWORD /d 1 /f >nul 2>&1
-
 REM Save the current directory and download required files
 set CURRENT_DIR=%~dp0
 cd %CURRENT_DIR%
+REM fix loop by mistakes
 
 mkdir bin
 echo [Info] Downloading required files...
@@ -146,7 +150,7 @@ echo                                          Select Language
 echo                   --------------------------------------------------------------
 echo.
 echo    1. English
-echo    2. Vietnamese (translate in progress)
+echo    2. Vietnamese (translated 55 percent)
 echo    More languages coming soon...
 echo.
 set /p "lang=%DEL%                                          Your choice: "
@@ -159,7 +163,7 @@ cls
 title OptimizedTools++: Warning
 echo.
 echo.
-call :title
+call :titlepercent
 echo.
 echo                          %COL%[36mRework version of old OptimizedTools version.%COL%[0m
 echo                                   Simple - fast - lightweight.
@@ -282,9 +286,9 @@ goto systemperf-uienchant
 
 :systemperf-uienchantpage2
 cls
-call :title
 echo.
 call :title
+echo.
 echo                   --------------------------------------------------------------
 echo                               System Performance, UI Enhancements (P2)
 echo                   --------------------------------------------------------------
@@ -484,17 +488,19 @@ call :title
 echo                   --------------------------------------------------------------
 echo                                         Utility, Extras
 echo                   --------------------------------------------------------------
-echo     1. Install Useful Apps (Notepad++, Discord, Browser)
+echo     1. Install Useful Apps
 echo     2. Activate Windows (Powered by MAS)
 echo     3. Disable Microsoft Copilot
-echo     4. Go back main menu
+echo     4. Patch: Fix Keyboard Layout
+echo     5. Go back main menu
 echo.
 echo                                         Welcome. %username%
 set /p "choice=%DEL%                                       Your choice: "
 if "%choice%"=="1" goto installUsefulApps
 if "%choice%"=="2" goto activateWindows
 if "%choice%"=="3" goto disableMicrosoftCopilot
-if "%choice%"=="4" goto tweakcat
+if "%choice%"=="4" goto patchKeyboardLayout
+if "%choice%"=="5" goto tweakcat
 goto utility-extras
 
 :restore-maintenance
@@ -777,7 +783,11 @@ cls
 echo Disabling Microsoft Copilot...
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowCopilotButton" /t REG_DWORD /d 0 /f >nul 2>&1
 reg add "HKLM\Software\Policies\Microsoft\Windows\Windows Copilot" /v "TurnOffWindowsCopilot" /t REG_DWORD /d 1 /f >nul 2>&1
-echo Microsoft Copilot disabled. You might need to restart Explorer or your computer for the change to take full effect.
+echo Microsoft Copilot disabled. 
+echo Restarting Explorer...
+taskkill /f /im explorer.exe >nul 2>&1
+start explorer.exe >nul 2>&1
+echo Done.
 pause
 goto utility-extras
 
@@ -960,8 +970,9 @@ goto uninstall-debloat
 
 :installUsefulApps
 cls
-echo Installing useful applications...
-
+echo Launching pemu and checking for Chocolatey installation...
+echo Developed by Namm - v1.0
+echo.
 REM Check if Chocolatey is installed
 where choco >nul 2>&1
 if %errorlevel% neq 0 (
@@ -980,15 +991,108 @@ if %errorlevel% neq 0 (
     echo Chocolatey is already installed.
 )
 
-REM Install useful applications
-echo Installing Notepad++, Discord, Firefox, VLC, and WinRAR...
-choco install -y notepadplusplus discord firefox vlc winrar
-
+cls
+echo Launching pemu...
+cls
+echo pemu v1.0-stable
+echo                   --------------------------------------------------------------
+echo                                               Apps List
+echo                   --------------------------------------------------------------
 echo.
-echo All applications installed successfully.
+echo       
+echo     1. Google Chrome
+echo     2. Mozilla Firefox
+echo     3. Microsoft Edge
+echo     4. Visual C++ Redistributable
+echo     5. Python
+echo     6. TeamViewer
+echo     7. Java SE 8
+echo     8. 7-Zip
+echo     9. Notepad++
+echo    10. Net Framework 4.8
+echo    11. Git
+echo    12. WinRAR
+echo    13. Node.js
+echo    14. Malwarebytes
+echo    15. CCleaner
+echo    16. Visual Studio Code
+echo    17. VLC Media Player
+echo    18. Go to menu 2
+echo    19. Back to main menu
+echo.
+set /p "choice=%DEL%                                       Your choice: "
+if "%choice%"=="1" choco install googlechrome -y
+if "%choice%"=="2" choco install firefox -y
+if "%choice%"=="3" choco install microsoft-edge -y
+if "%choice%"=="4" choco install vcredist140 -y
+if "%choice%"=="5" choco install python -y
+if "%choice%"=="6" choco install teamviewer -y
+if "%choice%"=="7" choco install jre8 -y
+if "%choice%"=="8" choco install 7zip -y
+if "%choice%"=="9" choco install notepadplusplus -y
+if "%choice%"=="10" choco install dotnetfx -y
+if "%choice%"=="11" choco install git -y
+if "%choice%"=="12" choco install winrar -y
+if "%choice%"=="13" choco install nodejs -y
+if "%choice%"=="14" choco install malwarebytes -y
+if "%choice%"=="15" choco install ccleaner -y
+if "%choice%"=="16" choco install vscode -y
+if "%choice%"=="17" choco install vlc -y
+if "%choice%"=="18" goto xmenu2
+if "%choice%"=="19" goto mainmenu
+
+
+:xmenu2
+cls
+echo pemu v1.0-stable
+echo                   --------------------------------------------------------------
+echo                                           Apps List (P2) 
+echo                   --------------------------------------------------------------
+echo.
+echo       
+echo     21. Wireshark
+echo     22. PuTTY
+echo     23. Dropbox
+echo     24. GIMP
+echo     25. Spotify
+echo     26. Thunderbird
+echo     27. Brave 
+echo     28. Everything
+echo     29. Audacity
+echo     30. OBS Studio
+echo     31. Go to menu 1
+echo     32. Back to main menu
+echo.
+echo                              You can request me to update more app!
+echo.
+set /p "choice2=%DEL%                                       Your choice: "
+if "%choice2%"=="21" choco install wireshark -y
+if "%choice2%"=="22" choco install putty -y
+if "%choice2%"=="23" choco install dropbox -y
+if "%choice2%"=="24" choco install gimp -y
+if "%choice2%"=="25" choco install spotify -y
+if "%choice2%"=="26" choco install thunderbird -y
+if "%choice2%"=="27" choco install brave -y
+if "%choice2%"=="28" choco install everything -y
+if "%choice2%"=="29" choco install audacity -y
+if "%choice2%"=="30" choco install obs-studio -y
+if "%choice2%"=="31" goto installUsefulApps
+if "%choice2%"=="32" goto mainmenu
+
+:patchKeyboardLayout
+sc config "TabletInputService" start= auto
+net start "TabletInputService"
+sc config "TextInputManagementService" start= demand
+net start "TextInputManagementService"
+sc config "eventlog" start= auto
+net start "eventlog"
+sc config "InputService" start= demand
+net start "InputService"
+sc config "LxpSvc" start= demand
+net start "LxpSvc"
+echo Patched successfully, please restart your computer for the changes to take effect.
 pause
 goto utility-extras
-
 
 :enableUltimatePerformance
 cls
@@ -1041,12 +1145,15 @@ echo All power settings applied.
 powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61
 if %errorlevel% equ 0 (
     echo Ultimate Performance power plan enabled.
+    pause
+    goto systemperf-uienchant
 ) else (
     echo Failed to enable Ultimate Performance power plan.
     echo This feature might not be supported on your system.
+    pause
+    goto systemperf-uienchant
 )
 
-echo Power plan changes applied successfully.
 pause
 goto systemperf-uienchant
 
@@ -1088,7 +1195,9 @@ goto networking-performance
 :flushDNSCache
 cls
 echo Flushing DNS cache...
+net stop dnscache >nul 2>&1
 ipconfig /flushdns
+net start dnscache >nul 2>&1
 echo DNS cache flushed successfully.
 pause
 goto networking-performance
@@ -1147,6 +1256,7 @@ echo Applying auto tweaks for Desktop/Laptop...
 for /f "tokens=2 delims==" %%i in ('wmic computersystem get pcSystemType /value') do set "pcType=%%i"
 if "%pcType%"=="2" (
     echo Detected Desktop. Applying desktop-specific tweaks...
+    powercfg /setactive SCHEME_PERFORMANCE
     reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 1 /f >nul 2>&1
     reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoLowDiskSpaceChecks" /t REG_DWORD /d 1 /f >nul 2>&1
 ) else (
@@ -1279,6 +1389,13 @@ cls
 echo Disabling Windows Updates...
 sc config wuauserv start= disabled >nul 2>&1
 sc stop wuauserv >nul 2>&1
+sc config bits start= disabled >nul 2>&1
+sc stop bits >nul 2>&1
+sc config dosvc start= disabled >nul 2>&1
+sc stop dosvc >nul 2>&1
+reg add "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate" /v "DisableOSUpgrade" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate" /v "DisableWindowsUpdateAccess" /t REG_DWORD /d 1 /f >nul 2>&1
 echo Windows Updates disabled successfully.
 pause
 goto restore-maintenance
@@ -2009,10 +2126,28 @@ echo                       Do you want to download the Vietnamese language pack?
 echo.
 echo                          1. Yes                   2. No, I will go with English
 echo.
-set /p "lang=%DEL%                                  Your choice: "
+set /p "lang=%DEL%                                     	     Your choice: "
 if "%lang%"=="1" goto downlanvn
 if "%lang%"=="2" goto warn
 goto vn
+
+:vn2
+cls
+echo.
+echo                   --------------------------------------------------------------
+echo                                       Download Language Pack
+echo                   --------------------------------------------------------------
+echo.
+echo                                      You choose: Vietnamese
+echo                                       Download size: 300kb
+echo                       Do you want to download the Vietnamese language pack?
+echo.
+echo                          1. Yes                   2. No, I will go with English
+echo.
+set /p "lang=%DEL%                                     	     Your choice: "
+if "%lang%"=="1" goto downlanvn
+if "%lang%"=="2" goto settings
+goto vn2
 
 :downlanvn
 cls
@@ -2033,39 +2168,119 @@ echo                                               Settings
 echo                   --------------------------------------------------------------
 echo.
 echo               1. Change language
-echo               2. Change theme (not available yet)
-echo               3. Switch to Unstable
-echo               4. Go back main menu
+echo               2. Change color theme 
+echo               3. Turn on Light mode 
+echo               4. Switch to Stable
+echo               5. Go back main menu
 echo.
-set /p "choice=%DEL%                                       Your choice: "
-if "%settings%"=="1" goto vn
+set /p "settings=%DEL%                                       Your choice: "
+if "%settings%"=="1" goto vn2
 if "%settings%"=="2" goto theme
-if "%settings%"=="3" goto stable
-if "%settings%"=="4" goto tweakcat
+if "%settings%"=="3" goto lightmode
+if "%settings%"=="4" goto stable
+if "%settings%"=="5" goto tweakcat
 goto settings
 
 :theme
-echo Oops, not available yet.
+cls
+echo.
+echo Please choose a color theme:
+echo 1. Default 
+echo 2. moreFontLight+
+echo 3. Blue
+echo 4. Yellow
+echo 5. Green
+echo 6. Red
+echo 7. Purple
+echo 8. Cyan
+echo 9. Orange
+echo 10. Pink
+echo 11. Gray
+echo.
+set /p "theme_choice=Your choice: "
+if "%theme_choice%"=="1" (
+    cls
+    echo Setting Default theme...
+    color 07
+    echo Default theme enabled.
+) else if "%theme_choice%"=="2" (
+    cls
+    echo Setting Light theme...
+    color 0F
+    echo Light theme enabled.
+) else if "%theme_choice%"=="3" (
+    cls
+    echo Setting Blue theme...
+    color 1F
+    echo Blue theme enabled.
+) else if "%theme_choice%"=="4" (
+    cls
+    echo Setting Yellow theme...
+    color 6E
+    echo Yellow theme enabled.
+) else if "%theme_choice%"=="5" (
+    cls
+    echo Setting Green theme...
+    color 2E
+    echo Green theme enabled.
+) else if "%theme_choice%"=="6" (
+    cls
+    echo Setting Red theme...
+    color 4E
+    echo Red theme enabled.
+) else if "%theme_choice%"=="7" (
+    cls
+    echo Setting Purple theme...
+    color 5E
+    echo Purple theme enabled.
+) else if "%theme_choice%"=="8" (
+    cls
+    echo Setting Cyan theme...
+    color 3E
+    echo Cyan theme enabled.
+) else if "%theme_choice%"=="9" (
+    cls
+    echo Setting Orange theme...
+    color 6E
+    echo Orange theme enabled.
+) else if "%theme_choice%"=="10" (
+    cls
+    echo Setting Pink theme...
+    color D0
+    echo Pink theme enabled.
+) else if "%theme_choice%"=="11" (
+    cls
+    echo Setting Gray theme...
+    color 70
+    echo Gray theme enabled.
+) else (
+    cls
+    echo Invalid choice. Please try again.
+    goto theme
+)
+echo.
+echo Note: The color theme will only apply to the current session.
+echo.
+pause
+goto settings
+
+:lightmode
+cls
+echo Turning on Light mode...
+color F0
+echo Light mode enabled.
+echo Revert by: Go to Change color theme and select 'Default'.
+echo.
 pause
 goto settings
 
 :stable
 cls
-echo    ------------ WARNING ------------
-echo    Unstable build is not recommended for production use.
-echo    It is intended for testing and development purposes only.
-echo    Please use at your own risk.
-echo.
-echo    This version may contain experimental features, incomplete tweaks, or bugs.
-echo    Press [Enter] to continue.
-echo.
-echo    ----------------------------------
-pause >nul
-echo Downloading Unstable...
-curl -L -o "unstable.bat" "https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/version/unstable.bat"
+echo Downloading Stable...
+curl -L -o "stable.bat" "https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/stable.bat"
 echo Downloading completed.
-echo Switching to unstable...
-start cmd /c "unstable.bat"
+echo Switching to Stable...
+start cmd /c "stable.bat"
 exit
 goto stable
 
@@ -2077,83 +2292,79 @@ echo                                              Debug
 echo                   --------------------------------------------------------------
 echo.
 :: 1. Windows version
-echo Windows Version:
+echo win32_ver:
 ver
 echo.
 
 :: 2. System architecture
-echo System/Processor Architecture:
-echo %PROCESSOR_ARCHITECTURE%
+echo arch: %PROCESSOR_ARCHITECTURE%
 echo.
 
 :: 4. Processor name
-echo Processor Name:
+echo cpu_name:
 powershell -Command "Get-CimInstance Win32_Processor | Select-Object -ExpandProperty Name"
 echo.
 
 :: 5. Processor cores
-echo Processor Cores:
+echo cpu_cores:
 powershell -Command "(Get-CimInstance Win32_Processor).NumberOfCores"
 echo.
 
 :: 6. Processor threads
-echo Processor Threads:
+echo cpu_threads:
 powershell -Command "(Get-CimInstance Win32_Processor).NumberOfLogicalProcessors"
 echo.
 
 :: 7. RAM size
-echo RAM Size (GB):
+echo ram_Size:
 powershell -Command "[math]::Round((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB, 2)"
 echo.
 
 :: 9. Graphics card
-echo Graphics Card:
+echo gpu:
 powershell -Command "Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name"
 echo.
 
 :: 11. BIOS version
-echo BIOS Version:
+echo bios_ver:
 powershell -Command "Get-CimInstance Win32_BIOS | Select-Object -ExpandProperty SMBIOSBIOSVersion"
 echo.
 
 :: 12. Motherboard
-echo Motherboard:
+echo motherboard:
 powershell -Command "Get-CimInstance Win32_BaseBoard | Select-Object -ExpandProperty Product"
 echo.
 
 :: 13. System manufacturer
-echo System Manufacturer:
+echo sys_manufacturer:
 powershell -Command "Get-CimInstance Win32_ComputerSystem | Select-Object -ExpandProperty Manufacturer"
 echo.
 
 :: 14. System model
-echo System Model:
+echo sys_model:
 powershell -Command "Get-CimInstance Win32_ComputerSystem | Select-Object -ExpandProperty Model"
 echo.
 
 :: 16. System serial number
-echo System Serial Number:
+echo sys_sn
 powershell -Command "Get-CimInstance Win32_BIOS | Select-Object -ExpandProperty SerialNumber"
 echo.
 
 :: 17. System UUID
-echo System UUID:
+echo sys_uuid:
 powershell -Command "Get-CimInstance Win32_ComputerSystemProduct | Select-Object -ExpandProperty UUID"
 echo.
 
 :: 20. OptimizedTools++ Version
-echo OptimizedTools++ Version:
-echo 1.3+stable
+echo ver: 1.4
 echo.
 
 :: 21. Build Date
-echo OptimizedTools++ Build Date:
-echo 2025-05-22 14:01:32
+echo build_date: 2025-06-02 17:14:41
 echo.
 
 :: 23. Build Number
-echo OptimizedTools++ Build Number:
-echo 215
+echo build_number: 223
 echo.
 
 pause
