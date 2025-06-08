@@ -1,10 +1,3 @@
->[!NOTE]
-> ## fixed, no more virus
->
-> I have blocked outside access and editing, and have re-uploaded the fresh file that is not infected with the virus.
-> 
-> Thank you for your cooperation!
-
 <h1 align="center" style="margin-top: 0px;">OptimizedTools++</h1>
 
 <p align="center">
