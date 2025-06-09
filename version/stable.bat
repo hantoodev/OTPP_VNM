@@ -198,7 +198,7 @@ cls
 title OptimizedTools++: Warning
 echo.
 echo.
-call :titlepercent
+call :title
 echo.
 echo                          %COL%[36mRework version of old OptimizedTools version.%COL%[0m
 echo                                   Simple - fast - lightweight.
