@@ -144,7 +144,7 @@ echo                   ---------------------------------------------------------
 echo                                          Restore Point
 echo                   --------------------------------------------------------------
 echo.
-echo                                     Create a restore point?
+echo                    Create a restore point before doing tweaks? (Recommended)
 echo.
 echo.
 echo.
@@ -177,7 +177,6 @@ reg export HKCU OPTPlusPlusTemp\RegRevert\%date1%\HKCU.reg /y >nul 2>&1
 echo set "firstlaunch=0" > OPTPlusPlusTemp\RegRevert\firstlaunchcheck
 
 :dir
-cd..
 REM Make Directories
 mkdir OPTPlusPlus >nul 2>&1
 mkdir OPTPlusPlus\Resources >nul 2>&1
@@ -197,7 +196,7 @@ echo                                          Select Language
 echo                   --------------------------------------------------------------
 echo.
 echo    1. English
-echo    2. Vietnamese
+echo    2. Vietnamese (buggy, old version, not completed)
 echo    More languages coming soon...
 echo.
 set /p "lang=%DEL%                                          Your choice: "
@@ -258,7 +257,6 @@ echo    7. Utility, Extras                                      8. Restore, Main
 echo.
 echo                   [9] Exit [0] Restart [r] Restore Point [s] Settings [d] Debug
 echo. 
-echo                                        1.3+unstable
 echo                                         Welcome. %username%
 set /p "choice=%DEL%                                       Your choice: "
 if "%choice%"=="1" goto systemperf-uienchant
@@ -277,9 +275,57 @@ if "%choice%"=="d" goto debug
 goto tweakcat
 
 :restorepoint1
-cd ..
+cls
+cd..
 cd bin
-goto restorepoint
+echo.
+echo                   --------------------------------------------------------------
+echo                                          Restore Point
+echo                   --------------------------------------------------------------
+echo.
+echo                           Create a restore point? Or do 1 Click Undo?
+echo.
+echo.
+echo.
+goto loop
+
+:loop
+Batbox /h 0
+
+Call Button 35 10 "Yes" 55 10 "1-Click Undo" # Press
+Getinput /m %Press% /h 70
+
+:: Check for the pressed button 
+if %errorlevel%==1 (goto startbackup1)
+if %errorlevel%==2 (goto 1clickundo)
+goto loop
+
+:startbackup1
+cd..
+mkdir OPTPlusPlus >nul 2>&1
+reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\SystemRestore" /v "SystemRestorePointCreationFrequency" /t REG_DWORD /d 0 /f >nul 2>&1
+powershell -ExecutionPolicy Unrestricted -NoProfile Enable-ComputerRestore -Drive 'C:\', 'D:\', 'E:\', 'F:\', 'G:\' >nul 2>&1
+powershell -ExecutionPolicy Unrestricted -NoProfile Checkpoint-Computer -Description 'OptimizedTools++ Restore Point' >nul 2>&1
+REM HKCU & HKLM backups
+mkdir OPTPlusPlusTemp\RegRevert >nul 2>&1
+for /F "tokens=2" %%i in ('date /t') do set date=%%i
+set date1=%date:/=.% 
+>nul 2>&1 md OPTPlusPlusTemp\RegRevert\%date1%
+reg export HKCU OPTPlusPlusTemp\RegRevert\%date1%\HKLM.reg /y >nul 2>&1
+reg export HKCU OPTPlusPlusTemp\RegRevert\%date1%\HKCU.reg /y >nul 2>&1
+echo set "firstlaunch=0" > OPTPlusPlusTemp\RegRevert\firstlaunchcheck
+goto tweakcat
+
+:1clickundo
+cls
+title OptimizedTools++: Starting 1-Click Undo
+echo Starting Restore Point... (You need to create a restore point first before doing tweak)
+echo.
+start rstui.exe
+echo.
+echo Press [Enter] to continue.
+pause >nul
+goto tweakcat
 
 :systemperf-uienchant
 cls
@@ -548,8 +594,11 @@ echo                   ---------------------------------------------------------
 echo     1. Install Useful Apps
 echo     2. Activate Windows (Powered by MAS)
 echo     3. Disable Microsoft Copilot
-echo     4. Patch: Fix Keyboard Layout
-echo     5. Go back main menu
+echo     4. Patch: Fix Keyboard Layout (Microsoft IME)
+echo     5. Create Schedule Daily Cleanup 
+echo     6. Optimization Profile for Laptop/Desktop
+echo     7. Optimize/TRIM your hard drive
+echo     10. Go back main menu
 echo.
 echo                                         Welcome. %username%
 set /p "choice=%DEL%                                       Your choice: "
@@ -557,7 +606,10 @@ if "%choice%"=="1" goto installUsefulApps
 if "%choice%"=="2" goto activateWindows
 if "%choice%"=="3" goto disableMicrosoftCopilot
 if "%choice%"=="4" goto patchKeyboardLayout
-if "%choice%"=="5" goto tweakcat
+if "%choice%"=="5" goto ScheduleCleanup
+if "%choice%"=="6" goto profileMenu
+if "%choice%"=="7" goto diskHealthTrim
+if "%choice%"=="10" goto tweakcat
 goto utility-extras
 
 :restore-maintenance
@@ -569,25 +621,23 @@ call :title
 echo                   --------------------------------------------------------------
 echo                                    Restore, Maintenance Options
 echo                   --------------------------------------------------------------
-echo     1. Disable Windows Updates (Caution: may affect security)
+echo     1. Windows Updates Manager
 echo     2. Restart your PC
 echo     3. SFC /scannow
 echo     4. DISM /Online /Cleanup-Image /RestoreHealth
-echo     5. Start Restore Point
-echo     6. Free up Disk Space
-echo     7. Chkdsk /f /r C:
-echo     8. Go back main menu
+echo     5. Free up Disk Space
+echo     6. Chkdsk /f /r C:
+echo     7. Go back main menu
 echo.
 echo                                         Welcome. %username%
 set /p "choice=%DEL%                                       Your choice: "
-if "%choice%"=="1" goto disableWindowsUpdates
+if "%choice%"=="1" goto windowsUpdateManager
 if "%choice%"=="2" goto restart
 if "%choice%"=="3" goto sfc1
 if "%choice%"=="4" goto dism
-if "%choice%"=="5" goto startRestorePoint
-if "%choice%"=="6" goto freeDiskSpace
-if "%choice%"=="7" goto chkdsk2
-if "%choice%"=="8" goto tweakcat
+if "%choice%"=="5" goto freeDiskSpace
+if "%choice%"=="6" goto chkdsk2
+if "%choice%"=="7" goto tweakcat
 goto restore-maintenance
 
 :disableStartupDelay
@@ -1606,6 +1656,9 @@ goto windowscustomizations
 :askDisableStartup
 cls
 echo Asking to disable startup items...
+echo Listing startup programs...
+powershell -Command "Get-CimInstance Win32_StartupCommand | Select Name, Command, Location | Format-Table -AutoSize"
+echo.
 echo Do you want to disable all startup items? (Yes/No)
 set /p "input=Your choice: "
 if /i "!input!"=="yes" (
@@ -2219,6 +2272,33 @@ start cmd /c "vi.bat"
 exit
 goto vn
 
+:windowsUpdateManager
+cls
+echo.
+echo                   --------------------------------------------------------------
+echo                                       Windows Update Manager
+echo                   --------------------------------------------------------------
+echo     1. Pause Updates for 7 days
+echo     2. Resume Updates
+echo     3. Security-only Updates (disable feature updates)
+echo     4. Go back
+set /p "wuChoice=Your choice: "
+if "%wuChoice%"=="1" (
+    powershell -Command "Pause-WindowsUpdate -Days 7"
+    echo Updates paused for 7 days.
+) else if "%wuChoice%"=="2" (
+    powershell -Command "Resume-WindowsUpdate"
+    echo Updates resumed.
+) else if "%wuChoice%"=="3" (
+    reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "DeferFeatureUpdates" /t REG_DWORD /d 1 /f
+    reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "DeferFeatureUpdatesPeriodInDays" /t REG_DWORD /d 365 /f
+    echo Feature updates deferred for 365 days.
+) else (
+    goto utility-extras
+)
+pause
+goto utility-extras
+
 :settings
 cls
 echo.
@@ -2226,7 +2306,7 @@ echo                   ---------------------------------------------------------
 echo                                               Settings
 echo                   --------------------------------------------------------------
 echo.
-echo               1. Change language
+echo               1. Download Vietnamese language pack (Old version, 1.3 not latest, not completed)
 echo               2. Change color theme (Experimental)
 echo               3. Turn on Light mode (Experimental)
 echo               4. Switch to Stable
@@ -2430,6 +2510,196 @@ echo.
 
 pause
 goto tweakcat
+
+:scheduleCleanup
+cls
+echo.
+echo                   --------------------------------------------------------------
+echo                         Schedule Daily Cleanup Task (Temp files, cache, ... )
+echo                   --------------------------------------------------------------
+echo     This will:
+echo      - Create a file "C:\Windows\otpp_cleanup.bat" to delete temp files
+echo      - Create task scheduler to run this file daily at 9:00 AM
+echo.
+set /p "input=Do you want to create? (y/n): "
+if /i "%input%"=="y" (
+    REM Tạo file cleanup nếu chưa có
+    if not exist "C:\Windows\otpp_cleanup.bat" (
+        echo @echo off > "C:\Windows\otpp_cleanup.bat"
+        echo echo [OTPP] Cleaning temp files... >> "C:\Windows\otpp_cleanup.bat"
+        echo del /q /s %%temp%%\* >> "C:\Windows\otpp_cleanup.bat"
+        echo echo [OTPP] Temp files deleted. >> "C:\Windows\otpp_cleanup.bat"
+        echo exit /b >> "C:\Windows\otpp_cleanup.bat"
+    )
+    REM Tạo task scheduler
+    schtasks /create /tn "OTPP_DailyCleanup" /tr "C:\Windows\otpp_cleanup.bat" /sc daily /st 09:00 /f
+    echo.
+    echo [OK] Task scheduled to run daily at 9:00 AM.
+    echo [NOTE] Applied to all country time.
+) else (
+    echo [CANCEL] Canceled.
+)
+pause
+goto utility-extras
+
+:profileMenu
+cls
+echo.
+echo                   --------------------------------------------------------------
+echo                                   Select Optimization Profile
+echo                   --------------------------------------------------------------
+echo     1. Performance
+echo     2. Balanced
+echo     3. Battery Saver
+echo     4. Go back
+echo.
+set /p "profileChoice=Your choice: "
+if "%profileChoice%"=="1" goto profilePerformance
+if "%profileChoice%"=="2" goto profileBalanced
+if "%profileChoice%"=="3" goto profileBatterySaver
+if "%profileChoice%"=="4" goto utility-extras
+goto profileMenu
+
+:profilePerformance
+cls
+echo Applying Performance profile...
+powercfg /setactive SCHEME_MIN
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpAckFrequency" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "TCPNoDelay" /t REG_DWORD /d 1 /f >nul 2>&1
+echo Performance profile applied.
+pause
+goto profileMenu
+
+:profileBalanced
+cls
+echo Applying Balanced profile...
+powercfg /setactive SCHEME_BALANCED
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 0 /f >nul 2>&1
+echo Balanced profile applied.
+pause
+goto profileMenu
+
+:profileBatterySaver
+cls
+echo Applying Battery Saver profile...
+powercfg /setactive SCHEME_MAX
+powercfg /change monitor-timeout-ac 2
+powercfg /change standby-timeout-ac 5
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 0 /f >nul 2>&1
+echo Battery Saver profile applied.
+pause
+goto profileMenu
+
+:hardwareDashboard
+cls
+echo..
+echo                   --------------------------------------------------------------
+echo                                        Hardware Dashboard
+echo                   --------------------------------------------------------------
+echo     CPU Usage (%):
+powershell -Command "Get-Counter '\Processor(_Total)\% Processor Time' | Select -ExpandProperty CounterSamples | Select -ExpandProperty CookedValue"
+echo     RAM Usage (GB Used/Total):
+powershell -Command "[math]::Round(((Get-CimInstance Win32_OperatingSystem).TotalVisibleMemorySize-(Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory)/1MB,2)"
+powershell -Command "[math]::Round((Get-CimInstance Win32_OperatingSystem).TotalVisibleMemorySize/1MB,2)"
+echo     Disk Usage (C:):
+powershell -Command "Get-PSDrive C | Select Used,Free"
+echo     GPU Name:
+powershell -Command "Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name"
+pause
+goto utility-extras
+
+:diskHealthTrim
+    cls
+    echo.
+    echo                   --------------------------------------------------------------
+    echo                                 Disk Health and TRIM Utility
+    echo                   --------------------------------------------------------------
+    echo.
+
+    echo                           Checking disk health (SMART info) and drive types...
+    echo.
+
+    rem Using PowerShell to get more detailed and user-friendly disk information
+    rem We're checking if the disk is SSD or HDD to tailor the optimization message.
+    rem We're also checking HealthStatus and OperationalStatus for clear feedback.
+    powershell -Command "Get-PhysicalDisk | ForEach-Object { $_ | Add-Member -NotePropertyName 'DriveType' -NotePropertyValue (if ($_.MediaType -eq 'SSD') {'SSD'} else {'HDD'}) -PassThru } | Select FriendlyName, HealthStatus, OperationalStatus, Size, DriveType | Format-Table -AutoSize"
+    if %errorlevel% neq 0 (
+        echo.
+        echo                           Error: Could not retrieve disk health information.
+        echo                           PowerShell might be restricted or an issue occurred.
+        echo.
+    ) else (
+        echo.
+        echo                           "HealthStatus": Indicates the overall health (Healthy, Warning, Unhealthy).
+        echo                           "OperationalStatus": Indicates the current operational state (OK, Degraded, Stalled, etc.).
+        echo                           "DriveType": Indicates if the drive is an SSD (Solid State Drive) or HDD (Hard Disk Drive).
+        echo.
+    )
+
+    echo.
+    echo                   --------------------------------------------------------------
+    echo                                    Disk Optimization Option
+    echo                   --------------------------------------------------------------
+    echo.
+    echo                           Would you like to run TRIM/Optimize for all drives?
+    echo                           (Recommended for performance, especially for SSDs)
+    echo.
+    echo                                 [Y] Yes, optimize my drives
+    echo                                 [N] No, skip optimization
+    echo.
+
+:confirm_trim_loop
+    set /p "trim_choice=         Enter your choice (Y/N): "
+
+    if /i "%trim_choice%"=="Y" goto perform_trim
+    if /i "%trim_choice%"=="N" goto skip_trim
+    
+    echo.
+    echo                                 Invalid choice. Please enter Y or N.
+    echo.
+    goto confirm_trim_loop
+
+:perform_trim
+    cls
+    echo.
+    echo                   --------------------------------------------------------------
+    echo                                   Starting Disk Optimization
+    echo                   --------------------------------------------------------------
+    echo.
+    echo                           Running TRIM/Optimize for all eligible drives...
+    echo                           This may take some time, especially for HDDs.
+    echo.
+
+    rem The /C switch processes all eligible volumes.
+    rem The /O switch performs the appropriate optimization for each media type (TRIM for SSDs, defrag for HDDs).
+    defrag /C /O /V
+    rem /V (verbose) switch provides more detailed output during optimization.
+
+    if %errorlevel% neq 0 (
+        echo.
+        echo                           Error: Disk optimization failed or encountered issues.
+        echo                           Please check the output above for more details.
+        echo.
+    ) else (
+        echo.
+        echo                           Disk optimization complete.
+        echo.
+    )
+    pause
+    goto utility-extras
+
+:skip_trim
+    cls
+    echo.
+    echo                   --------------------------------------------------------------
+    echo                                    Disk Optimization Skipped
+    echo                   --------------------------------------------------------------
+    echo.
+    echo                           Disk optimization was skipped as per your request.
+    echo.
+    pause
+    goto utility-extras
 
 :title
 echo.
