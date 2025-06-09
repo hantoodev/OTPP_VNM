@@ -7,18 +7,18 @@
 <p align="center"><strong>The most advanced tweaks tool for Windows 10/11.</strong></p>
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Test-Passing-green?logo=github" alt="Build Status">
+  <img src="https://img.shields.io/badge/test-passing-green?logo=github" alt="Build Status">
   </a>
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases">
-    <img src="https://img.shields.io/badge/Version-1.5+unstable-red" alt="Version">
+    <img src="https://img.shields.io/badge/version-1.5+unstable-red" alt="Version">
   </a>
-  <img src="https://img.shields.io/badge/Tweaks-70%2B-blue" alt="Tweaks Available">
+  <img src="https://img.shields.io/badge/tweaks-70%2B-blue" alt="Tweaks Available">
   </a>
   <a href="https://www.codefactor.io/repository/github/nammisadev/optimizedtoolsplusplus">
     <img src="https://www.codefactor.io/repository/github/nammisadev/optimizedtoolsplusplus/badge" alt="CodeFactor">
   </a>
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/blob/main-development/OptimizedTools%2B%2B.bat">
-    <img src="https://img.shields.io/badge/Lines%20in%20the%20script-2205+-gray" alt="Lines Number">
+    <img src="https://img.shields.io/badge/lines%20in%20the%20script-2205+-gray" alt="Lines Number">
   </a>
 </div>
 
@@ -70,7 +70,7 @@ Copy and paste the code below, then press enter.
 irm https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/cloud.ps1 | iex
 ```
 
-**Powershell (Unstable branch)
+**Powershell (Unstable branch)**
 ```powershell
 irm https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/cloud-unstable.ps1 | iex
 ```
