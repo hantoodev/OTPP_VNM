@@ -4,8 +4,8 @@ Write-Host "    Please wait...   " -ForegroundColor Yellow
 Write-Host "=========================================" -ForegroundColor Cyan
 
 # Define URL and output path
-$batUrl = "https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/version/unstable.bat"
-$batPath = Join-Path -Path (Get-Location) -ChildPath "unstable.bat"
+$batUrl = "https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/version/unstable.cmd"
+$batPath = Join-Path -Path (Get-Location) -ChildPath "unstable.cmd"
 
 Write-Host "`nDownloading essential files..." -ForegroundColor Green
 Invoke-WebRequest -Uri $batUrl -OutFile $batPath -UseBasicParsing
