@@ -148,9 +148,9 @@ echo                    Create a restore point before doing tweaks? (Recommended
 echo.
 echo.
 echo.
-goto loop
+goto restorepoint_loop
 
-:loop
+:restorepoint_loop
 Batbox /h 0
 
 Call Button 35 10 "Yes" 55 10 "No" # Press
@@ -159,7 +159,7 @@ Getinput /m %Press% /h 70
 :: Check for the pressed button 
 if %errorlevel%==1 (goto startbackup)
 if %errorlevel%==2 (goto dir)
-goto loop
+goto restorepoint_loop
 
 :startbackup
 cd..
@@ -287,9 +287,9 @@ echo                           Create a restore point? Or do 1 Click Undo?
 echo.
 echo.
 echo.
-goto loop
+goto restorepoint1_loop
 
-:loop
+:restorepoint1_loop
 Batbox /h 0
 
 Call Button 35 10 "Yes" 55 10 "1-Click Undo" # Press
@@ -298,7 +298,7 @@ Getinput /m %Press% /h 70
 :: Check for the pressed button 
 if %errorlevel%==1 (goto startbackup1)
 if %errorlevel%==2 (goto 1clickundo)
-goto loop
+goto restorepoint1_loop
 
 :startbackup1
 cd..
@@ -613,6 +613,7 @@ if "%choice%"=="10" goto tweakcat
 goto utility-extras
 
 :restore-maintenance
+:restore_maintenance_menu
 cls
 title OptimizedTools++: Restore, Maintenance Options
 echo %COL%[33m////////////////////////////////////////UNSTABLE BUILD//////////////////////////////////////////////%COL%[0m
@@ -635,10 +636,10 @@ if "%choice%"=="1" goto windowsUpdateManager
 if "%choice%"=="2" goto restart
 if "%choice%"=="3" goto sfc1
 if "%choice%"=="4" goto dism
-if "%choice%"=="5" goto freeDiskSpace
+if "%choice%"=="5" goto freediskspace
 if "%choice%"=="6" goto chkdsk2
 if "%choice%"=="7" goto tweakcat
-goto restore-maintenance
+goto restore_maintenance_menu
 
 :disableStartupDelay
 cls
@@ -857,7 +858,7 @@ cls
 reg add "HKLM\Software\Policies\Microsoft\Windows\Explorer" /v "DisableNotificationCenter" /t REG_DWORD /d 1 /f
 echo Disabled Action Center.
 pause
-goto systemperf-uienchantpage2
+goto systemperf-uienchant
 
 :enableVerboseBoot
 cls
@@ -994,7 +995,7 @@ goto users_done
 if "%1"=="S-1-5-18" goto user_end
 if "%1"=="S-1-5-19" goto user_end
 if "%1"=="S-1-5-20" goto user_end
-for /f "skip=2 tokens=2*" %%c in ('reg query "%REG_USERS_PATH%\%1" /v ProfileImagePath') do (
+for /f "skip=2 tokens=2" %%c in ('reg query "%REG_USERS_PATH%\%1" /v ProfileImagePath') do (
 	call :user_rem_lnks_by_path %%d
 	if "%UserProfile%"=="%%d" set "USER_SID=%1"
 )
@@ -1716,7 +1717,7 @@ if exist "*DesktopAppInstaller*.appxbundle" if exist "*DesktopAppInstaller*.xml"
     for /f %%i in ('dir /b *DesktopAppInstaller*.appxbundle 2^>nul') do set "AppInstaller=%%i"
 )
 if exist "*XboxIdentityProvider*.appxbundle" if exist "*XboxIdentityProvider*.xml" (
-    for /f %%i in ('dir /b *XboxIdentityProvider*.appxbundle 2^>nul') do set "XboxIdentity=%%i"
+    for /f %%i in ('dir /b *XboxIdentityProvider*.appxbundle 2^nul') do set "XboxIdentity=%%i"
 )
 
 REM Set dependencies
@@ -2155,6 +2156,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "DependOnGroup" /t 
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "FailureActions" /t REG_BINARY /d 0x00000000 /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "ServiceDll" /t REG_SZ /d "%SystemRoot%\System32\fdrespub.dll" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\FDResPub" /v "ServiceDllUnloadOnStop" /t REG_DWORD /d 0x00000001 /f
+
 echo Network Discovery disabled successfully.
 echo.
 pause
@@ -2458,7 +2460,7 @@ echo.
 
 :: 7. RAM size
 echo ram_Size:
-powershell -Command "[math]::Round((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB, 2)"
+powershell -Command "[math]::Round((Get-CimInstance Win32_OperatingSystem).TotalVisibleMemorySize / 1GB, 2)"
 echo.
 
 :: 9. Graphics card
@@ -2565,8 +2567,7 @@ cls
 echo Applying Performance profile...
 powercfg /setactive SCHEME_MIN
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 1 /f >nul 2>&1
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "TcpAckFrequency" /t REG_DWORD /d 1 /f >nul 2>&1
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v "TCPNoDelay" /t REG_DWORD /d 1 /f >nul 2>&1
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoLowDiskSpaceChecks" /t REG_DWORD /d 1 /f >nul 2>&1
 echo Performance profile applied.
 pause
 goto profileMenu
