@@ -70,6 +70,11 @@ Copy and paste the code below, then press enter.
 irm https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/cloud.ps1 | iex
 ```
 
+**Powershell (Unstable branch)
+```powershell
+irm https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/cloud-unstable.ps1 | iex
+```
+
 **CMD:**
 ```cmd
 curl -L -o "stable.bat" "https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/stable.bat" && stable.bat
