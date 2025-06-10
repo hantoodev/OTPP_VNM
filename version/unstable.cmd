@@ -2623,7 +2623,7 @@ echo                   ---------------------------------------------------------
 echo                                        Hardware Dashboard
 echo                   --------------------------------------------------------------
 echo     CPU Usage (%%):
-powershell -Command "$c = Get-Counter '\\Processor(_Total)\\% Processor Time' -ErrorAction SilentlyContinue; if ($c) { [math]::Round($c.CounterSamples[0].CookedValue,2) } else { (Get-WmiObject Win32_Processor | Measure-Object -Property LoadPercentage -Average).Average }"
+powershell -Command "$c = Get-Counter '\\Processor(_Total)\\%% Processor Time' -ErrorAction SilentlyContinue; if ($c) { [math]::Round($c.CounterSamples[0].CookedValue,2) } else { (Get-WmiObject Win32_Processor | Measure-Object -Property LoadPercentage -Average).Average }"
 echo     RAM Usage (GB Used/Total):
 powershell -Command "$os = Get-CimInstance Win32_OperatingSystem; $used = [math]::Round(($os.TotalVisibleMemorySize-$os.FreePhysicalMemory)/1MB,2); $total = [math]::Round($os.TotalVisibleMemorySize/1MB,2); Write-Output \"$used/$total GB\""
 echo     Disk Usage (C:):
@@ -2647,16 +2647,16 @@ goto utility-extras
     rem Using PowerShell to get more detailed and user-friendly disk information
     powershell -Command "Get-PhysicalDisk | Select-Object FriendlyName, HealthStatus, OperationalStatus, Size, @{Name='DriveType';Expression={if ($_.MediaType -eq 'SSD') {'SSD'} else {'HDD'}}} | Format-Table -AutoSize"
     if %errorlevel% neq 0 (
-        echo.
+        echo(
         echo                           Error: Could not retrieve disk health information.
         echo                           PowerShell might be restricted or an issue occurred.
-        echo.
+        echo(
     ) else (
-        echo.
+        echo(
         echo                           "HealthStatus": Indicates the overall health (Healthy, Warning, Unhealthy).
         echo                           "OperationalStatus": Indicates the current operational state (OK, Degraded, Stalled, etc.).
         echo                           "DriveType": Indicates if the drive is an SSD (Solid State Drive) or HDD (Hard Disk Drive).
-        echo.
+        echo(
     )
 
     echo.
@@ -2693,11 +2693,7 @@ goto utility-extras
     echo                           This may take some time, especially for HDDs.
     echo.
 
-    rem The /C switch processes all eligible volumes.
-    rem The /O switch performs the appropriate optimization for each media type (TRIM for SSDs, defrag for HDDs).
     defrag /C /O >nul 2>&1
-    rem Removed /V from defrag as it sends verbose output to console, which might interfere with >nul.
-    rem If you want to see defrag output, remove >nul 2>&1.
 
     if %errorlevel% neq 0 (
         echo.
@@ -2723,6 +2719,7 @@ goto utility-extras
     echo.
     pause
     goto utility-extras
+
 
 :title
 echo.
