@@ -1,0 +1,1 @@
+Get-PhysicalDisk | Select-Object FriendlyName, HealthStatus, OperationalStatus, Size, @{Name='DriveType';Expression={if ($_.MediaType -eq 'SSD') {'SSD'} else {'HDD'}}} | Format-Table -AutoSize

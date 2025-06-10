@@ -2644,12 +2644,50 @@ goto utility-extras
     echo                           Checking disk health (SMART info) and drive types...
     echo.
 
-    rem Using PowerShell to get more detailed and user-friendly disk information
-    powershell -Command "Get-PhysicalDisk | Select-Object FriendlyName, HealthStatus, OperationalStatus, Size, @{Name='DriveType';Expression={if ($_.MediaType -eq \"SSD\") {\"SSD\"} else {\"HDD\"}}} | Format-Table -AutoSize"
+    rem Define the URL of the PowerShell script
+    set "ps_script_url=https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/refs/heads/main-development/bin/get-disk.ps1"
+    
+    rem Define the target bin folder
+    set "target_bin_folder=%~dp0bin"
+    rem %~dp0 expands to the drive letter and path of the current batch script, ending with a backslash.
+    rem So, %~dp0bin creates a 'bin' folder relative to the script's location.
+
+    rem Define the full path for the downloaded PowerShell script
+    set "downloaded_ps_file=%target_bin_folder%\get-disk.ps1"
+
+    rem Create the bin folder if it doesn't exist
+    if not exist "%target_bin_folder%" (
+        echo                           Creating bin folder: "%target_bin_folder%"
+        mkdir "%target_bin_folder%"
+        if %errorlevel% neq 0 (
+            echo                           Error: Failed to create the bin folder. Exiting.
+            pause
+            goto :eof
+        )
+    )
+
+    echo                           Downloading disk information script from GitHub...
+    rem Use PowerShell to download the script content and save it to the specified file
+    powershell -NoProfile -Command "(Invoke-WebRequest -Uri '%ps_script_url%' -UseBasicParsing).Content | Out-File -FilePath '%downloaded_ps_file%' -Encoding UTF8"
+    
     if %errorlevel% neq 0 (
         echo(
-        echo                           Error: Could not retrieve disk health information.
-        echo                           PowerShell might be restricted or an issue occurred.
+        echo                           Error: Failed to download the disk information script.
+        echo                           Please check your internet connection or the URL.
+        echo(
+        goto :skip_disk_info_display
+    )
+
+    echo                           Executing downloaded script...
+    rem Execute the downloaded PowerShell script
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%downloaded_ps_file%"
+
+    rem Check the error level from the PowerShell execution
+    if %errorlevel% neq 0 (
+        echo(
+        echo                           Error: Disk information script execution failed.
+        echo                           Please ensure PowerShell is installed and its path
+        echo                           (C:\Windows\System32\WindowsPowerShell\v1.0\) is in your System PATH variable.
         echo(
     ) else (
         echo(
@@ -2658,6 +2696,11 @@ goto utility-extras
         echo                           "DriveType": Indicates if the drive is an SSD (Solid State Drive) or HDD (Hard Disk Drive).
         echo(
     )
+
+:skip_disk_info_display
+    rem In this scenario, we DO NOT delete the downloaded script,
+    rem as you want to keep it in the 'bin' folder.
+    rem if exist "%downloaded_ps_file%" del "%downloaded_ps_file%"
 
     echo.
     echo                   --------------------------------------------------------------
@@ -2699,7 +2742,7 @@ goto utility-extras
         echo.
         echo                           Error: Disk optimization failed or encountered issues.
         echo                           Please check the output above for more details.
-        echo.
+        echo(
     ) else (
         echo.
         echo                           Disk optimization complete.
@@ -2719,7 +2762,6 @@ goto utility-extras
     echo.
     pause
     goto utility-extras
-
 
 :title
 echo.
