@@ -2680,22 +2680,8 @@ goto utility-extras
 
     echo                           Executing downloaded script...
     rem Execute the downloaded PowerShell script
+    echo                           This script will display detailed disk information below:
     powershell -NoProfile -ExecutionPolicy Bypass -File "%downloaded_ps_file%"
-
-    rem Check the error level from the PowerShell execution
-    if %errorlevel% neq 0 (
-        echo(
-        echo                           Error: Disk information script execution failed.
-        echo                           Please ensure PowerShell is installed and its path
-        echo                           (C:\Windows\System32\WindowsPowerShell\v1.0\) is in your System PATH variable.
-        echo(
-    ) else (
-        echo(
-        echo                           "HealthStatus": Indicates the overall health (Healthy, Warning, Unhealthy).
-        echo                           "OperationalStatus": Indicates the current operational state (OK, Degraded, Stalled, etc.).
-        echo                           "DriveType": Indicates if the drive is an SSD (Solid State Drive) or HDD (Hard Disk Drive).
-        echo(
-    )
 
 :skip_disk_info_display
     rem In this scenario, we DO NOT delete the downloaded script,
