@@ -198,7 +198,7 @@ echo    1. English
 echo    2. Vietnamese (buggy, old version, not completed)
 echo    More languages coming soon...
 echo.
-set /p "lang=%DEL%                            Your choice: "
+set /p "lang=%DEL%                                     Your choice: "
 if "%lang%"=="1" goto warn
 if "%lang%"=="2" goto vn
 goto launch1
@@ -613,7 +613,6 @@ if "%choice%"=="8" goto hardwareDashboard
 if "%choice%"=="10" goto tweakcat
 goto utility-extras
 
-:restore-maintenance
 :restore_maintenance_menu
 cls
 title OptimizedTools++: Restore, Maintenance Options
@@ -2534,6 +2533,11 @@ if /i "%input%"=="y" (
         echo del /q /s %%temp%%\* >> "C:\Windows\otpp_cleanup.bat"
         echo echo [OTPP] Temp files deleted. >> "C:\Windows\otpp_cleanup.bat"
         echo exit /b >> "C:\Windows\otpp_cleanup.bat"
+        echo.
+        echo [OK] Cleanup file created.
+    ) else (
+        echo.
+        echo [INFO] Cleanup file already exists.
     )
     REM Tạo task scheduler
     schtasks /create /tn "OTPP_DailyCleanup" /tr "C:\Windows\otpp_cleanup.bat" /sc daily /st 09:00 /f
@@ -2558,11 +2562,13 @@ echo.
 echo                   --------------------------------------------------------------
 echo                                   Select Optimization Profile
 echo                   --------------------------------------------------------------
+echo.
 echo     1. Performance
 echo     2. Balanced
 echo     3. Battery Saver
 echo     4. Go back
 echo.
+
 :profile_menu_loop
 set /p "choice=%DEL%                                       Your choice: "
 if "%choice%"=="1" goto profilePerformance
