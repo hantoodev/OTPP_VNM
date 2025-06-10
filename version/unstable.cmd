@@ -276,7 +276,7 @@ goto tweakcat
 
 :restorepoint1
 cls
-cd..
+cd ..
 cd bin
 echo.
 echo                   --------------------------------------------------------------
@@ -598,6 +598,7 @@ echo     4. Patch: Fix Keyboard Layout (Microsoft IME)
 echo     5. Create Schedule Daily Cleanup 
 echo     6. Optimization Profile for Laptop/Desktop
 echo     7. Optimize/TRIM your hard drive
+echo     8. Hardware Dashboard
 echo     10. Go back main menu
 echo.
 echo                                         Welcome. %username%
@@ -609,6 +610,7 @@ if "%choice%"=="4" goto patchKeyboardLayout
 if "%choice%"=="5" goto ScheduleCleanup
 if "%choice%"=="6" goto profileMenu
 if "%choice%"=="7" goto diskHealthTrim
+if "%choice%"=="8" goto hardwareDashboard
 if "%choice%"=="10" goto tweakcat
 goto utility-extras
 
@@ -2523,6 +2525,7 @@ echo     This will:
 echo      - Create a file "C:\Windows\otpp_cleanup.bat" to delete temp files
 echo      - Create task scheduler to run this file daily at 9:00 AM
 echo.
+:schedule_cleanup_loop
 set /p "input=Do you want to create? (y/n): "
 if /i "%input%"=="y" (
     REM Tạo file cleanup nếu chưa có
@@ -2538,11 +2541,17 @@ if /i "%input%"=="y" (
     echo.
     echo [OK] Task scheduled to run daily at 9:00 AM.
     echo [NOTE] Applied to all country time.
-) else (
+    pause
+    goto utility-extras
+) else if /i "%input%"=="n" (
     echo [CANCEL] Canceled.
+    pause
+    goto utility-extras
+) else (
+    echo Invalid input. Please enter y or n.
+    goto schedule_cleanup_loop
 )
-pause
-goto utility-extras
+
 
 :profileMenu
 cls
@@ -2555,12 +2564,14 @@ echo     2. Balanced
 echo     3. Battery Saver
 echo     4. Go back
 echo.
-set /p "profileChoice=Your choice: "
-if "%profileChoice%"=="1" goto profilePerformance
-if "%profileChoice%"=="2" goto profileBalanced
-if "%profileChoice%"=="3" goto profileBatterySaver
-if "%profileChoice%"=="4" goto utility-extras
-goto profileMenu
+:profile_menu_loop
+set /p "choice=%DEL%                                       Your choice: "
+if "%choice%"=="1" goto profilePerformance
+if "%choice%"=="2" goto profileBalanced
+if "%choice%"=="3" goto profileBatterySaver
+if "%choice%"=="4" goto utility-extras
+echo Invalid input. Please enter 1, 2, 3, or 4.
+goto profile_menu_loop
 
 :profilePerformance
 cls
