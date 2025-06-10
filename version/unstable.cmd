@@ -2623,7 +2623,7 @@ echo                   ---------------------------------------------------------
 echo                                        Hardware Dashboard
 echo                   --------------------------------------------------------------
 echo     CPU Usage (%%):
-powershell -Command "$c = Get-Counter '\\Processor(_Total)\\%% Processor Time' -ErrorAction SilentlyContinue; if ($c) { [math]::Round($c.CounterSamples[0].CookedValue,2) } else { (Get-WmiObject Win32_Processor | Measure-Object -Property LoadPercentage -Average).Average }"
+powershell -Command "$c = Get-Counter \"\\Processor(_Total)\\%% Processor Time\" -ErrorAction SilentlyContinue; if ($c) { [math]::Round($c.CounterSamples[0].CookedValue,2) } else { (Get-WmiObject Win32_Processor | Measure-Object -Property LoadPercentage -Average).Average }"
 echo     RAM Usage (GB Used/Total):
 powershell -Command "$os = Get-CimInstance Win32_OperatingSystem; $used = [math]::Round(($os.TotalVisibleMemorySize-$os.FreePhysicalMemory)/1MB,2); $total = [math]::Round($os.TotalVisibleMemorySize/1MB,2); Write-Output \"$used/$total GB\""
 echo     Disk Usage (C:):
@@ -2645,7 +2645,7 @@ goto utility-extras
     echo.
 
     rem Using PowerShell to get more detailed and user-friendly disk information
-    powershell -Command "Get-PhysicalDisk | Select-Object FriendlyName, HealthStatus, OperationalStatus, Size, @{Name='DriveType';Expression={if ($_.MediaType -eq 'SSD') {'SSD'} else {'HDD'}}} | Format-Table -AutoSize"
+    powershell -Command "Get-PhysicalDisk | Select-Object FriendlyName, HealthStatus, OperationalStatus, Size, @{Name='DriveType';Expression={if ($_.MediaType -eq \"SSD\") {\"SSD\"} else {\"HDD\"}}} | Format-Table -AutoSize"
     if %errorlevel% neq 0 (
         echo(
         echo                           Error: Could not retrieve disk health information.
