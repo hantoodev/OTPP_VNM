@@ -11,7 +11,6 @@ if %errorlevel% neq 0 (
     exit /b
 )
 
-@echo off
 REM Blank/Color Character
 for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (set "DEL=%%a" & set "COL=%%b")
 REM Add ANSI escape sequences
@@ -60,14 +59,14 @@ REM Check if "Windows 10" is in OS_Name
 echo "%OS_Name%" | findstr /i "Windows 10" >nul
 if %errorlevel% equ 0 (
     echo Windows 10 detected. Proceeding with the script...
-    goto :continue
+    goto continue
 )
 
 REM Check if "Windows 11" is in OS_Name
 echo "%OS_Name%" | findstr /i "Windows 11" >nul
 if %errorlevel% equ 0 (
     echo Windows 11 detected. Proceeding with the script...
-    goto :continue
+    goto continue
 )
 
 REM If neither is found
@@ -80,9 +79,9 @@ Mode 100,43
 
 REM Save the current directory and download required files
 set CURRENT_DIR=%~dp0
-cd %CURRENT_DIR%
+cd "%CURRENT_DIR%"
 
-mkdir bin
+mkdir bin >nul 2>&1
 echo [Info] Downloading required files...
 
 curl -L -o bin/Button.bat https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/bin/Button.bat
@@ -90,7 +89,7 @@ curl -L -o bin/GetInput.exe https://raw.githubusercontent.com/NammIsADev/Optimiz
 curl -L -o bin/batbox.exe https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/bin/batbox.exe
 
 REM Change to the 'bin' directory within the current directory
-cd /d %CURRENT_DIR%bin
+cd /d "%CURRENT_DIR%bin"
 
 :update
 cls
@@ -132,7 +131,7 @@ if "!fileContent!"=="1.5+unstable" (
     echo.
     echo                                        Opening GitHub page...
     start "" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/"
-    exit
+    exit /b
 )
 
 
@@ -162,7 +161,7 @@ if %errorlevel%==2 (goto dir)
 goto restorepoint_loop
 
 :startbackup
-cd..
+cd ..
 mkdir OPTPlusPlus >nul 2>&1
 reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\SystemRestore" /v "SystemRestorePointCreationFrequency" /t REG_DWORD /d 0 /f >nul 2>&1
 powershell -ExecutionPolicy Unrestricted -NoProfile Enable-ComputerRestore -Drive 'C:\', 'D:\', 'E:\', 'F:\', 'G:\' >nul 2>&1
@@ -172,7 +171,7 @@ mkdir OPTPlusPlusTemp\RegRevert >nul 2>&1
 for /F "tokens=2" %%i in ('date /t') do set date=%%i
 set date1=%date:/=.% 
 >nul 2>&1 md OPTPlusPlusTemp\RegRevert\%date1%
-reg export HKCU OPTPlusPlusTemp\RegRevert\%date1%\HKLM.reg /y >nul 2>&1
+reg export HKLM OPTPlusPlusTemp\RegRevert\%date1%\HKLM.reg /y >nul 2>&1
 reg export HKCU OPTPlusPlusTemp\RegRevert\%date1%\HKCU.reg /y >nul 2>&1
 echo set "firstlaunch=0" > OPTPlusPlusTemp\RegRevert\firstlaunchcheck
 
@@ -199,7 +198,7 @@ echo    1. English
 echo    2. Vietnamese (buggy, old version, not completed)
 echo    More languages coming soon...
 echo.
-set /p "lang=%DEL%                                          Your choice: "
+set /p "lang=%DEL%                            Your choice: "
 if "%lang%"=="1" goto warn
 if "%lang%"=="2" goto vn
 goto launch1
@@ -234,7 +233,7 @@ echo    making a manual restore point before running.
 echo.
 echo    For any questions and/or concerns, please go to my GitHub: NammIsADev/OptimizedToolsPlusPlus
 echo    Type "Yes" to continue: 
-set /p "input=%DEL%                                       Your input:
+set /p "input=%DEL%                                       Your input: "
 if /i "!input!" neq "yes" goto warn
 reg add "HKCU\Software\opt" /v "Disclaimer" /f >nul 2>&1
 goto tweakcat
@@ -267,7 +266,7 @@ if "%choice%"=="5" goto networking-performance
 if "%choice%"=="6" goto gaming-hardware
 if "%choice%"=="7" goto utility-extras
 if "%choice%"=="8" goto restore-maintenance
-if "%choice%"=="9" exit
+if "%choice%"=="9" exit /b
 if "%choice%"=="0" goto restart
 if "%choice%"=="r" goto restorepoint1
 if "%choice%"=="s" goto settings
@@ -301,7 +300,7 @@ if %errorlevel%==2 (goto 1clickundo)
 goto restorepoint1_loop
 
 :startbackup1
-cd..
+cd ..
 mkdir OPTPlusPlus >nul 2>&1
 reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\SystemRestore" /v "SystemRestorePointCreationFrequency" /t REG_DWORD /d 0 /f >nul 2>&1
 powershell -ExecutionPolicy Unrestricted -NoProfile Enable-ComputerRestore -Drive 'C:\', 'D:\', 'E:\', 'F:\', 'G:\' >nul 2>&1
@@ -311,7 +310,7 @@ mkdir OPTPlusPlusTemp\RegRevert >nul 2>&1
 for /F "tokens=2" %%i in ('date /t') do set date=%%i
 set date1=%date:/=.% 
 >nul 2>&1 md OPTPlusPlusTemp\RegRevert\%date1%
-reg export HKCU OPTPlusPlusTemp\RegRevert\%date1%\HKLM.reg /y >nul 2>&1
+reg export HKLM OPTPlusPlusTemp\RegRevert\%date1%\HKLM.reg /y >nul 2>&1
 reg export HKCU OPTPlusPlusTemp\RegRevert\%date1%\HKCU.reg /y >nul 2>&1
 echo set "firstlaunch=0" > OPTPlusPlusTemp\RegRevert\firstlaunchcheck
 goto tweakcat
@@ -730,7 +729,6 @@ reg add "HKCU\SOFTWARE\Microsoft\Office\16.0\Common\Feedback" /v "Enabled" /t RE
 reg add "HKCU\SOFTWARE\Microsoft\Office\15.0\Common\Feedback" /v "Enabled" /t REG_DWORD /d 0 /f
 reg add "HKCU\SOFTWARE\Policies\Microsoft\Office\17.0\OSM" /v "EnableUpload" /t REG_DWORD /d 0 /f
 reg add "HKCU\SOFTWARE\Policies\Microsoft\Office\16.0\OSM" /v "EnableUpload" /t REG_DWORD /d 0 /f
-reg add "HKCU\SOFTWARE\Policies\Microsoft\Office\15.0\OSM" /v 
 echo Disabled Telemetry.
 pause
 goto security-privacy
@@ -935,7 +933,7 @@ echo Method 1: trying
 powershell -Command "Get-AppxPackage -Name Microsoft.MicrosoftEdge.* | Remove-AppxPackage"
 echo Microsoft Edge uninstallation initiated. Check the PowerShell window for progress.
 echo Method 2: trying
-net session >NUL 2>&1 || (echo. & echo Run Script As Admin & echo. & pause & exit)
+net session >NUL 2>&1 || (echo. & echo Run Script As Admin & echo. & pause & exit /b)
 title Edge Remover - 2/18/2025 - Powered by ShadowWhisperer
 set "expected=4963532e63884a66ecee0386475ee423ae7f7af8a6c6d160cf1237d085adf05e"
 
@@ -1103,6 +1101,7 @@ if %errorlevel% neq 0 (
     echo Chocolatey is already installed.
 )
 
+:xmenu1
 cls
 echo Launching XMenu...
 cls
@@ -1152,7 +1151,7 @@ if "%choice%"=="15" choco install ccleaner -y
 if "%choice%"=="16" choco install vscode -y
 if "%choice%"=="17" choco install vlc -y
 if "%choice%"=="18" goto xmenu2
-if "%choice%"=="19" goto mainmenu
+if "%choice%"=="19" goto tweakcat
 
 
 :xmenu2
@@ -1188,8 +1187,8 @@ if "%choice2%"=="27" choco install brave -y
 if "%choice2%"=="28" choco install everything -y
 if "%choice2%"=="29" choco install audacity -y
 if "%choice2%"=="30" choco install obs-studio -y
-if "%choice2%"=="31" goto installUsefulApps
-if "%choice2%"=="32" goto mainmenu
+if "%choice2%"=="31" goto xmenu1
+if "%choice2%"=="32" goto tweakcat
 
 :patchKeyboardLayout
 sc config "TabletInputService" start= auto
@@ -1801,7 +1800,7 @@ shutdown /r /t 0 >nul 2>&1
 pause
 goto restore-maintenance
 
-:disablewebwidget
+:disableWebwidget
 cls
 echo Disabling Edge WebWidget via registry...
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v WebWidgetAllowed /t REG_DWORD /d 0 /f
@@ -2128,7 +2127,7 @@ echo.
 pause
 goto networking-performance
 
-:disablenetworkthrottling
+:disableNetworkThrottling
 cls
 echo Disabling Network Throttling...
 :: Disable Network Throttling via registry
@@ -2273,7 +2272,7 @@ echo.
 echo Downloading completed.
 echo Starting the Vietnamese version...
 start cmd /c "vi.bat"
-exit
+exit /b
 goto vn
 
 :windowsUpdateManager
@@ -2426,7 +2425,7 @@ curl -L -o "stable.bat" "https://raw.githubusercontent.com/NammIsADev/OptimizedT
 echo Downloading completed.
 echo Switching to Stable...
 start cmd /c "stable.bat"
-exit
+exit /b
 goto stable
 
 :debug
