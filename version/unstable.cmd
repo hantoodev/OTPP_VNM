@@ -198,7 +198,7 @@ echo    1. English
 echo    2. Vietnamese (buggy, old version, not completed)
 echo    More languages coming soon...
 echo.
-set /p "lang=%DEL%                                     Your choice: "
+set /p "lang=%DEL%                                          Your choice: "
 if "%lang%"=="1" goto warn
 if "%lang%"=="2" goto vn
 goto launch1
@@ -598,7 +598,7 @@ echo     5. Create Schedule Daily Cleanup
 echo     6. Optimization Profile for Laptop/Desktop
 echo     7. Optimize/TRIM your hard drive
 echo     8. Hardware Dashboard
-echo     10. Go back main menu
+echo     9. Go back main menu
 echo.
 echo                                         Welcome. %username%
 set /p "choice=%DEL%                                       Your choice: "
@@ -610,7 +610,7 @@ if "%choice%"=="5" goto ScheduleCleanup
 if "%choice%"=="6" goto profileMenu
 if "%choice%"=="7" goto diskHealthTrim
 if "%choice%"=="8" goto hardwareDashboard
-if "%choice%"=="10" goto tweakcat
+if "%choice%"=="9" goto tweakcat
 goto utility-extras
 
 :restore_maintenance_menu
@@ -2615,14 +2615,14 @@ echo                   ---------------------------------------------------------
 echo                                        Hardware Dashboard
 echo                   --------------------------------------------------------------
 echo     CPU Usage (%):
-powershell -Command "Get-Counter '\Processor(_Total)\% Processor Time' | Select -ExpandProperty CounterSamples | Select -ExpandProperty CookedValue"
+REM CPU Usage (%):
+powershell -Command "$c = Get-Counter '\Processor(_Total)\% Processor Time' -ErrorAction SilentlyContinue; if ($c) { [math]::Round($c.CounterSamples[0].CookedValue,2) } else { (Get-WmiObject Win32_Processor | Measure-Object -Property LoadPercentage -Average).Average }"
 echo     RAM Usage (GB Used/Total):
-powershell -Command "[math]::Round(((Get-CimInstance Win32_OperatingSystem).TotalVisibleMemorySize-(Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory)/1MB,2)"
-powershell -Command "[math]::Round((Get-CimInstance Win32_OperatingSystem).TotalVisibleMemorySize/1MB,2)"
+powershell -Command "$os = Get-CimInstance Win32_OperatingSystem; $used = [math]::Round(($os.TotalVisibleMemorySize-$os.FreePhysicalMemory)/1MB,2); $total = [math]::Round($os.TotalVisibleMemorySize/1MB,2); Write-Output \"$used/$total GB\""
 echo     Disk Usage (C:):
-powershell -Command "Get-PSDrive C | Select Used,Free"
+powershell -Command "$d = Get-PSDrive C; Write-Output ('Used: {0} GB / Free: {1} GB' -f ([math]::Round($d.Used/1GB,2)), ([math]::Round($d.Free/1GB,2)))"
 echo     GPU Name:
-powershell -Command "Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name"
+powershell -Command "Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name | Where-Object {$_ -ne $null}"
 pause
 goto utility-extras
 
@@ -2638,10 +2638,9 @@ goto utility-extras
     echo.
 
     rem Using PowerShell to get more detailed and user-friendly disk information
-    rem We're checking if the disk is SSD or HDD to tailor the optimization message.
-    rem We're also checking HealthStatus and OperationalStatus for clear feedback.
-    powershell -Command "Get-PhysicalDisk | ForEach-Object { $_ | Add-Member -NotePropertyName 'DriveType' -NotePropertyValue (if ($_.MediaType -eq 'SSD') {'SSD'} else {'HDD'}) -PassThru } | Select FriendlyName, HealthStatus, OperationalStatus, Size, DriveType | Format-Table -AutoSize"
-    if %errorlevel% neq 0 (
+    powershell -Command "Get-PhysicalDisk | Select-Object FriendlyName, HealthStatus, OperationalStatus, Size, @{Name='DriveType';Expression={if ($_.MediaType -eq 'SSD') {'SSD'} else {'HDD'}}} | Format-Table -AutoSize"
+    set "ps_err=%errorlevel%"
+    if not "%ps_err%"=="0" (
         echo.
         echo                           Error: Could not retrieve disk health information.
         echo                           PowerShell might be restricted or an issue occurred.
