@@ -10,6 +10,9 @@ if %errorlevel% neq 0 (
     powershell -Command "Start-Process '%~dpnx0' -Verb RunAs"
     exit /b
 )
+set "DEL= " 
+
+set "COL="
 
 REM Blank/Color Character
 for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (set "DEL=%%a" & set "COL=%%b")
@@ -602,15 +605,16 @@ echo     9. Go back main menu
 echo.
 echo                                         Welcome. %username%
 set /p "choice=%DEL%                                       Your choice: "
-if "%choice%"=="1" goto installUsefulApps
-if "%choice%"=="2" goto activateWindows
-if "%choice%"=="3" goto disableMicrosoftCopilot
-if "%choice%"=="4" goto patchKeyboardLayout
-if "%choice%"=="5" goto ScheduleCleanup
-if "%choice%"=="6" goto profileMenu
-if "%choice%"=="7" goto diskHealthTrim
-if "%choice%"=="8" goto hardwareDashboard
-if "%choice%"=="9" goto tweakcat
+if /i "%choice%"=="1" goto installUsefulApps
+if /i "%choice%"=="2" goto activateWindows
+if /i "%choice%"=="3" goto disableMicrosoftCopilot
+if /i "%choice%"=="4" goto patchKeyboardLayout
+if /i "%choice%"=="5" goto ScheduleCleanup
+if /i "%choice%"=="6" goto profileMenu
+if /i "%choice%"=="7" goto diskHealthTrim
+if /i "%choice%"=="8" goto hardwareDashboard
+if /i "%choice%"=="9" goto tweakcat
+echo Invalid input. Please enter 1-9.
 goto utility-extras
 
 :restore_maintenance_menu
@@ -1190,16 +1194,18 @@ if "%choice2%"=="31" goto xmenu1
 if "%choice2%"=="32" goto tweakcat
 
 :patchKeyboardLayout
-sc config "TabletInputService" start= auto
-net start "TabletInputService"
-sc config "TextInputManagementService" start= demand
-net start "TextInputManagementService"
-sc config "eventlog" start= auto
-net start "eventlog"
-sc config "InputService" start= demand
-net start "InputService"
-sc config "LxpSvc" start= demand
-net start "LxpSvc"
+cls
+echo Patching... Please wait...
+sc config "TabletInputService" start= auto >nul 2>&1
+net start "TabletInputService" >nul 2>&1
+sc config "TextInputManagementService" start= demand >nul 2>&1
+net start "TextInputManagementService" >nul 2>&1
+sc config "eventlog" start= auto >nul 2>&1
+net start "eventlog" >nul 2>&1
+sc config "InputService" start= demand >nul 2>&1
+net start "InputService" >nul 2>&1
+sc config "LxpSvc" start= demand >nul 2>&1
+net start "LxpSvc" >nul 2>&1
 echo Patched successfully, please restart your computer for the changes to take effect.
 pause
 goto utility-extras
@@ -2465,7 +2471,7 @@ echo.
 
 :: 9. Graphics card
 echo gpu:
-powershell -Command "Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name"
+powershell -Command "Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name | Where-Object {$_ -ne $null}"
 echo.
 
 :: 11. BIOS version
@@ -2572,17 +2578,18 @@ echo.
 
 :profile_menu_loop
 set /p "choice=%DEL%                                       Your choice: "
-if "%choice%"=="1" goto profilePerformance
-if "%choice%"=="2" goto profileBalanced
-if "%choice%"=="3" goto profileBatterySaver
-if "%choice%"=="4" goto utility-extras
+if /i "%choice%"=="1" goto profilePerformance
+if /i "%choice%"=="2" goto profileBalanced
+if /i "%choice%"=="3" goto profileBatterySaver
+if /i "%choice%"=="4" goto utility-extras
 echo Invalid input. Please enter 1, 2, 3, or 4.
 goto profile_menu_loop
 
 :profilePerformance
 cls
 echo Applying Performance profile...
-powercfg /setactive SCHEME_MIN
+powercfg /setactive SCHEME_MIN >nul 2>&1
+rem Ensure these registry paths and values are correct and exist.
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 1 /f >nul 2>&1
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "NoLowDiskSpaceChecks" /t REG_DWORD /d 1 /f >nul 2>&1
 echo Performance profile applied.
@@ -2592,7 +2599,7 @@ goto profileMenu
 :profileBalanced
 cls
 echo Applying Balanced profile...
-powercfg /setactive SCHEME_BALANCED
+powercfg /setactive SCHEME_BALANCED >nul 2>&1
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 0 /f >nul 2>&1
 echo Balanced profile applied.
 pause
@@ -2601,9 +2608,9 @@ goto profileMenu
 :profileBatterySaver
 cls
 echo Applying Battery Saver profile...
-powercfg /setactive SCHEME_MAX
-powercfg /change monitor-timeout-ac 2
-powercfg /change standby-timeout-ac 5
+powercfg /setactive SCHEME_MAX >nul 2>&1
+powercfg /change monitor-timeout-ac 2 >nul 2>&1
+powercfg /change standby-timeout-ac 5 >nul 2>&1
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 0 /f >nul 2>&1
 echo Battery Saver profile applied.
 pause
@@ -2611,7 +2618,7 @@ goto profileMenu
 
 :hardwareDashboard
 cls
-echo..
+echo.
 echo                   --------------------------------------------------------------
 echo                                        Hardware Dashboard
 echo                   --------------------------------------------------------------
@@ -2622,7 +2629,7 @@ powershell -Command "$os = Get-CimInstance Win32_OperatingSystem; $used = [math]
 echo     Disk Usage (C:):
 powershell -Command "$d = Get-PSDrive C; Write-Output ('Used: {0} GB / Free: {1} GB' -f ([math]::Round($d.Used/1GB,2)), ([math]::Round($d.Free/1GB,2)))"
 echo     GPU Name:
-powershell -Command "Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name | Where-Object {$_ -ne $null}"
+powershell -Command "Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name | Where-Object {$_ -ne $null} | Out-String -Stream | ForEach-Object { $_.Trim() }"
 pause
 goto utility-extras
 
@@ -2639,8 +2646,7 @@ goto utility-extras
 
     rem Using PowerShell to get more detailed and user-friendly disk information
     powershell -Command "Get-PhysicalDisk | Select-Object FriendlyName, HealthStatus, OperationalStatus, Size, @{Name='DriveType';Expression={if ($_.MediaType -eq 'SSD') {'SSD'} else {'HDD'}}} | Format-Table -AutoSize"
-    set ps_err=%errorlevel%
-    if not "%ps_err%"=="0" (
+    if %errorlevel% neq 0 (
         echo.
         echo                           Error: Could not retrieve disk health information.
         echo                           PowerShell might be restricted or an issue occurred.
@@ -2689,8 +2695,9 @@ goto utility-extras
 
     rem The /C switch processes all eligible volumes.
     rem The /O switch performs the appropriate optimization for each media type (TRIM for SSDs, defrag for HDDs).
-    defrag /C /O /V
-    rem /V (verbose) switch provides more detailed output during optimization.
+    defrag /C /O >nul 2>&1
+    rem Removed /V from defrag as it sends verbose output to console, which might interfere with >nul.
+    rem If you want to see defrag output, remove >nul 2>&1.
 
     if %errorlevel% neq 0 (
         echo.
