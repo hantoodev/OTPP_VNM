@@ -1,3 +1,8 @@
+> [!WARNING]
+> Sorry guys, the release just get messed up by my mistakes...
+> I accidentally pushed the local branch to the default branch, so the release just... disappeared. I recovered all of this, but still lost one (daily) build.
+> Thank you for your understanding!
+
 <h1 align="center" style="margin-top: 0px;">OptimizedTools++</h1>
 
 <p align="center">
