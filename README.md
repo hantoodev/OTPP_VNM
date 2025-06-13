@@ -22,8 +22,9 @@
   </a>
 </div>
 
-## Warning: OptimizedTools++ dropped support for Windows 10 Beta, 1507, 1607
 ### We need someone to translate the project!
+
+Available at Gitea (self-hosted) now: [Click here](http://syrix.zapto.org:1091/NammIsADev/OptimizedToolsPlusPlus-gitea)
 
 >[!CAUTION]
 > **Use at your own risk.**
