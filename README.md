@@ -20,6 +20,15 @@
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/blob/main-development/OptimizedTools%2B%2B.bat">
     <img src="https://img.shields.io/badge/lines%20in%20the%20script-2205+-gray" alt="Lines Number">
   </a>
+  <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus/issues">
+    <img src="https://img.shields.io/github/issues/NammIsADev/OptimizedToolsPlusPlus.svg" alt="Open Issues">
+  </a>
+  <a href="https://github.com/NammIsADev/glautude/releases/">
+    <img src="https://img.shields.io/badge/downloads-66-yellow" alt="all-Downloads">
+  </a>
+  <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus">
+    <img src="https://img.shields.io/github/stars/NammIsADev/OptimizedToolsPlusPlus.svg" alt="GitHub Stars">
+  </a>
 </div>
 
 ### We need someone to translate the project!
