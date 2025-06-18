@@ -31,7 +31,7 @@
     <img src="https://img.shields.io/github/issues/NammIsADev/OptimizedToolsPlusPlus.svg" alt="Open Issues">
   </a>
   <a href="https://github.com/NammIsADev/glautude/releases/">
-    <img src="https://img.shields.io/badge/downloads-66-yellow" alt="all-Downloads">
+    <img src="https://img.shields.io/badge/downloads-68-yellow" alt="all-Downloads">
   </a>
   <a href="https://github.com/NammIsADev/OptimizedToolsPlusPlus">
     <img src="https://img.shields.io/github/stars/NammIsADev/OptimizedToolsPlusPlus.svg" alt="GitHub Stars">
