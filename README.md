@@ -1,9 +1,10 @@
-> [!WARNING]
-> Sorry guys, the release just got messed up by my mistakes...
+> [!WARNING (from @NammIsADev)]
+> Xin lỗi mọi người, 1 bản phát hành đang gặp vấn đề do lỗi của tôi.
 > 
-> I accidentally pushed the local branch to the default branch, so the release just... disappeared. I recovered all of this, but still lost one (daily) build.
+> Tôi vô tình đẩy branch nội bộ lên branch chính nên là cái bản đó... biến mất 🙄
+> Tôi đã khôi phục lại tất cả, nhưng vẫn mất 1 bản cập nhật hàng ngày.
 > 
-> Thank you for your understanding!
+> Cảm ơn mọi người đã hiểu!
 
 <h1 align="center" style="margin-top: 0px;">OptimizedTools++</h1>
 
