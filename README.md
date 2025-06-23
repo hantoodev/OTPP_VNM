@@ -40,7 +40,7 @@
   </a>
 </div>
 
-### Chúng tôi cần 1 người dịch cho dự án này!
+### Chúng tôi cần người dịch cho dự án này.
 
 Có sẵn trên Gitea (self-hosted): [Link dead xin xem cách bên dưới 😕](http://syrix.zapto.org:1091/NammIsADev/OptimizedToolsPlusPlus-gitea)
 
@@ -60,29 +60,30 @@ Có sẵn trên Gitea (self-hosted): [Link dead xin xem cách bên dưới 😕]
 
 ---
 
-## 🏆 What is OptimizedTools++?
+## 🏆 OptimizedTools++ là gì?
 
-OptimizedTools++ is **your ultimate toolkit** for Windows enhancement, delivering **performance-boosting tweaks** that make your system run smoother, faster, and **more efficient** than ever. Designed for both casual users and tech enthusiasts, this utility **refines, cleans, and optimizes** your OS for an **best performance**.
-
----
-
-## ✨ What's Inside?
-- 70+ powerful tweaks for ultimate control
-- Performance enhancements to keep things running smoothly
-- Respects your privacy and keep your Windows tidy, clean.
-- Integrated app installer for easy setup
+OptimizedTools++ là **bộ công cụ tối ưu toàn diện** dành cho Windows, mang đến các tinh chỉnh **tăng cường hiệu suất** giúp hệ thống của bạn hoạt động mượt mà hơn, nhanh hơn và **hiệu quả hơn** bao giờ hết. Được thiết kế cho cả người dùng phổ thông và những người đam mê công nghệ, tiện ích này **tinh chỉnh, dọn dẹp và tối ưu hóa** hệ điều hành của bạn để đạt **hiệu suất tốt nhất**.
 
 ---
 
-## ❓ How to optimize
+## ✨ Có gì bên trong?
 
-### Method 1 - PowerShell/CMD (Windows 10 and later)
+- Hơn 70 tinh chỉnh mạnh mẽ để kiểm soát tối ưu
+- Các cải tiến về hiệu suất giúp mọi thứ hoạt động trơn tru
+- Tôn trọng quyền riêng tư của bạn và giữ cho Windows của bạn luôn gọn gàng, sạch sẽ.
+- Trình cài đặt ứng dụng tích hợp giúp thiết lập dễ dàng
 
-**Open PowerShell/CMD**
+---
 
-To do that, press the Windows key + X, then select PowerShell, Command Prompt, or Terminal.
+## ❓ Làm sao để tối ưu
 
-Copy and paste the code below, then press enter.
+### Cách 1 - Dùng PowerShell/CMD/WT (Windows Terminal) (Windows 10 hoặc hơn)
+
+**Mở PowerShell/CMD**
+
+Để làm điều đó, hãy nhấn Windows + S và tìm Powershell/CMD/WT
+
+Sao chép và dán đoạn mã sau, rồi nhấn Enter.
 
 **PowerShell:**
 ```powershell
@@ -99,22 +100,22 @@ irm https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-dev
 curl -L -o "stable.bat" "https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/invoke-script/stable.bat" && stable.bat
 ```
 
-You will see the optimization options.
+Bạn sẽ thấy các lựa chọn để bắt đầu tối ưu.
 
-### Method 2 - Traditional
+### Cách 2 - Truyền thống
 
-Download the file using one of the links below:
+Tải phần mềm bằng link bên dưới ⬇
 
 [Click here to download](https://github.com/NammIsADev/OptimizedToolsPlusPlus/edit/main-development/version/stable.bat)
 
-Run the file named `stable.bat`.
+Chạy file có tên là `stable.bat`.
 
-You will see the optimization options.
+Bạn sẽ thấy các lựa chọn để bắt đầu tối ưu.
 
 ---
 
 
-## 📸 Screenshots
+## 📸 Ảnh chụp màn hình (từ @NammIsADev)
 
 
 ![image](https://github.com/user-attachments/assets/bc1de15b-0a5d-4496-8552-80904dcfb709)
@@ -122,36 +123,35 @@ You will see the optimization options.
 
 ---
 
-## 💻 Benchmark result
+## 💻 Kết quả đo đạc
 
-**Before using:**
+**Trước khi dùng:**
 
 ![image](https://github.com/user-attachments/assets/f0e32d6a-4910-40f4-bb05-9c62f18d5959)
 
 
-**After using:**
+**Sau khi dùng:**
 
 ![image](https://github.com/user-attachments/assets/2403e58e-f0bc-4d28-b7a5-b703d83bb039)
 
-Huge difference!
+Một sự khác biệt lớn ^_^
 
 ---
 
-## 📜 License
+## 📜 Giấy phép
 
-This project is **open-source** and distributed under the **GPL-2.0 License**.
+Dự án này là **mã nguồn mở** (open-source) và được phân phối theo **Giấy phép GPL-2.0**.
 
 ---
 
-## 🤝 Contribute & Feedback
+## 💛 Đóng góp & Phản hồi
 
-OptimizedTools++ is an **open-source project**, and contributions are **highly appreciated**!  
+OptimizedTools++ là một **dự án mã nguồn mở**, và mọi đóng góp đều **rất được hoan nghênh**!
+
+**Chúng tôi cần người dịch cho dự án này!**
 
 
-**We need someone to translate the project!**
-
-
-## ❤️‍🔥 List of contributor
+## ❤️‍🔥 Danh sách những người đóng góp:
 ![list](https://github.com/user-attachments/assets/2a915afc-b9e3-46e9-bc94-e11de4d68be3)
 
 ---
