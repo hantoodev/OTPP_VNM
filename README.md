@@ -38,9 +38,9 @@
   </a>
 </div>
 
-### We need someone to translate the project!
+### Chúng tôi cần 1 người dịch cho dự án này!
 
-Available at Gitea (self-hosted) now: [Click here](http://syrix.zapto.org:1091/NammIsADev/OptimizedToolsPlusPlus-gitea)
+Có sẵn trên Gitea (self-hosted): [Link dead xin xem cách bên dưới 😕](http://syrix.zapto.org:1091/NammIsADev/OptimizedToolsPlusPlus-gitea)
 
 >[!CAUTION]
 > **Use at your own risk.**
