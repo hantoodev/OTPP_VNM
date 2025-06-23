@@ -1,4 +1,5 @@
 > [!WARNING (from @NammIsADev)]
+>
 > Xin lỗi mọi người, 1 bản phát hành đang gặp vấn đề do lỗi của tôi.
 > 
 > Tôi vô tình đẩy branch nội bộ lên branch chính nên là cái bản đó... biến mất 🙄
@@ -12,7 +13,7 @@
   <img src="https://github.com/user-attachments/assets/48ea7253-b2e7-4361-8fb7-a49b6164c2a6" alt="OptimizedTools++ Logo" width="800">
 </p>
 
-<p align="center"><strong>The most advanced tweaks tool for Windows 10/11.</strong></p>
+<p align="center"><strong>Công cụ điều chỉnh tối ưu nhất cho Windows 10/11</strong></p>
 
 <div align="center">
   <img src="https://img.shields.io/badge/test-passing-green?logo=github" alt="Build Status">
@@ -43,19 +44,19 @@
 
 Có sẵn trên Gitea (self-hosted): [Link dead xin xem cách bên dưới 😕](http://syrix.zapto.org:1091/NammIsADev/OptimizedToolsPlusPlus-gitea)
 
->[!CAUTION]
-> **Use at your own risk.**
+>[!THẬN TRỌNG]
+> **Tự chịu trách nhiệm khi sử dụng.**
 >
-> I am not **RESPONSIBLE** for cases of BSOD after tweaking,
-> unable to boot after restart, missing files/OS not working properly, etc.
+> Chúng tôi không **CHỊU TRÁCH NHIỆM** với các trường hợp như BSOD
+> không thể khởi động sau khi khởi động lại, mất tệp tin/HĐH không hoạt động bình thường,... sau khi sử dụng.
 >
-> **PLEASE** do some research if you have any questions about the features
-> included in this software before you use it.
+> **Vui lòng** tìm hiểu kỹ nếu bạn có bất kỳ câu hỏi nào về tính năng
+> có trong phần mềm này trước khi sử dụng
 >
-> YOU are **choosing to make these modifications**, and if you POINT the finger
-> at me for damaging your operating system, I will laugh at you.
+> BẠN đã chọn **làm những thay đổi**, và nếu bạn chỉ vào mặt tôi
+> vì đã làm hỏng hệ điều hành của bạn, thì tôi sẽ cười vào mặt bạn.
 >
-> Even though my software have an automatic restore point feature, I highly recommend making a manual restore point before running.
+> Dù phần mềm này có tính năng tạo bản sao lưu tự động, nhưng tôi khuyên bạn nên tự sao lưu lại dữ liệu trước khi chạy!
 
 ---
 
