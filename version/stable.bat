@@ -1,12 +1,14 @@
 @echo off
 title OptimizedTools++: Preparing...
+chcp 65001
+cls
 REM Run as Admin
 setlocal EnableDelayedExpansion
 REM Delete the registry key
 reg delete HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v DummyEntry /f >reg_log.txt 2>&1
 reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v DummyEntry /t REG_SZ /d 1 >reg_log.txt 2>&1
 if %errorlevel% neq 0 (
-    echo Requesting administrative privileges...
+    echo Đang mở với quyền quản trị (Admin)
     powershell -Command "Start-Process '%~dpnx0' -Verb RunAs"
     exit /b
 )
@@ -21,44 +23,44 @@ setlocal EnableDelayedExpansion
 echo.
 call :title
 echo.
-echo                                  %COL%[33mA litte warning for you^^!%COL%[0m
+echo                                  %COL%[33mMột lưu ý nhỏ ^^!%COL%[0m
 echo.
-echo                     OptimizedTools++ only supports Windows 10 or newer.
-echo                          %COL%[31mPlease run it on a compatible version.%COL%[0m
-echo                 If you are running Windows 8 or older, please upgrade your OS.
+echo                     OptimizedTools++ chỉ hỗ trợ Windows 10 hoặc mới hơn. (bản 1507/1511/1607 không khuyến khích!)
+echo                          %COL%[31mVui lòng trên phiên bản phù hợp.%COL%[0m
+echo                 Nếu đang sử dụng bản Windows 8 trở xuống, vui lòng cập nhật lên bản mới hơn.
 echo.
-echo                                   Proceed with caution^^!
-echo                                  %COL%[32mPress Enter to continue.%COL%[0m
+echo                                   Cẩn thận trước khi tiếp tục ^^!
+echo                                  %COL%[32mNhấn Enter để tiếp tục%COL%[0m
 echo.
 pause >nul
 
 echo.
-echo Detecting Windows version...
+echo Đang xác định phiên bản...
 
 for /f "tokens=*" %%a in ('systeminfo ^| findstr /B /C:"OS Name"') do (
     set "OS_Name=%%a"
 )
 
-echo Detected OS: %OS_Name%
+echo Đã xác định: %OS_Name%
 
 echo.
 
 REM Check if "Windows 10" is in OS_Name
 echo "%OS_Name%" | findstr /i "Windows 10" >nul
 if %errorlevel% equ 0 (
-    echo Windows 10 detected. Proceeding with the script...
+    echo Đã phát hiện Windows 10. Tiếp tục...
     goto :continue
 )
 
 REM Check if "Windows 11" is in OS_Name
 echo "%OS_Name%" | findstr /i "Windows 11" >nul
 if %errorlevel% equ 0 (
-    echo Windows 11 detected. Proceeding with the script...
+    echo Đã phát hiện Windows 11. Tiếp tục...
     goto :continue
 )
 
 REM If neither is found
-echo This version of Windows is not supported. Exiting...
+echo Phiên bản này không được hỗ trợ. Bye!
 pause
 exit /b 1
 
@@ -71,7 +73,7 @@ cd %CURRENT_DIR%
 REM fix loop by mistakes
 
 mkdir bin
-echo [Info] Downloading required files...
+echo [Info] Đang tải các file cần thiết...
 
 curl -L -o bin/Button.bat https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/bin/Button.bat
 curl -L -o bin/GetInput.exe https://raw.githubusercontent.com/NammIsADev/OptimizedToolsPlusPlus/main-development/bin/GetInput.exe
@@ -84,11 +86,11 @@ cd /d %CURRENT_DIR%bin
 cls
 echo.
 echo                   --------------------------------------------------------------
-echo                                        Check for updates
+echo                                        Kiểm tra cập nhật...
 echo                   --------------------------------------------------------------
 echo.
-echo                                     Checking for new updates...
-echo                                           Please wait...
+echo                                     Đang kiểm tra cập nhật mới...
+echo                                           Xin chờ...
 echo.
 
 :: Download the latest version info
@@ -100,11 +102,12 @@ set /p fileContent=<%temp%\check.txt
 
 :: Check the content and decide the action
 if "!fileContent!"=="1.4" (
-    echo                         Your version is !fileContent!, you are up to date.
+    echo                         Phiên bản của bạn là !fileContent!, bạn đang dùng bản mới nhất.
     ping -n 3 localhost > nul
 ) else (
-    echo                           We found a new version. Newer version: !fileContent!
-    echo                                        Do you want to update?
+    echo                           Chúng tôi đã tìm thấy một phiên bản mới. Phiên bản mới hơn: !fileContent!
+    echo                                        Bạn có muốn cập nhật không?
+    echo                                        (Lưu ý: cập nhật bằng tay)
     :loop2
     Batbox /h 0
     Call Button 35 14 "Yes" 55 14 "No" # Press
@@ -118,7 +121,7 @@ if "!fileContent!"=="1.4" (
     :openGitHub
     cls
     echo.
-    echo                                        Opening GitHub page...
+    echo                                     Đang mở trang GitHub...
     start "" "https://github.com/NammIsADev/OptimizedToolsPlusPlus/releases/"
     exit
 )
@@ -129,10 +132,10 @@ if "!fileContent!"=="1.4" (
 cls
 echo.
 echo                   --------------------------------------------------------------
-echo                                          Restore Point
+echo                                          Điểm khôi phục
 echo                   --------------------------------------------------------------
 echo.
-echo                                     Create a restore point?
+echo                                       Tạo 1 điểm khôi phục?
 echo.
 echo.
 echo.
